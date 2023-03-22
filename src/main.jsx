@@ -5,6 +5,7 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
+import NotFound from './pages/NotFound'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: '/client',
     element: <div>Client/User</div>,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ])
 

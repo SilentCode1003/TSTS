@@ -12,6 +12,9 @@ import KnowledgeBase from './pages/KnowledgeBase'
 import Reporting from './pages/Reporting'
 import Communication from './pages/Communication'
 import Automation from './pages/Automation'
+import ClientLayout from './pages/ClientLayout'
+import ClientHome from './pages/ClientHome'
+import TicketSubmission from './pages/TicketSubmission'
 
 const router = createBrowserRouter([
   {
@@ -54,7 +57,21 @@ const router = createBrowserRouter([
   },
   {
     path: '/client',
-    element: <div>Client/User</div>,
+    element: <ClientLayout />,
+    children: [
+      {
+        path: '/client',
+        element: <ClientHome />,
+      },
+      {
+        path: '/client/ticket-submission',
+        element: <TicketSubmission />,
+      },
+      {
+        path: '/client/communication',
+        element: <Communication />,
+      },
+    ],
   },
   {
     path: '*',

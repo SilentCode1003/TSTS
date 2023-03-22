@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "ticketName": "Error Message",
+    "ticketStatus": "New",
+    "ticketPriority": "High",
+    "ticketOwner": {
+      "id": 1,
+      "username": "branch1",
+      "email": "branch1@example.com"
+    },
+    "createDate": "March 21, 2023 8:00AM",
+    "assignedTo": {
+      "id": 1,
+      "username": "bobby",
+      "email": "bobby@gmail.com"
+    }
+  },
+
+  {
+    "id": 2,
+    "ticketName": "App not starting",
+    "ticketStatus": "Waiting on Contact",
+    "ticketPriority": "High",
+    "ticketOwner": {
+      "id": 2,
+      "username": "branch2",
+      "email": "branch2@example.com"
+    },
+    "createDate": "March 21, 2023 8:32AM",
+    "assignedTo": {
+      "id": 2,
+      "username": "alice",
+      "email": "alice@gmail.com"
+    }
+  }
+]

@@ -6,6 +6,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import NotFound from './pages/NotFound'
+import TicketAssignment from './pages/TicketAssignment'
+import TicketTracking from './pages/TicketTracking'
+import KnowledgeBase from './pages/KnowledgeBase'
+import Reporting from './pages/Reporting'
+import Communication from './pages/Communication'
+import Automation from './pages/Automation'
 
 const router = createBrowserRouter([
   {
@@ -18,27 +24,27 @@ const router = createBrowserRouter([
       },
       {
         path: '/ticket-assignment',
-        element: <div>Ticket Assignment</div>,
+        element: <TicketAssignment />,
       },
       {
         path: '/ticket-tracking',
-        element: <div>Ticket Tracking</div>,
+        element: <TicketTracking />,
       },
       {
         path: '/knowledge-base',
-        element: <div>Knowledge Base</div>,
+        element: <KnowledgeBase />,
       },
       {
         path: '/reporting',
-        element: <div>Reporting</div>,
+        element: <Reporting />,
       },
       {
         path: '/communication',
-        element: <div>Communication</div>,
+        element: <Communication />,
       },
       {
         path: '/automation',
-        element: <div>Automation</div>,
+        element: <Automation />,
       },
     ],
   },

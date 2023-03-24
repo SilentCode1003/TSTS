@@ -45,7 +45,9 @@ function Login() {
             className="p-8 flex flex-col justify-center gap-8"
           >
             <div>
-              <h1 className="font-bold text-3xl text-center">User Login</h1>
+              <h1 className="font-bold text-red-500 text-3xl text-center">
+                User Login
+              </h1>
             </div>
             <div className="flex flex-col gap-4">
               <div>

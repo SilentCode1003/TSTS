@@ -36,7 +36,7 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen p-1 md:p-8 flex items-center justify-center bg-gray-300">
+    <div className="min-h-screen p-1 md:p-8 flex items-center justify-center bg-red-200">
       <div className="max-w-4xl w-9/12 min-h-[400px] rounded-md shadow-md bg-white flex flex-col md:flex-row overflow-hidden">
         <div className="image min-h-[250px] flex-1 bg-[url('https://images.pexels.com/photos/4270292/pexels-photo-4270292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] bg-cover"></div>
         <div className="form flex-1 md:flex items-center justify-center ">

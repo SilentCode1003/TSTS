@@ -9,11 +9,11 @@ function Communication() {
 
   return (
     <div className="flex h-[calc(100vh-64px)] max-h-screen">
-      <div className="min-w-[300px] p-2 border-r-2">
+      <div className="min-w-[300px] p-2 border-r-2 overflow-x-auto">
         {chats.map((chat) => (
           <div
             key={chat.id}
-            className="flex gap-2 items-center p-2 border-b border-red-500 hover:bg-gray-100"
+            className="flex gap-2 items-center p-2 border-b border-red-500 hover:bg-gray-100 cursor-pointer"
             onClick={() => setSelectedChatId(chat.id)}
           >
             <div className="min-w-[32px] w-8 h-8 rounded-full bg-red-500 border border-white"></div>

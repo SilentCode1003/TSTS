@@ -1,14 +1,35 @@
 import { useEffect, useState } from 'react'
 import chatData from '../data/chat.json'
+import Message from './Message'
 
 function Conversation({ chatId }) {
   const [chat, setChat] = useState(chatData)
+  const [message, setMessage] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!message) return
+
+    setChat((prev) => [
+      {
+        id: crypto.randomUUID(),
+        message,
+        sender: 'You',
+        createdAt:
+          new Date().toLocaleDateString() +
+          ' ' +
+          new Date().toLocaleTimeString(),
+      },
+      ...prev,
+    ])
+
+    setMessage('')
+  }
 
   useEffect(() => {
     console.log(chatId)
     if (!chatId || isNaN(chatId)) {
-      setChat([])
-    } else {
       setChat(chatData)
     }
   }, [chatId])
@@ -17,28 +38,18 @@ function Conversation({ chatId }) {
     <>
       <div className="p-4 flex flex-col-reverse gap-4 overflow-x-auto">
         {chat.map((message) => (
-          <div
-            key={message.id}
-            className={`w-2/3 p-4 rounded ${
-              message.sender === 'You'
-                ? 'ml-auto bg-red-500 text-white'
-                : 'bg-white border border-red-500'
-            }`}
-          >
-            <div>
-              <p>{message.message}</p>
-              <p>{message.createdAt}</p>
-            </div>
-          </div>
+          <Message message={message} />
         ))}
       </div>
 
       <div className="p-4 mt-auto bg-red-300">
-        <form className="flex gap-4">
+        <form onSubmit={handleSubmit} className="flex gap-4">
           <input
             type="text"
             placeholder="Send message..."
             className="w-full px-4 py-2 rounded-md"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
           <button className="px-4 py-2 bg-red-500 text-white rounded">
             Send

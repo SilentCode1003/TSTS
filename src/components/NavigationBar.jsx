@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-const adminItems = [
+export const adminItems = [
   {
     name: 'Ticket Assignment',
     url: '/ticket-assignment',
@@ -28,7 +28,7 @@ const adminItems = [
   },
 ]
 
-const clientItems = ['Ticket Submission', 'Communication']
+export const clientItems = ['Ticket Submission', 'Communication']
 
 function NavigationBar({ isAdmin }) {
   let itemsToShow
@@ -36,11 +36,29 @@ function NavigationBar({ isAdmin }) {
   if (isAdmin) {
     itemsToShow = adminItems.map((item, index) => (
       <li key={index}>
-        <NavLink to={item.url}>{item.name}</NavLink>
+        <NavLink
+          to={item.url}
+          className={({ isActive, isPending }) =>
+            isPending ? 'text-gray-400' : isActive ? 'pb-2 border-b-2' : ''
+          }
+        >
+          {item.name}
+        </NavLink>
       </li>
     ))
   } else {
-    itemsToShow = clientItems.map((item) => <li>{item}</li>)
+    itemsToShow = clientItems.map((item, index) => (
+      <li key={index}>
+        <NavLink
+          to={item.url}
+          className={({ isActive, isPending }) =>
+            isPending ? 'text-gray-400' : isActive ? 'pb-2 border-b-2' : ''
+          }
+        >
+          {item.name}
+        </NavLink>
+      </li>
+    ))
   }
 
   return (

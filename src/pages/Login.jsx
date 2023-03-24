@@ -54,7 +54,7 @@ function Login() {
                   name="username"
                   id="username"
                   placeholder="Username"
-                  className="py-2 px-4 w-full border bg-gray-100 rounded-sm bg-gray-50 text-gray-900"
+                  className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
                   value={input.username}
                   onChange={handleChange}
                 />
@@ -65,7 +65,7 @@ function Login() {
                   name="password"
                   id="password"
                   placeholder="Password"
-                  className="py-2 px-4 w-full border bg-gray-100 rounded-sm bg-gray-50"
+                  className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
                   value={input.password}
                   onChange={handleChange}
                 />

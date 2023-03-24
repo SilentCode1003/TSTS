@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "sender": "You",
+    "message": "Hello World",
+    "createdAt": "March 20, 2023 10:06:30AM"
+  },
+  {
+    "id": 2,
+    "sender": "Other",
+    "message": "Can I get uhhhh......",
+    "createdAt": "March 20, 2023 10:03:17AM"
+  },
+  {
+    "id": 3,
+    "sender": "You",
+    "message": "Hello World",
+    "createdAt": "March 20, 2023 10:02:30AM"
+  },
+  {
+    "id": 4,
+    "sender": "Other",
+    "message": "Can I get uhhhh......",
+    "createdAt": "March 20, 2023 10:01:17AM"
+  },
+  {
+    "id": 5,
+    "sender": "Other",
+    "message": "Yo yo yo yo o yo",
+    "createdAt": "March 20, 2023 10:00:12AM"
+  },
+  {
+    "id": 5,
+    "sender": "Other",
+    "message": "Yo yo yo yo o yo",
+    "createdAt": "March 20, 2023 10:00:12AM"
+  }
+]

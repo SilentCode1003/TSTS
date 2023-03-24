@@ -38,7 +38,7 @@ function Conversation({ chatId }) {
     <>
       <div className="p-4 flex flex-col-reverse gap-4 overflow-x-auto">
         {chat.map((message) => (
-          <Message message={message} />
+          <Message key={message.id} message={message} />
         ))}
       </div>
 

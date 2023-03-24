@@ -28,6 +28,13 @@ function Login() {
     console.log('Logging in...')
   }
 
+  const handleReset = (e) => {
+    setInput({
+      username: '',
+      password: '',
+    })
+  }
+
   return (
     <div className="min-h-screen p-1 md:p-8 flex items-center justify-center bg-gray-300">
       <div className="max-w-4xl w-9/12 min-h-[400px] rounded-md shadow-md bg-white flex flex-col md:flex-row overflow-hidden">
@@ -73,6 +80,7 @@ function Login() {
               </button>
               <button
                 type="button"
+                onClick={handleReset}
                 className="py-2 px-4 bg-rose-500 hover:bg-rose-700 text-white font-bold rounded"
               >
                 Reset

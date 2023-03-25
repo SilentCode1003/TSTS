@@ -32,7 +32,7 @@ function TicketAssignmentTable({ tickets }) {
         </thead>
         <tbody>
           {tickets.map((ticket) => (
-            <tr key={ticket.ticketNumber}>
+            <tr key={ticket.ticketNumber} className="border-b border-gray-200">
               <td className="p-1 text-center text-xs">{ticket.ticketNumber}</td>
               <td className="p-1 text-center text-xs">{ticket.client}</td>
               <td className="p-1 text-center text-xs">{ticket.dateCreated}</td>

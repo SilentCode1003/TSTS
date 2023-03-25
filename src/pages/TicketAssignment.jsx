@@ -40,7 +40,7 @@ function TicketAssignment() {
             </label>
             <select
               list="name"
-              className="py-1 px-2 rounded bg-gray-300 text-gray-900"
+              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
               {...register('name', { required: true, value: '' })}
             >
               {names.map((name) => (
@@ -61,7 +61,7 @@ function TicketAssignment() {
             <select
               list="client"
               name="client"
-              className="py-1 px-2 rounded bg-gray-300 text-gray-900"
+              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
               {...register('client', { required: true, value: '' })}
             >
               {clients.map((client) => (
@@ -82,7 +82,7 @@ function TicketAssignment() {
             <select
               list="priority"
               name="priority"
-              className="py-1 px-2 rounded bg-gray-300 text-gray-900"
+              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
               {...register('priority', { required: true, value: '' })}
             >
               {priorities.map((priority) => (
@@ -107,7 +107,7 @@ function TicketAssignment() {
               id="description"
               cols="90"
               rows="10"
-              className="py-1 px-2 rounded bg-gray-300 text-gray-900"
+              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
               {...register('description', { required: true })}
             ></textarea>
             {errors.description && (

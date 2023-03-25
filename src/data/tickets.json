@@ -1,37 +1,38 @@
 [
   {
-    "id": 1,
-    "ticketName": "Error Message",
-    "ticketStatus": "New",
-    "ticketPriority": "High",
-    "ticketOwner": {
-      "id": 1,
-      "username": "branch1",
-      "email": "branch1@example.com"
-    },
-    "createDate": "March 21, 2023 8:00AM",
-    "assignedTo": {
-      "id": 1,
-      "username": "bobby",
-      "email": "bobby@gmail.com"
-    }
+    "ticketNumber": 1,
+    "client": "Client 1",
+    "dateCreated": "10/20/2023 10:00:17AM",
+    "priority": "High",
+    "status": "Unresolved",
+    "dueDate": "10/23/2023 10:00:00AM",
+    "urgency": "Urgent"
   },
-
   {
-    "id": 2,
-    "ticketName": "App not starting",
-    "ticketStatus": "Waiting on Contact",
-    "ticketPriority": "High",
-    "ticketOwner": {
-      "id": 2,
-      "username": "branch2",
-      "email": "branch2@example.com"
-    },
-    "createDate": "March 21, 2023 8:32AM",
-    "assignedTo": {
-      "id": 2,
-      "username": "alice",
-      "email": "alice@gmail.com"
-    }
+    "ticketNumber": 2,
+    "client": "Client 2",
+    "dateCreated": "10/20/2023 10:00:17AM",
+    "priority": "Medium",
+    "status": "Unresolved",
+    "dueDate": "10/23/2023 10:00:00AM",
+    "urgency": "Normal"
+  },
+  {
+    "ticketNumber": 3,
+    "client": "Client 3",
+    "dateCreated": "10/20/2023 10:00:17AM",
+    "priority": "Low",
+    "status": "Unresolved",
+    "dueDate": "10/23/2023 10:00:00AM",
+    "urgency": "Normal"
+  },
+  {
+    "ticketNumber": 4,
+    "client": "Client 4",
+    "dateCreated": "10/20/2023 10:00:17AM",
+    "priority": "Urgent",
+    "status": "Unresolved",
+    "dueDate": "10/23/2023 10:00:00AM",
+    "urgency": "Urgent"
   }
 ]

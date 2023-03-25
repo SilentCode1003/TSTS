@@ -80,7 +80,7 @@ function Conversation({ chatId }) {
         <form onSubmit={handleSubmit} className="flex gap-4">
           <label
             htmlFor="file"
-            className="p-1 flex justify-center items-center border border-red-400 bg-white text-black cursor-pointer"
+            className="p-2 flex justify-center items-center border border-red-400 bg-white text-black rounded cursor-pointer"
           >
             <input
               type="file"
@@ -89,7 +89,6 @@ function Conversation({ chatId }) {
               className="hidden"
               onChange={handleFileChange}
             />
-            {/* TODO: Make this an icon */}
             {uploadedFile?.name || <MdFileUpload className="text-red-500" />}
           </label>
           <input

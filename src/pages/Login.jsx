@@ -1,38 +1,16 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 function Login() {
-  const [input, setInput] = useState({
-    username: '',
-    password: '',
-  })
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm()
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-
-    setInput((prev) => ({ ...prev, [name]: value.trim() }))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!input.username) {
-      console.log('please input username')
-    }
-    if (!input.password) {
-      console.log('please input password')
-    }
-
-    if (!input.username || !input.password) {
-      return
-    }
-
-    console.log('Logging in...')
-  }
-
-  const handleReset = (e) => {
-    setInput({
-      username: '',
-      password: '',
-    })
+  const onSubmit = (data) => {
+    console.log(data)
   }
 
   return (
@@ -41,7 +19,7 @@ function Login() {
         <div className="image min-h-[250px] flex-1 bg-[url('https://images.pexels.com/photos/4270292/pexels-photo-4270292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] bg-cover"></div>
         <div className="form flex-1 md:flex items-center justify-center ">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="p-8 flex flex-col justify-center gap-8"
           >
             <div>
@@ -53,23 +31,23 @@ function Login() {
               <div>
                 <input
                   type="username"
-                  name="username"
                   id="username"
                   placeholder="Username"
-                  className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
-                  value={input.username}
-                  onChange={handleChange}
+                  className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
+                    errors.username && 'border-red-500'
+                  }`}
+                  {...register('username', { required: true })}
                 />
               </div>
               <div>
                 <input
                   type="password"
-                  name="password"
                   id="password"
                   placeholder="Password"
-                  className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
-                  value={input.password}
-                  onChange={handleChange}
+                  className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
+                    errors.password && 'border-red-500'
+                  }`}
+                  {...register('password', { required: true })}
                 />
               </div>
             </div>
@@ -82,7 +60,7 @@ function Login() {
               </button>
               <button
                 type="button"
-                onClick={handleReset}
+                onClick={() => reset({ username: '', password: '' })}
                 className="py-2 px-4 border border-red-500 font-bold rounded"
               >
                 Reset

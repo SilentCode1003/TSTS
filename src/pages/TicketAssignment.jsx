@@ -2,26 +2,20 @@ import namesData from '../data/names.json'
 import clientsData from '../data/clients.json'
 import prioritiesData from '../data/priority.json'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 function TicketAssignment() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
   const names = namesData
   const clients = clientsData
   const priorities = prioritiesData
-  const [input, setInput] = useState({
-    name: '',
-    client: '',
-    priority: '',
-    description: '',
-  })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    console.log(input)
-  }
-
-  const handleInputChange = (e) => {
-    setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  const onSubmit = (e) => {
+    console.log(e)
   }
 
   const handleAddButton = () => {
@@ -39,65 +33,67 @@ function TicketAssignment() {
   return (
     <div className="p-8 bg-gray-50-200">
       <div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="grid grid-cols-[2fr_4fr_6fr] gap-1">
             <label htmlFor="name" className="font-bold">
               Name:{' '}
             </label>
-            <input
+            <select
               list="name"
-              name="name"
               className="py-1 px-2 rounded bg-gray-300 text-gray-900"
-              value={input.name}
-              onChange={handleInputChange}
-            />
-            <datalist id="name">
+              {...register('name', { required: true, value: '' })}
+            >
               {names.map((name) => (
                 <option key={name.id} value={name.name}>
                   {name.name}
                 </option>
               ))}
-            </datalist>
+            </select>
+            {errors.name && (
+              <span className="text-red-500">Name is required</span>
+            )}
           </div>
 
           <div className="grid grid-cols-[2fr_4fr_6fr] gap-1">
             <label htmlFor="client" className="font-bold">
               Store/Client:{' '}
             </label>
-            <input
+            <select
               list="client"
               name="client"
               className="py-1 px-2 rounded bg-gray-300 text-gray-900"
-              value={input.client}
-              onChange={handleInputChange}
-            />
-            <datalist id="client">
+              {...register('client', { required: true, value: '' })}
+            >
               {clients.map((client) => (
                 <option key={client.id} value={client.name}>
                   {client.name}
                 </option>
               ))}
-            </datalist>
+            </select>
+            {errors.client && (
+              <span className="text-red-500">Store/Client is required</span>
+            )}
           </div>
 
           <div className="grid grid-cols-[2fr_4fr_6fr] gap-1">
             <label htmlFor="priority" className="font-bold">
               Priority:{' '}
             </label>
-            <input
+            <select
               list="priority"
               name="priority"
               className="py-1 px-2 rounded bg-gray-300 text-gray-900"
-              value={input.priority}
-              onChange={handleInputChange}
-            />
-            <datalist id="priority">
+              {...register('priority', { required: true, value: '' })}
+            >
               {priorities.map((priority) => (
                 <option key={priority.id} value={priority.level}>
                   {priority.level}
                 </option>
               ))}
-            </datalist>
+            </select>
+            {errors.priority && (
+              <span className="text-red-500">Priority is required</span>
+            )}
           </div>
 
           <div className="grid gap-4">
@@ -112,9 +108,11 @@ function TicketAssignment() {
               cols="90"
               rows="10"
               className="py-1 px-2 rounded bg-gray-300 text-gray-900"
-              value={input.description}
-              onChange={handleInputChange}
+              {...register('description', { required: true })}
             ></textarea>
+            {errors.description && (
+              <span className="text-red-500">Description is required</span>
+            )}
           </div>
 
           <div className="grid grid-cols-4 gap-10">

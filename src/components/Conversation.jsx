@@ -89,7 +89,6 @@ function Conversation({ chatId }) {
               className="hidden"
               onChange={handleFileChange}
             />
-            {/* TODO: Make this an icon */}
             {uploadedFile?.name || <MdFileUpload className="text-red-500" />}
           </label>
           <input

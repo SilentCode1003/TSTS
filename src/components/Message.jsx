@@ -18,7 +18,6 @@ function Message({ message, type }) {
             className="italic underline underline-offset-2"
             download
           >
-            {/* TODO: Add download icon here */}
             <span>
               {message.fileName} <MdDownload className="inline-block" />
             </span>

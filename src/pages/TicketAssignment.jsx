@@ -8,6 +8,7 @@ function TicketAssignment() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm()
   const names = namesData
@@ -16,6 +17,8 @@ function TicketAssignment() {
 
   const onSubmit = (e) => {
     console.log(e)
+
+    reset()
   }
 
   const handleAddButton = () => {
@@ -34,13 +37,15 @@ function TicketAssignment() {
     <div className="p-8 bg-gray-50-200">
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="grid grid-cols-[2fr_4fr_6fr] gap-1">
+          <div className="grid grid-cols-[2fr_4fr_6fr] gap-4 items-center">
             <label htmlFor="name" className="font-bold">
               Name:{' '}
             </label>
             <select
               list="name"
-              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
+              className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
+                errors.name && 'border-red-500'
+              }`}
               {...register('name', { required: true, value: '' })}
             >
               {names.map((name) => (
@@ -54,14 +59,16 @@ function TicketAssignment() {
             )}
           </div>
 
-          <div className="grid grid-cols-[2fr_4fr_6fr] gap-1">
+          <div className="grid grid-cols-[2fr_4fr_6fr] gap-4 items-center">
             <label htmlFor="client" className="font-bold">
               Store/Client:{' '}
             </label>
             <select
               list="client"
               name="client"
-              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
+              className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
+                errors.client && 'border-red-500'
+              }`}
               {...register('client', { required: true, value: '' })}
             >
               {clients.map((client) => (
@@ -75,14 +82,16 @@ function TicketAssignment() {
             )}
           </div>
 
-          <div className="grid grid-cols-[2fr_4fr_6fr] gap-1">
+          <div className="grid grid-cols-[2fr_4fr_6fr] gap-4 items-center">
             <label htmlFor="priority" className="font-bold">
               Priority:{' '}
             </label>
             <select
               list="priority"
               name="priority"
-              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
+              className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
+                errors.priority && 'border-red-500'
+              }`}
               {...register('priority', { required: true, value: '' })}
             >
               {priorities.map((priority) => (
@@ -107,7 +116,9 @@ function TicketAssignment() {
               id="description"
               cols="90"
               rows="10"
-              className="py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900"
+              className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
+                errors.description && 'border-red-500'
+              }`}
               {...register('description', { required: true })}
             ></textarea>
             {errors.description && (

@@ -37,7 +37,7 @@ function TicketAssignment() {
     <div className="p-8 bg-gray-50-200">
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="grid grid-cols-[2fr_4fr_6fr] gap-4 items-center">
+          <div className="grid grid-cols-[2fr_6fr_4fr] gap-4 items-center">
             <label htmlFor="name" className="font-bold">
               Name:{' '}
             </label>
@@ -59,7 +59,7 @@ function TicketAssignment() {
             )}
           </div>
 
-          <div className="grid grid-cols-[2fr_4fr_6fr] gap-4 items-center">
+          <div className="grid grid-cols-[2fr_6fr_4fr] gap-4 items-center">
             <label htmlFor="client" className="font-bold">
               Store/Client:{' '}
             </label>
@@ -82,7 +82,7 @@ function TicketAssignment() {
             )}
           </div>
 
-          <div className="grid grid-cols-[2fr_4fr_6fr] gap-4 items-center">
+          <div className="grid grid-cols-[2fr_6fr_4fr] gap-4 items-center">
             <label htmlFor="priority" className="font-bold">
               Priority:{' '}
             </label>

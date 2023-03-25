@@ -3,7 +3,7 @@ import { MdDownload } from 'react-icons/md'
 function Message({ message, type }) {
   return (
     <div
-      className={`max-w-full p-4 rounded ${
+      className={`max-w-full p-4 rounded-lg ${
         message.sender === 'You'
           ? 'ml-auto bg-red-500 text-white'
           : 'mr-auto bg-white border border-red-500'

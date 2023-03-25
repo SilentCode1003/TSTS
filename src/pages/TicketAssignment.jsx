@@ -1,8 +1,9 @@
-import namesData from '../data/names.json'
-import clientsData from '../data/clients.json'
-import prioritiesData from '../data/priority.json'
-import { useState } from 'react'
+import names from '../data/names.json'
+import clients from '../data/clients.json'
+import priorities from '../data/priority.json'
+import tickets from '../data/tickets.json'
 import { useForm } from 'react-hook-form'
+import TicketAssignmentTable from '../components/TicketAssignmentTable'
 
 function TicketAssignment() {
   const {
@@ -11,9 +12,6 @@ function TicketAssignment() {
     reset,
     formState: { errors },
   } = useForm()
-  const names = namesData
-  const clients = clientsData
-  const priorities = prioritiesData
 
   const onSubmit = (e) => {
     console.log(e)
@@ -35,7 +33,7 @@ function TicketAssignment() {
 
   return (
     <div className="p-8 bg-gray-50-200">
-      <div>
+      <div className="flex flex-col gap-12">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="grid grid-cols-[2fr_6fr_4fr] gap-4 items-center">
             <label htmlFor="name" className="font-bold">
@@ -126,33 +124,14 @@ function TicketAssignment() {
             )}
           </div>
 
-          <div className="grid grid-cols-4 gap-10">
-            <button className="py-4 px-2 bg-red-500 text-white rounded-md hover:bg-red-700">
+          <div className="grid place-items-center">
+            <button className="w-1/4 py-4 px-2 bg-red-500 text-white rounded-md hover:bg-red-700">
               Assign
-            </button>
-            <button
-              type="button"
-              onClick={handleAddButton}
-              className="py-4 px-2 bg-teal-500 text-white rounded-md hover:bg-teal-700"
-            >
-              Add
-            </button>
-            <button
-              type="button"
-              onClick={handleSubmitButton}
-              className="py-4 px-2  bg-fuchsia-500 text-white rounded-md hover:bg-fuchsia-700"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              onClick={handleRequestButton}
-              className="py-4 px-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-700"
-            >
-              Request
             </button>
           </div>
         </form>
+
+        <TicketAssignmentTable tickets={tickets} />
       </div>
     </div>
   )

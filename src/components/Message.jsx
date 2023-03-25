@@ -1,4 +1,6 @@
-function Message({ message }) {
+import { MdDownload } from 'react-icons/md'
+
+function Message({ message, type }) {
   return (
     <div
       className={`max-w-full p-4 rounded ${
@@ -8,7 +10,20 @@ function Message({ message }) {
       }`}
     >
       <div>
-        <p className="mb-2">{message.message}</p>
+        {type === 'TEXT' && <p className="mb-2">{message.message}</p>}
+        {type === 'IMAGE' && <img src={message.src} />}
+        {type === 'DOCUMENT' && (
+          <a
+            href={message.href}
+            className="italic underline underline-offset-2"
+            download
+          >
+            {/* TODO: Add download icon here */}
+            <span>
+              {message.fileName} <MdDownload className="inline-block" />
+            </span>
+          </a>
+        )}
         <p className="italic text-sm">{message.createdAt}</p>
       </div>
     </div>

@@ -2,36 +2,42 @@
   {
     "id": 1,
     "sender": "You",
+    "type": "TEXT",
     "message": "Hello World",
     "createdAt": "March 20, 2023 10:06:30AM"
   },
   {
     "id": 2,
     "sender": "Other",
+    "type": "TEXT",
     "message": "Can I get uhhhh......",
     "createdAt": "March 20, 2023 10:03:17AM"
   },
   {
     "id": 3,
     "sender": "You",
+    "type": "TEXT",
     "message": "Hello World",
     "createdAt": "March 20, 2023 10:02:30AM"
   },
   {
     "id": 4,
     "sender": "Other",
+    "type": "TEXT",
     "message": "Can I get uhhhh......",
     "createdAt": "March 20, 2023 10:01:17AM"
   },
   {
     "id": 5,
     "sender": "Other",
+    "type": "TEXT",
     "message": "Yo yo yo yo o yo",
     "createdAt": "March 20, 2023 10:00:12AM"
   },
   {
     "id": 6,
     "sender": "Other",
+    "type": "TEXT",
     "message": "Yo yo yo yo o yo",
     "createdAt": "March 20, 2023 10:00:12AM"
   }

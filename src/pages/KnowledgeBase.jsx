@@ -27,13 +27,11 @@ function KnowledgeBase() {
   }
 
   useEffect(() => {
-    function filterIt(arr, searchKey) {
-      return arr.filter((obj) =>
-        Object.keys(obj).some((key) => obj[key].includes(searchKey))
-      )
-    }
-
-    const filteredItems = filterIt(items, searchTerm)
+    const filteredItems = items.filter((item) =>
+      `${item.title} ${item.content}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    )
     setSearchedItems(filteredItems)
   }, [searchTerm])
 

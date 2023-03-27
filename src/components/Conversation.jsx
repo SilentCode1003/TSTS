@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import chatData from '../data/chat.json'
 import Message from './Message'
 import { MdFileUpload } from 'react-icons/md'
+import { motion, AnimatePresence } from 'framer-motion'
 
 function Conversation({ chatId }) {
   const [chat, setChat] = useState(chatData)
@@ -70,10 +71,12 @@ function Conversation({ chatId }) {
 
   return (
     <>
-      <div className="p-4 flex flex-col-reverse gap-4 overflow-x-auto">
-        {chat.map((message) => (
-          <Message key={message.id} message={message} type={message.type} />
-        ))}
+      <div className="p-4 flex flex-col-reverse gap-4 overflow-y-auto overflow-x-hidden">
+        <AnimatePresence>
+          {chat.map((message) => (
+            <Message key={message.id} message={message} type={message.type} />
+          ))}
+        </AnimatePresence>
       </div>
 
       <div className="p-4 mt-auto bg-red-300">

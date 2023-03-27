@@ -125,7 +125,7 @@ function NavigationBar({ isAdmin }) {
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}
             onTap={toggleNavBar}
-            className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto"
+            className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto z-10"
           >
             {!navShouldShow && (
               <motion.div

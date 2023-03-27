@@ -1,8 +1,23 @@
 import { MdDownload } from 'react-icons/md'
+import { motion } from 'framer-motion'
 
 function Message({ message, type }) {
+  let initialX
+  let exitX
+
+  if (message.sender === 'You') {
+    initialX = 300
+    exitX = -300
+  } else {
+    initialX = -300
+    exitX = 300
+  }
+
   return (
-    <div
+    <motion.div
+      initial={{ x: initialX, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: exitX, opacity: 0 }}
       className={`max-w-full p-4 rounded-lg ${
         message.sender === 'You'
           ? 'ml-auto bg-red-500 text-white'
@@ -25,7 +40,7 @@ function Message({ message, type }) {
         )}
         <p className="italic text-sm">{message.createdAt}</p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

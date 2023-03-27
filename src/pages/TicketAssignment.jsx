@@ -148,15 +148,24 @@ function TicketAssignment() {
                 onChange={handleFileEvent}
               />
 
-              {uploadedFiles.length < 1 && 'No files selected'}
-              <ul className="flex flex-col gap-2 list-none">
-                <p>File(s) selected: </p>
-                {uploadedFiles.map((file) => (
-                  <li key={file.name} className="text-sm font-semibold">
-                    {file.name}
-                  </li>
-                ))}
-              </ul>
+              {uploadedFiles.length < 1 ? (
+                'No files selected'
+              ) : (
+                <ul className="flex flex-col gap-2 list-none">
+                  <p>File(s) selected: </p>
+                  <button
+                    onClick={() => setUploadedFiles([])}
+                    className="border border-gray-500 hover:bg-gray-100 rounded"
+                  >
+                    Clear all
+                  </button>
+                  {uploadedFiles.map((file) => (
+                    <li key={file.name} className="text-sm font-semibold">
+                      {file.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className="grid place-items-center">

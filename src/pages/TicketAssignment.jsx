@@ -3,6 +3,7 @@ import clients from '../data/clients.json'
 import priorities from '../data/priority.json'
 import tickets from '../data/tickets.json'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import TicketAssignmentTable from '../components/TicketAssignmentTable'
 
 function TicketAssignment() {
@@ -12,23 +13,30 @@ function TicketAssignment() {
     reset,
     formState: { errors },
   } = useForm()
+  const [uploadedFiles, setUploadedFiles] = useState([])
+
+  const handleUploadFiles = (files) => {
+    const uploaded = [...uploadedFiles]
+
+    files.some((file) => {
+      if (uploaded.findIndex((f) => f.name === file.name) === -1) {
+        uploaded.push(file)
+      }
+    })
+
+    setUploadedFiles(uploaded)
+  }
+
+  const handleFileEvent = (e) => {
+    const chosenFiles = Array.prototype.slice.call(e.target.files)
+    handleUploadFiles(chosenFiles)
+  }
 
   const onSubmit = (e) => {
     console.log(e)
+    console.log(uploadedFiles)
 
     reset()
-  }
-
-  const handleAddButton = () => {
-    console.log('Add')
-  }
-
-  const handleSubmitButton = () => {
-    console.log('Submit')
-  }
-
-  const handleRequestButton = () => {
-    console.log('Request')
   }
 
   return (
@@ -129,6 +137,26 @@ function TicketAssignment() {
                   Description is required
                 </p>
               )}
+            </div>
+
+            <div className="flex flex-col items-start gap-4">
+              <p className="font-bold">Attachments: </p>
+              <input
+                type="file"
+                name="file"
+                multiple
+                onChange={handleFileEvent}
+              />
+
+              {uploadedFiles.length < 1 && 'No files selected'}
+              <ul className="flex flex-col gap-2 list-none">
+                <p>File(s) selected: </p>
+                {uploadedFiles.map((file) => (
+                  <li key={file.name} className="text-sm font-semibold">
+                    {file.name}
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div className="grid place-items-center">

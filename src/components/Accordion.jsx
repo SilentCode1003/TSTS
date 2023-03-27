@@ -14,13 +14,13 @@ const Accordion = ({ items }) => {
     return (
       <React.Fragment key={item.title}>
         <div
-          className={`py-4 px-4 flex justify-between bg-neutral-400 text-white border-b-2 border-b-neutral-500 font-bold cursor-pointer`}
+          className={`py-4 px-4 flex justify-between bg-neutral-300  border-b-2 border-b-neutral-500 font-bold cursor-pointer`}
           onClick={() => handleClick(index)}
         >
           {item.title}
           <MdArrowDropDown className="text-2xl" />
         </div>
-        <div className={`p-4 ${contentActive} bg-neutral-300 text-black`}>
+        <div className={`p-4 ${contentActive} bg-neutral-200 text-black`}>
           <p>{item.content}</p>
         </div>
       </React.Fragment>

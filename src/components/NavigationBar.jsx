@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import React, { useState, useRef, useEffect } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { MdClose, MdMenu } from 'react-icons/md'
 
 export const adminItems = [
   {
@@ -33,6 +34,7 @@ export const clientItems = ['Ticket Submission', 'Communication']
 
 function NavigationBar({ isAdmin }) {
   let itemsToShow
+  const location = useLocation()
   const [navShouldShow, setNavShouldShow] = useState(true)
   const [isDragging, setIsDragging] = useState(false)
   const constraintsRef = useRef(null)
@@ -49,6 +51,10 @@ function NavigationBar({ isAdmin }) {
     if (isDragging) return
     setNavShouldShow((prev) => !prev)
   }
+
+  useEffect(() => {
+    hideNavBar()
+  }, [location])
 
   if (isAdmin) {
     itemsToShow = adminItems.map((item, index) => (
@@ -79,7 +85,10 @@ function NavigationBar({ isAdmin }) {
   }
 
   return (
-    <motion.div ref={constraintsRef} className="h-screen w-screen fixed">
+    <motion.div
+      ref={constraintsRef}
+      className="h-screen w-screen fixed pointer-events-none"
+    >
       <AnimatePresence>
         {navShouldShow && (
           <motion.div
@@ -87,7 +96,7 @@ function NavigationBar({ isAdmin }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={hideNavBar}
-            className="w-full h-screen fixed bg-black bg-opacity-50"
+            className="w-full h-screen fixed bg-black bg-opacity-50 pointer-events-auto"
           >
             <motion.div
               initial={{ x: -200, opacity: 0 }}
@@ -97,7 +106,7 @@ function NavigationBar({ isAdmin }) {
                 ease: 'easeInOut',
               }}
               onClick={(e) => e.stopPropagation()}
-              className="p-8 w-2/6 h-screen bg-red-500"
+              className="p-8 w-4/6 md:w-2/6 h-screen bg-red-500"
             >
               <ul className="flex flex-col gap-8 text-white items-center">
                 <Link to="/">Logo</Link>
@@ -109,14 +118,35 @@ function NavigationBar({ isAdmin }) {
       </AnimatePresence>
 
       <div>
-        <motion.button
-          drag
-          dragConstraints={constraintsRef}
-          onDragStart={() => setIsDragging(true)}
-          onDragEnd={() => setIsDragging(false)}
-          onTap={toggleNavBar}
-          className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer"
-        ></motion.button>
+        <AnimatePresence>
+          <motion.button
+            drag
+            dragConstraints={constraintsRef}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={() => setIsDragging(false)}
+            onTap={toggleNavBar}
+            className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto"
+          >
+            {!navShouldShow && (
+              <motion.div
+                initial={{ scale: 1 }}
+                animate={{ scale: 1.3 }}
+                exit={{ scale: 1 }}
+              >
+                <MdMenu className="text-3xl text-white" />
+              </motion.div>
+            )}
+            {navShouldShow && (
+              <motion.div
+                initial={{ scale: 1 }}
+                animate={{ scale: 1.3 }}
+                exit={{ scale: 1 }}
+              >
+                <MdClose className="text-3xl text-white" />
+              </motion.div>
+            )}
+          </motion.button>
+        </AnimatePresence>
       </div>
     </motion.div>
   )

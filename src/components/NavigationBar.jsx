@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdClose, MdMenu } from 'react-icons/md'
+import NavigationLinks from './NavigationLinks'
 
 export const adminItems = [
   {
@@ -30,7 +31,16 @@ export const adminItems = [
   },
 ]
 
-export const clientItems = ['Ticket Submission', 'Communication']
+export const clientItems = [
+  {
+    name: 'Ticket Submission',
+    url: '/ticket-submission',
+  },
+  {
+    name: 'Communication',
+    url: '/communication',
+  },
+]
 
 function NavigationBar({ isAdmin }) {
   let itemsToShow
@@ -55,34 +65,6 @@ function NavigationBar({ isAdmin }) {
   useEffect(() => {
     hideNavBar()
   }, [location])
-
-  if (isAdmin) {
-    itemsToShow = adminItems.map((item, index) => (
-      <li key={index}>
-        <NavLink
-          to={item.url}
-          className={({ isActive, isPending }) =>
-            isPending ? 'text-gray-400' : isActive ? 'pb-2 border-b-2' : ''
-          }
-        >
-          {item.name}
-        </NavLink>
-      </li>
-    ))
-  } else {
-    itemsToShow = clientItems.map((item, index) => (
-      <li key={index}>
-        <NavLink
-          to={item.url}
-          className={({ isActive, isPending }) =>
-            isPending ? 'text-gray-400' : isActive ? 'pb-2 border-b-2' : ''
-          }
-        >
-          {item.name}
-        </NavLink>
-      </li>
-    ))
-  }
 
   return (
     <motion.div
@@ -110,7 +92,8 @@ function NavigationBar({ isAdmin }) {
             >
               <ul className="flex flex-col gap-8 text-white items-center">
                 <Link to="/">Logo</Link>
-                {itemsToShow}
+                {isAdmin && <NavigationLinks items={adminItems} />}
+                {!isAdmin && <NavigationLinks items={clientItems} />}
               </ul>
             </motion.div>
           </motion.div>

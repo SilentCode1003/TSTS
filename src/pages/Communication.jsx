@@ -8,7 +8,7 @@ function Communication() {
   const [selectedChatId, setSelectedChatId] = useState()
 
   return (
-    <div className="flex h-[calc(100vh-64px)] max-h-screen">
+    <div className="flex max-h-screen">
       <div className="min-w-[300px] p-2 border-r-2 overflow-x-auto">
         {chats.map((chat) => (
           <div

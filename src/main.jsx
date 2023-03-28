@@ -34,6 +34,10 @@ const router = createBrowserRouter([
         element: <TicketTracking />,
       },
       {
+        path: '/ticket-tracking/:ticketId',
+        element: <div>Ticket Details</div>,
+      },
+      {
         path: '/knowledge-base',
         element: <KnowledgeBase />,
       },

@@ -1,6 +1,10 @@
+import { useNavigate } from 'react-router-dom'
+
 function TicketAssignmentTable({ tickets }) {
+  const navigate = useNavigate()
+
   const handleClick = (ticket) => {
-    console.log(ticket)
+    navigate(`/ticket-tracking/${ticket}`)
   }
 
   return (

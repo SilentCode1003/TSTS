@@ -88,7 +88,7 @@ function NavigationBar({ isAdmin }) {
                 ease: 'easeInOut',
               }}
               onClick={(e) => e.stopPropagation()}
-              className="p-8 w-4/6 md:w-2/6 h-screen bg-red-500"
+              className="p-8 w-4/6 md:w-2/6 h-screen bg-red-500 shadow-2xl"
             >
               <ul className="flex flex-col gap-8 text-white items-center">
                 <Link to="/">Logo</Link>
@@ -108,7 +108,9 @@ function NavigationBar({ isAdmin }) {
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}
             onTap={toggleNavBar}
-            className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto z-10"
+            whileDrag={{ scale: 1.1 }}
+            whileTap={{ scale: 1.1 }}
+            className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto shadow-lg z-10"
           >
             {!navShouldShow && (
               <motion.div

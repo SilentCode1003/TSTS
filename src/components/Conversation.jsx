@@ -63,7 +63,6 @@ function Conversation({ chatId }) {
   }
 
   useEffect(() => {
-    console.log(chatId)
     if (!chatId || isNaN(chatId)) {
       setChat(chatData)
     }

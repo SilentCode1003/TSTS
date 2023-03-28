@@ -40,7 +40,10 @@ function TicketAssignment() {
   }
 
   return (
-    <div className="p-8 bg-gray-50-200">
+    <div className="p-8 flex flex-col gap-8">
+      <p className="text-2xl md:text-4xl font-bold text-center">
+        Ticket Assignment
+      </p>
       <div className="flex flex-col gap-12">
         <form
           onSubmit={handleSubmit(onSubmit)}

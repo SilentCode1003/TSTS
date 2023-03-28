@@ -16,14 +16,16 @@ function Dashboard() {
         <Card classNames="px-4 py-5 min-h-[150px] hover:shadow-md cursor-pointer">
           <div className="h-full flex flex-col justify-between truncate">
             <p className="text-lg">New Tickets</p>
-            <p className="font-bold text-4xl text-right">{newTicketsCount}</p>
+            <p className="font-bold text-4xl text-right text-yellow-500">
+              {newTicketsCount}
+            </p>
           </div>
         </Card>
 
         <Card classNames="px-4 py-5 min-h-[150px] hover:shadow-md cursor-pointer">
           <div className="h-full flex flex-col justify-between truncate">
             <p className="text-lg">Urgent Tickets</p>
-            <p className="font-bold text-4xl text-right">
+            <p className="font-bold text-4xl text-right text-red-500">
               {urgentTicketsCount}
             </p>
           </div>

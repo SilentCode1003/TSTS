@@ -98,7 +98,7 @@ export const preloading = `### Tools Needed
 * Setup Local User Name
   * Open Folder > Right click on Computer (win7) / This PC (win10) > Select Manage > Select Local User & Group > Users > Double Click ST0000 > Change full name into store# (ex. ST1506) > Apply & OK > Right Click ST0000 > Set password > Proceed > input password Store# only (ex.1506) then OK 
 * Change Drives Name
-  * Open Folder
+  * Open Folder > Computer (win7) / This PC (win10) > Rename Primary C: into STXXX_STORE NAME_PRIMARY > Rename Backup D: into STXXXX_STORE NAME_BACKUP (ex. ST1506_SAN NARCISO_PRIMARY / ST1506_SAN NARSCISCO_BACKUP)
 * Configure I.P. Address
   * For Win7 right click on network icon > Open Network & Internet Settings > Click Local Area Connection > Properties > Double Click Ipv4 > Config IP
   * For Win10 right click on network icon > Open Network & Internet Settings > Click Properties > Find IP Settings and Edit > Select Manual > Turn On Ipv4 > Config Ip
@@ -110,4 +110,14 @@ export const preloading = `### Tools Needed
 | GATEWAY       | 192.168.14.100  |
 | PREFERRED DNS | 202.60.9.4      |
 | ALTERNATE DNS | 202.60.9.5      |
+
+* Disable Firewall Protection
+  * For Win 7 Click Start > Click Control Panel > System and Security > Windows Firewall > Customize Settings > Turn Off Windows Firewall
+  * For Win 10 Double Click Windows Security Icon > Select Firewall and Network Protection > Turn Off Domain, Private, and Public Network Firewall
+
+* Disable Windows Update (ignore this if win7)
+  * Press Win + R in keyboard > Type gpedit.msc then OK > Select Computer Configuration > Administrative Template > Windows Components > Windows Update > Double Click on Configure Automatic Updates > Select Disable then Apply and OK > Double Click on Remove access to use all Windows Update features > Select Disable then Apply and OK
+
+* Install SBS latest version (2.1.30.46)
+  * then go to Drive C: Right click on RetailPlusStoreBackend > Properties > Security > Edit > Add > Type Administrator and click check name then OK > Select Administrator (ST0000\\Administrator) > Then Allow Full Control > Apply OK
 `

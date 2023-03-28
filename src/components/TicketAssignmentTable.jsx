@@ -1,3 +1,4 @@
+import { MdSubdirectoryArrowRight } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 
 function TicketAssignmentTable({ tickets }) {
@@ -34,7 +35,7 @@ function TicketAssignmentTable({ tickets }) {
               Urgency
             </th>
             <th scope="col" className="px-6 py-3">
-              Actions
+              Ticket Details
             </th>
           </tr>
         </thead>
@@ -53,7 +54,7 @@ function TicketAssignmentTable({ tickets }) {
                   onClick={() => handleClick(ticket.ticketNumber)}
                   className="py-1 px-2 bg-teal-500 rounded text-white hover:bg-teal-700 text-xs text-center grid place-content-center"
                 >
-                  Test
+                  <MdSubdirectoryArrowRight />
                 </button>
               </td>
             </tr>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MdArrowDropDown } from 'react-icons/md'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -20,7 +20,11 @@ const Accordion = ({ items }) => {
           onClick={() => handleClick(index)}
         >
           {item.title}
-          <MdArrowDropDown className="text-2xl" />
+          {index !== activeIndex ? (
+            <MdArrowDropDown className="text-2xl" />
+          ) : (
+            <MdArrowDropUp className="text-2xl" />
+          )}
         </div>
         <div
           className={`p-4 max-w-none ${contentActive} bg-gray-50 text-black border-2 border-b-gray-200 prose`}

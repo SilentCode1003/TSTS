@@ -48,9 +48,16 @@ function NavigationBar({ isAdmin }) {
   const [navShouldShow, setNavShouldShow] = useState(true)
   const [isDragging, setIsDragging] = useState(false)
   const constraintsRef = useRef(null)
+  const leftConstraintRef = useRef(null)
+  const rightConstraintRef = useRef(null)
+  const [position, setPosition] = useState('')
 
-  const showNavBar = () => {
-    setNavShouldShow(true)
+  const handleMouseMove = (event) => {
+    const pageWidth = window.innerWidth
+    const midpoint = pageWidth / 2
+    const cursorX = event.clientX
+    const newPosition = cursorX < midpoint ? 'left' : 'right'
+    setPosition(newPosition)
   }
 
   const hideNavBar = () => {
@@ -67,10 +74,13 @@ function NavigationBar({ isAdmin }) {
   }, [location])
 
   return (
-    <motion.div
-      ref={constraintsRef}
-      className="h-screen w-screen fixed pointer-events-none"
-    >
+    <motion.div className="h-screen w-screen fixed pointer-events-none">
+      <div ref={leftConstraintRef} className="w-20 h-screen fixed left-5"></div>
+      <div
+        ref={rightConstraintRef}
+        className="w-20 h-screen fixed right-5"
+      ></div>
+
       <AnimatePresence>
         {navShouldShow && (
           <motion.div
@@ -104,12 +114,16 @@ function NavigationBar({ isAdmin }) {
         <AnimatePresence>
           <motion.button
             drag
-            dragConstraints={constraintsRef}
+            dragConstraints={
+              position === 'right' ? rightConstraintRef : leftConstraintRef
+            }
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}
+            onDrag={handleMouseMove}
             onTap={toggleNavBar}
             whileDrag={{ scale: 1.1 }}
             whileTap={{ scale: 1.1 }}
+            dragElastic={1}
             className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto shadow-md z-10"
           >
             {!navShouldShow && (

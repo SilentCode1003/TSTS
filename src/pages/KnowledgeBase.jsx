@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react'
 import Accordion from '../components/Accordion'
+import { parts, preloading } from '../data/markdowns'
 
 const items = [
   {
-    title: 'What is React?',
-    content: 'React is a JavaScript library for building user interfaces.',
+    title: "ITD's Parts",
+    content: parts,
   },
   {
-    title: 'Why use React?',
-    content:
-      'React allows for the creation of reusable UI components, making development faster and more efficient.',
-  },
-  {
-    title: 'How do you use React?',
-    content:
-      'React can be used with JavaScript, TypeScript, and other languages. It can also be used with various other libraries and frameworks, such as Redux and Next.js.',
+    title: 'PC Preload Procedure',
+    content: preloading,
   },
 ]
 

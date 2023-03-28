@@ -1,4 +1,8 @@
 function TicketAssignmentTable({ tickets }) {
+  const handleClick = (ticket) => {
+    console.log(ticket)
+  }
+
   return (
     <div className="w-full overflow-x-auto">
       <table className="w-full table-auto">
@@ -40,14 +44,11 @@ function TicketAssignmentTable({ tickets }) {
               <td className="p-1 text-center text-xs">{ticket.status}</td>
               <td className="p-1 text-center text-xs">{ticket.dueDate}</td>
               <td className="p-1 text-center text-xs">{ticket.urgency}</td>
-              <td className="p-1 text-center grid grid-cols-3 gap-2">
-                <button className="py-1 px-2 bg-red-500 rounded text-white hover:bg-red-700 text-xs text-center grid place-content-center">
-                  Test
-                </button>
-                <button className="py-1 px-2 bg-red-500 rounded text-white hover:bg-red-700 text-xs text-center grid place-content-center">
-                  Test
-                </button>
-                <button className="py-1 px-2 bg-red-500 rounded text-white hover:bg-red-700 text-xs text-center grid place-content-center">
+              <td className="p-1 text-center grid place-content-center place-items-center">
+                <button
+                  onClick={() => handleClick(ticket.ticketNumber)}
+                  className="py-1 px-2 bg-teal-500 rounded text-white hover:bg-teal-700 text-xs text-center grid place-content-center"
+                >
                   Test
                 </button>
               </td>

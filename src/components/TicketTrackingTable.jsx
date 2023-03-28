@@ -1,24 +1,32 @@
-function TicketTrackingTable() {
+function TicketTrackingTable({ data }) {
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Ticket No.</th>
-            <th>Client/Store</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Client 1</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Client 2</td>
-          </tr>
-        </tbody>
-      </table>
+      {!data ? (
+        'No data'
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Ticket No.</th>
+              <th>Client/Store</th>
+              <th>Date Created</th>
+              <th>Date Updated</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Due Date</th>
+              <th>Urgency</th>
+              <th>Assigned To</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.map((item) => (
+              <tr>
+                <td>{item.ticketNumber}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   )
 }

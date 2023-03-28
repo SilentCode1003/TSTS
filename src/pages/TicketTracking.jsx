@@ -7,7 +7,7 @@ function TicketTracking() {
         Ticket Tracking
       </p>
 
-      <TicketTrackingTable />
+      <TicketTrackingTable data={[]} />
     </div>
   )
 }

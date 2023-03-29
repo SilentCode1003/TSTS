@@ -49,10 +49,10 @@ function TicketAssignmentTable({ tickets }) {
               <td className="p-1 text-center text-xs">{ticket.status}</td>
               <td className="p-1 text-center text-xs">{ticket.dueDate}</td>
               <td className="p-1 text-center text-xs">{ticket.urgency}</td>
-              <td className="p-1 text-center grid place-content-center place-items-center">
+              <td className="p-1 h-full text-center">
                 <button
                   onClick={() => handleClick(ticket.ticketNumber)}
-                  className="py-1 px-2 bg-teal-500 rounded text-white hover:bg-teal-700 text-xs text-center grid place-content-center"
+                  className="py-1 px-2 mx-auto bg-teal-500 rounded text-white hover:bg-teal-700 text-xs text-center grid place-content-center"
                 >
                   <MdSubdirectoryArrowRight />
                 </button>

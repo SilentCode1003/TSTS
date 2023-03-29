@@ -96,7 +96,7 @@ function NavigationBar({ isAdmin }) {
                 ease: 'easeInOut',
               }}
               onClick={(e) => e.stopPropagation()}
-              className="p-8 w-4/6 md:w-2/6 h-screen bg-red-500 shadow-2xl"
+              className="p-8 w-4/6 md:w-2/6 h-screen bg-red-500 shadow-2xl overflow-y-auto"
             >
               <ul className="flex flex-col gap-8 text-white items-center">
                 <Link to="/">Logo</Link>

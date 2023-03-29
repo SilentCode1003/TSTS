@@ -11,8 +11,8 @@ function NavigationLinks({ items }) {
               isPending
                 ? 'text-gray-400'
                 : isActive
-                ? 'p-2 w-full uppercase font-semibold inline-block border-b-2 border-white'
-                : 'p-2 w-full uppercase font-semibold inline-block border-b-2 border-red-500 hover:border-b-2 hover:border-white'
+                ? 'p-2 w-full text-center uppercase font-semibold inline-block border-b-2 border-white'
+                : 'p-2 w-full text-center uppercase font-semibold inline-block border-b-2 border-red-500 hover:border-b-2 hover:border-white'
             }
           >
             {item.name}

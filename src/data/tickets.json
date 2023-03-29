@@ -3,36 +3,44 @@
     "ticketNumber": 1,
     "client": "Client 1",
     "dateCreated": "10/20/2023 10:00:17AM",
+    "dateUpdated": "10/29/2023 09:38:25PM",
     "priority": "High",
     "status": "Unresolved",
     "dueDate": "10/23/2023 10:00:00AM",
-    "urgency": "Urgent"
+    "urgency": "Urgent",
+    "assignedTo": 1
   },
   {
     "ticketNumber": 2,
     "client": "Client 2",
     "dateCreated": "10/20/2023 10:00:17AM",
+    "dateUpdated": "10/29/2023 09:38:25PM",
     "priority": "Medium",
     "status": "Unresolved",
     "dueDate": "10/23/2023 10:00:00AM",
-    "urgency": "Normal"
+    "urgency": "Normal",
+    "assignedTo": 1
   },
   {
     "ticketNumber": 3,
     "client": "Client 3",
     "dateCreated": "10/20/2023 10:00:17AM",
+    "dateUpdated": "10/29/2023 09:38:25PM",
     "priority": "Low",
     "status": "Unresolved",
     "dueDate": "10/23/2023 10:00:00AM",
-    "urgency": "Normal"
+    "urgency": "Normal",
+    "assignedTo": 1
   },
   {
     "ticketNumber": 4,
     "client": "Client 4",
     "dateCreated": "10/20/2023 10:00:17AM",
+    "dateUpdated": "10/29/2023 09:38:25PM",
     "priority": "Urgent",
     "status": "Unresolved",
     "dueDate": "10/23/2023 10:00:00AM",
-    "urgency": "Urgent"
+    "urgency": "Urgent",
+    "assignedTo": 1
   }
 ]

@@ -49,7 +49,7 @@ function TicketAssignment() {
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-1 md:grid-cols-2"
         >
-          <div className="flex flex-col gap-4">
+          <div className="p-4 rounded border flex flex-col gap-4 bg-gray-50">
             <div className="flex items-center gap-4">
               <label htmlFor="name" className="font-bold">
                 Name:{' '}

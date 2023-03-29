@@ -43,11 +43,9 @@ export const clientItems = [
 ]
 
 function NavigationBar({ isAdmin }) {
-  let itemsToShow
   const location = useLocation()
   const [navShouldShow, setNavShouldShow] = useState(true)
   const [isDragging, setIsDragging] = useState(false)
-  const constraintsRef = useRef(null)
   const leftConstraintRef = useRef(null)
   const rightConstraintRef = useRef(null)
   const [position, setPosition] = useState('')

@@ -1,20 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
-import NotFound from './pages/NotFound'
-import TicketAssignment from './pages/TicketAssignment'
-import TicketTracking from './pages/TicketTracking'
-import KnowledgeBase from './pages/KnowledgeBase'
-import Reporting from './pages/Reporting'
-import Communication from './pages/Communication'
 import Automation from './pages/Automation'
-import ClientLayout from './pages/ClientLayout'
 import ClientHome from './pages/ClientHome'
+import ClientLayout from './pages/ClientLayout'
+import Communication from './pages/Communication'
+import Dashboard from './pages/Dashboard'
+import KnowledgeBase from './pages/KnowledgeBase'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import Reporting from './pages/Reporting'
+import TicketAssignment from './pages/TicketAssignment'
+import TicketDetails from './pages/TicketDetails'
 import TicketSubmission from './pages/TicketSubmission'
+import TicketTracking from './pages/TicketTracking'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/ticket-tracking/:ticketId',
-        element: <div>Ticket Details</div>,
+        element: <TicketDetails />,
       },
       {
         path: '/knowledge-base',

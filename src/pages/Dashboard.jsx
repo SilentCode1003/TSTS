@@ -4,6 +4,7 @@ import Card from '../components/Card'
 import Footer from '../components/Footer'
 import { adminItems } from '../components/NavigationBar'
 
+// TODO: Create a bar graph about resolved and unresolved tickets
 function Dashboard() {
   const navigate = useNavigate()
   const [newTicketsCount, setNewTicketsCount] = useState(3)

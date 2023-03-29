@@ -1,7 +1,6 @@
-import chatsData from '../data/chats.json'
-import chatData from '../data/chat.json'
 import { useState } from 'react'
 import Conversation from '../components/Conversation'
+import chatsData from '../data/chats.json'
 
 function Communication() {
   const [chats, setChats] = useState(chatsData)

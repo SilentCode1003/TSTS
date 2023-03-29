@@ -1,5 +1,5 @@
-import { MdDownload } from 'react-icons/md'
 import { motion } from 'framer-motion'
+import { MdDownload } from 'react-icons/md'
 
 function Message({ message, type }) {
   let initialX

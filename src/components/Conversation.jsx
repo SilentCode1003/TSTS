@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { MdFileUpload } from 'react-icons/md'
 import chatData from '../data/chat.json'
 import Message from './Message'
-import { MdFileUpload } from 'react-icons/md'
-import { motion, AnimatePresence } from 'framer-motion'
 
 function Conversation({ chatId }) {
   const [chat, setChat] = useState(chatData)

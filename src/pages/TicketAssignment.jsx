@@ -1,10 +1,10 @@
-import names from '../data/names.json'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import TicketAssignmentTable from '../components/TicketAssignmentTable'
 import clients from '../data/clients.json'
+import names from '../data/names.json'
 import priorities from '../data/priority.json'
 import tickets from '../data/tickets.json'
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-import TicketAssignmentTable from '../components/TicketAssignmentTable'
 
 function TicketAssignment() {
   const {

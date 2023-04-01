@@ -21,14 +21,14 @@ function KnowledgeBase() {
     setSearchTerm(e.target.value)
   }
 
-  useEffect(() => {
-    const filteredItems = items.filter((item) =>
-      `${item.title} ${item.content}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    )
-    setSearchedItems(filteredItems)
-  }, [searchTerm])
+  // useEffect(() => {
+  //   const filteredItems = items.filter((item) =>
+  //     `${item.title} ${item.content}`
+  //       .toLowerCase()
+  //       .includes(searchTerm.toLowerCase())
+  //   )
+  //   setSearchedItems(filteredItems)
+  // }, [searchTerm])
 
   return (
     <div className="p-8 flex flex-col gap-8 items-center">
@@ -46,7 +46,7 @@ function KnowledgeBase() {
         />
       </div>
 
-      <Accordion items={searchedItems} />
+      {/* <Accordion items={searchedItems} /> */}
     </div>
   )
 }

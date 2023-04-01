@@ -10,6 +10,7 @@ function TicketAssignment() {
   const {
     register,
     handleSubmit,
+    setError,
     reset,
     formState: { errors },
   } = useForm()
@@ -32,13 +33,14 @@ function TicketAssignment() {
     handleUploadFiles(chosenFiles)
   }
 
-  const onSubmit = (e) => {
-    console.log(e)
+  const onSubmit = (data) => {
+    console.log(data)
     console.log(uploadedFiles)
 
     reset()
   }
 
+  // TODO: Invalidate incorrect values on the dropdown
   return (
     <div className="p-8 flex flex-col gap-8">
       <p className="text-2xl md:text-4xl font-bold text-center">
@@ -51,45 +53,41 @@ function TicketAssignment() {
         >
           <div className="p-4 rounded border flex flex-col gap-4 bg-gray-50">
             <div className="flex items-center gap-4">
-              <label htmlFor="name" className="font-bold">
-                Name:{' '}
-              </label>
-              <select
+              <input
                 list="name"
                 className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
                   errors.name && 'border-red-500'
                 }`}
+                placeholder="Name"
                 {...register('name', { required: true, value: '' })}
-              >
+              />
+              <datalist id="name">
                 {names.map((name) => (
-                  <option key={name.id} value={name.name}>
-                    {name.name}
-                  </option>
+                  <option key={name.id} value={name.name}></option>
                 ))}
-              </select>
+              </datalist>
             </div>
             {errors.name && (
               <p className=" text-red-500 text-right">Name is required</p>
             )}
 
             <div className="flex items-center gap-4">
-              <label htmlFor="client" className="font-bold">
-                Store/Client:{' '}
-              </label>
-              <select
+              <input
                 list="client"
                 name="client"
                 className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
                   errors.client && 'border-red-500'
                 }`}
+                placeholder="Client/Store"
                 {...register('client', { required: true, value: '' })}
-              >
+              ></input>
+              <datalist id="client">
                 {clients.map((client) => (
                   <option key={client.id} value={client.name}>
                     {client.name}
                   </option>
                 ))}
-              </select>
+              </datalist>
             </div>
             {errors.client && (
               <p className=" text-red-500 text-right">
@@ -98,23 +96,22 @@ function TicketAssignment() {
             )}
 
             <div className="flex items-center gap-4">
-              <label htmlFor="priority" className="font-bold">
-                Priority:{' '}
-              </label>
-              <select
+              <input
                 list="priority"
                 name="priority"
                 className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 ${
                   errors.priority && 'border-red-500'
                 }`}
+                placeholder="Priority"
                 {...register('priority', { required: true, value: '' })}
-              >
+              ></input>
+              <datalist id="priority">
                 {priorities.map((priority) => (
                   <option key={priority.id} value={priority.level}>
                     {priority.level}
                   </option>
                 ))}
-              </select>
+              </datalist>
             </div>
             {errors.priority && (
               <p className=" text-red-500 text-right">Priority is required</p>

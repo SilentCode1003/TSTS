@@ -32,7 +32,7 @@ function Dashboard() {
           </div>
         </Card>
 
-        <Card classNames="px-4 py-5 min-h-[250px] sm:min-h-fit row-span-2 col-span-2 sm:col-span-2 grid place-items-center place-content-center overflow-x-auto">
+        <Card classNames="px-4 py-5 min-h-[250px] sm:min-h-fit row-span-2 col-span-2 sm:col-span-2 flex items-center sm:justify-center overflow-x-auto">
           <BarGraph />
         </Card>
       </div>

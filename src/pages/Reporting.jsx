@@ -1,31 +1,10 @@
 import { useState } from 'react'
 import { jsPDF } from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import reportsData from '../data/reports.json'
 
 function Reporting() {
-  const [reports, setReports] = useState([
-    {
-      id: 1,
-      date: '2022-01-01',
-      ticketVolume: 50,
-      resolutionTime: 24,
-      customerSatisfaction: 8,
-    },
-    {
-      id: 2,
-      date: '2022-01-01',
-      ticketVolume: 45,
-      resolutionTime: 26,
-      customerSatisfaction: 9,
-    },
-    {
-      id: 3,
-      date: '2022-01-03',
-      ticketVolume: 60,
-      resolutionTime: 8,
-      customerSatisfaction: 9,
-    },
-  ])
+  const [reports, setReports] = useState(reportsData)
 
   const exportPDF = () => {
     const doc = new jsPDF()

@@ -12,7 +12,7 @@ function TicketDetails() {
   }
 
   return (
-    <div className="p-8 flex flex-col gap-4 items-center">
+    <div className="p-8 flex flex-col gap-8 items-center">
       <h1 className="text-2xl md:text-4xl font-bold text-center">
         Ticket Details
       </h1>
@@ -33,6 +33,7 @@ function TicketDetails() {
       <Card classNames="p-8 max-w-[500px] grid gap-4">
         <p className="font-bold text-xl">Ticket History</p>
         <div className="flex flex-col gap-2 prose">
+          {/* TODO: Make ticket history dynamic */}
           <div>
             <p className="font-bold">Opened</p>
             <p className="italic">March 20, 2023 10:17:00AM</p>

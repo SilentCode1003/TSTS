@@ -3,19 +3,20 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import './index.css'
-import Automation from './pages/Automation'
-import ClientHome from './pages/ClientHome'
-import ClientLayout from './pages/ClientLayout'
-import Communication from './pages/Communication'
-import Dashboard from './pages/Dashboard'
-import KnowledgeBase from './pages/KnowledgeBase'
-import Login from './pages/Login'
-import NotFound from './pages/NotFound'
-import Reporting from './pages/Reporting'
-import TicketAssignment from './pages/TicketAssignment'
-import TicketDetails from './pages/TicketDetails'
-import TicketSubmission from './pages/TicketSubmission'
-import TicketTracking from './pages/TicketTracking'
+import loadable from '@loadable/component'
+const Automation = loadable(() => import('./pages/Automation'))
+const ClientHome = loadable(() => import('./pages/ClientHome'))
+const ClientLayout = loadable(() => import('./pages/ClientLayout'))
+const Communication = loadable(() => import('./pages/Communication'))
+const Dashboard = loadable(() => import('./pages/Dashboard'))
+const KnowledgeBase = loadable(() => import('./pages/KnowledgeBase'))
+const Login = loadable(() => import('./pages/Login'))
+const NotFound = loadable(() => import('./pages/NotFound'))
+const Reporting = loadable(() => import('./pages/Reporting'))
+const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
+const TicketDetails = loadable(() => import('./pages/TicketDetails'))
+const TicketSubmission = loadable(() => import('./pages/TicketSubmission'))
+const TicketTracking = loadable(() => import('./pages/TicketTracking'))
 
 const router = createBrowserRouter([
   {

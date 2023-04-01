@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@loadable/component": "^5.15.3",
     "chart.js": "^4.2.1",
     "framer-motion": "^10.9.1",
     "jspdf": "^2.5.1",

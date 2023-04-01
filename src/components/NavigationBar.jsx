@@ -122,7 +122,7 @@ function NavigationBar({ isAdmin }) {
             whileDrag={{ scale: 1.1 }}
             whileTap={{ scale: 1.1 }}
             dragElastic={1}
-            className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed bottom-5 right-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto shadow-md z-10"
+            className="h-20 w-20 bg-red-500 border-2 border-white rounded-full fixed top-5 left-5 cursor-pointer grid place-items-center place-content-center pointer-events-auto shadow-md z-10"
           >
             {!navShouldShow && (
               <motion.div

@@ -7,12 +7,13 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+import { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const options = {
-  responsive: false,
+  responsive: true,
   plugins: {
     legend: {
       position: 'top',
@@ -43,7 +44,25 @@ const data = {
 }
 
 function BarGraph() {
-  return <Bar options={options} data={data} />
+  const [responsive, setResponsive] = useState(true)
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      if (window.innerWidth < 586) {
+        setResponsive(false)
+      } else {
+        setResponsive(true)
+      }
+    }
+
+    window.addEventListener('resize', handleWindowResize)
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize)
+    }
+  })
+
+  return <Bar options={{ ...options, responsive }} data={data} />
 }
 
 export default BarGraph

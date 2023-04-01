@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
 import Footer from '../components/Footer'
 import { adminItems } from '../components/NavigationBar'
+import BarGraph from '../components/BarGraph'
 
-// TODO: Create a bar graph about resolved and unresolved tickets
 function Dashboard() {
   const navigate = useNavigate()
   const [newTicketsCount, setNewTicketsCount] = useState(3)
@@ -30,6 +30,10 @@ function Dashboard() {
               {urgentTicketsCount}
             </p>
           </div>
+        </Card>
+
+        <Card classNames="px-4 py-5 col-span-2 grid place-items-center place-content-center">
+          <BarGraph />
         </Card>
       </div>
       <div className="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -12,7 +12,7 @@ import { Bar } from 'react-chartjs-2'
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const options = {
-  responsive: true,
+  responsive: false,
   plugins: {
     legend: {
       position: 'top',

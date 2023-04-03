@@ -17,9 +17,9 @@ export const topics = [
 
 function KnowledgeBase() {
   return (
-    <div className="p-8 grid grid-cols-[3fr_9fr]">
-      <KnowledgeBaseSideBar topics={topics} />
-      <div>
+    <div className="grid grid-cols-1 md:grid-cols-[4fr_8fr] relative">
+      <KnowledgeBaseSideBar />
+      <div className="p-8 md:py-8 md:pl-4 md:pr-8">
         <Outlet />
       </div>
     </div>

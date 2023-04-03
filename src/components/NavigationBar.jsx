@@ -72,7 +72,7 @@ function NavigationBar({ isAdmin }) {
   }, [location])
 
   return (
-    <motion.div className="h-screen w-screen fixed pointer-events-none">
+    <motion.div className="h-screen w-screen fixed pointer-events-none z-50">
       <div ref={leftConstraintRef} className="w-20 h-screen fixed left-5"></div>
       <div
         ref={rightConstraintRef}

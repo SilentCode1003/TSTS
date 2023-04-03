@@ -12,7 +12,10 @@ function KnowledgeBaseTopic() {
   }
 
   return (
-    <div>
+    <div className="w-full prose break-words">
+      <h2 className="text-center" id={topic.id}>
+        {topic.title}
+      </h2>
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{topic.content}</ReactMarkdown>
     </div>
   )

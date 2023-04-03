@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Card from '../components/Card'
-import Footer from '../components/Footer'
-import { adminItems } from '../components/NavigationBar'
 import BarGraph from '../components/BarGraph'
+import Card from '../components/Card'
+import { adminItems } from '../components/NavigationBar'
 
 function Dashboard() {
   const navigate = useNavigate()
@@ -45,12 +44,11 @@ function Dashboard() {
           >
             <div>
               <p className="text-lg">{item.name}</p>
+              Icon
             </div>
           </Card>
         ))}
       </div>
-
-      <Footer />
     </div>
   )
 }

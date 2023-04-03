@@ -20,9 +20,12 @@ function TicketSubmission() {
       <h1 className="text-2xl md:text-4xl font-bold text-center">
         Ticket Submission
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2">
-        <div className="p-4 rounded border flex flex-col gap-4 bg-gray-50">
-          <div className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-1 md:grid-cols-2"
+      >
+        <div className="p-4 rounded border flex flex-col gap-2 bg-gray-50">
+          <div className="flex flex-col gap-2">
             <input
               type="text"
               placeholder="Name"
@@ -57,10 +60,11 @@ function TicketSubmission() {
           </p>
 
           <div className="flex flex-col gap-4">
+            <label htmlFor="description">Description: </label>
             <textarea
               cols="60"
               rows="5"
-              placeholder="Description"
+              id="description"
               {...register('description', { required: true })}
               className={`py-2 px-4 w-full border bg-gray-100 rounded-sm text-gray-900 resize-none ${
                 errors.description && invalidInputClass
@@ -77,7 +81,7 @@ function TicketSubmission() {
           </div>
 
           <div className="flex items-center justify-center">
-            <button className="w-1/4 py-4 px-2 bg-red-500 text-white rounded-md hover:bg-red-700 text-base md:text-xl font-bold">
+            <button className="min-w-[9rem] w-1/4 py-4 px-2 bg-red-500 text-white rounded-md hover:bg-red-700 text-base md:text-xl font-bold">
               Submit
             </button>
           </div>

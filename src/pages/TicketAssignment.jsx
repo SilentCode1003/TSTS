@@ -169,7 +169,7 @@ function TicketAssignment() {
             </div>
 
             <div className="grid place-items-center">
-              <button className="w-1/4 py-4 px-2 bg-red-500 text-white rounded-md hover:bg-red-700 text-base md:text-xl font-bold">
+              <button className="min-w-[9rem] w-1/4 py-4 px-2 bg-red-500 text-white rounded-md hover:bg-red-700 text-base md:text-xl font-bold">
                 Assign
               </button>
             </div>

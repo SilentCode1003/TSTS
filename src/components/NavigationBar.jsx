@@ -34,11 +34,11 @@ export const adminItems = [
 export const clientItems = [
   {
     name: 'Ticket Submission',
-    url: '/ticket-submission',
+    url: '/client/ticket-submission',
   },
   {
     name: 'Communication',
-    url: '/communication',
+    url: '/client/communication',
   },
 ]
 

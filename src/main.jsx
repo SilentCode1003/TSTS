@@ -1,9 +1,12 @@
+import loadable from '@loadable/component'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import './index.css'
-import loadable from '@loadable/component'
+const CommunicationConversation = loadable(() =>
+  import('./pages/CommunicationConversation')
+)
 const KnowledgeBaseTopic = loadable(() => import('./pages/KnowledgeBaseTopic'))
 const Automation = loadable(() => import('./pages/Automation'))
 const ClientHome = loadable(() => import('./pages/ClientHome'))
@@ -57,6 +60,12 @@ const router = createBrowserRouter([
       {
         path: '/communication',
         element: <Communication />,
+        children: [
+          {
+            path: '/communication/:clientId',
+            element: <CommunicationConversation />,
+          },
+        ],
       },
       {
         path: '/automation',

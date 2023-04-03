@@ -1,10 +1,14 @@
 import { useState } from 'react'
-import Conversation from '../components/Conversation'
+import { Outlet, useNavigate } from 'react-router-dom'
 import chatsData from '../data/chats.json'
 
 function Communication() {
+  const navigate = useNavigate()
   const [chats, setChats] = useState(chatsData)
-  const [selectedChatId, setSelectedChatId] = useState()
+
+  const handleClick = (clientId) => {
+    navigate(`/communication/${clientId}`)
+  }
 
   return (
     <div className="flex max-h-screen">
@@ -13,7 +17,7 @@ function Communication() {
           <div
             key={chat.id}
             className="flex gap-2 items-center p-2 border-b border-red-500 hover:bg-gray-100 cursor-pointer"
-            onClick={() => setSelectedChatId(chat.id)}
+            onClick={() => handleClick(chat.id)}
           >
             <div className="min-w-[32px] w-8 h-8 rounded-full bg-red-500 border border-white"></div>
             <div className="truncate">
@@ -24,9 +28,7 @@ function Communication() {
         ))}
       </div>
 
-      <div className="w-full flex flex-col">
-        <Conversation chatId={selectedChatId} />
-      </div>
+      <Outlet />
     </div>
   )
 }

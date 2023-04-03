@@ -13,7 +13,7 @@ import { Bar } from 'react-chartjs-2'
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const options = {
-  responsive: true,
+  responsive: false,
   plugins: {
     legend: {
       position: 'top',
@@ -48,6 +48,7 @@ function BarGraph() {
 
   useEffect(() => {
     const handleWindowResize = () => {
+      console.log(window.innerWidth)
       if (window.innerWidth < 586) {
         setResponsive(false)
       } else {
@@ -60,7 +61,7 @@ function BarGraph() {
     return () => {
       window.removeEventListener('resize', handleWindowResize)
     }
-  })
+  }, [])
 
   return <Bar options={{ ...options, responsive }} data={data} />
 }

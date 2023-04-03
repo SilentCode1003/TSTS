@@ -70,7 +70,7 @@ function Conversation({ chatId }) {
 
   return (
     <>
-      <div className="p-4 flex flex-col-reverse gap-4 overflow-y-auto overflow-x-hidden">
+      <div className="p-4 md:max-w-[calc(100vw-300px)] flex flex-col-reverse gap-4 overflow-y-auto overflow-x-hidden">
         <AnimatePresence>
           {chat.map((message) => (
             <Message key={message.id} message={message} type={message.type} />

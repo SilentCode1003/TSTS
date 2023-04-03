@@ -18,14 +18,16 @@ function Message({ message, type }) {
       initial={{ x: initialX, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: exitX, opacity: 0 }}
-      className={`max-w-full p-4 rounded-lg ${
+      className={`max-w-7xl p-4 rounded-lg ${
         message.sender === 'You'
           ? 'ml-auto bg-red-500 text-white'
           : 'mr-auto bg-white border border-red-500'
       }`}
     >
       <div>
-        {type === 'TEXT' && <p className="mb-2">{message.message}</p>}
+        {type === 'TEXT' && (
+          <p className="mb-2 break-words">{message.message}</p>
+        )}
         {type === 'IMAGE' && <img src={message.src} />}
         {type === 'DOCUMENT' && (
           <a

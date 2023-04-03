@@ -11,7 +11,7 @@ function Communication() {
   }
 
   return (
-    <div className="flex max-h-screen">
+    <div className="md:flex h-screen">
       <div className="min-w-[300px] p-2 border-r-2 overflow-x-auto">
         {chats.map((chat) => (
           <div

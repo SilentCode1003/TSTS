@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import loadable from '@loadable/component'
+const KnowledgeBaseTopic = loadable(() => import('./pages/KnowledgeBaseTopic'))
 const Automation = loadable(() => import('./pages/Automation'))
 const ClientHome = loadable(() => import('./pages/ClientHome'))
 const ClientLayout = loadable(() => import('./pages/ClientLayout'))
@@ -42,6 +43,12 @@ const router = createBrowserRouter([
       {
         path: '/knowledge-base',
         element: <KnowledgeBase />,
+        children: [
+          {
+            path: '/knowledge-base/:topicId',
+            element: <KnowledgeBaseTopic />,
+          },
+        ],
       },
       {
         path: '/reporting',

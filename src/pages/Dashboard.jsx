@@ -12,7 +12,7 @@ function Dashboard() {
   return (
     <div className="p-8">
       <p className="text-2xl md:text-4xl font-bold text-center">Dashboard</p>
-      <div className="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="p-8 md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card classNames="px-4 py-5 min-h-[150px] hover:shadow-md cursor-pointer">
           <div className="h-full flex flex-col justify-between truncate">
             <p className="text-lg">New Tickets</p>

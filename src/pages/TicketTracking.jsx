@@ -33,7 +33,7 @@ function TicketTracking() {
   }, [query])
 
   return (
-    <div className="p-8 flex flex-col gap-8">
+    <div className="w-auto h-screen p-8 flex flex-col gap-8 overflow-x-auto">
       <p className="text-2xl md:text-4xl font-bold text-center">
         Ticket Tracking
       </p>

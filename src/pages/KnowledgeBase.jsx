@@ -17,10 +17,12 @@ export const topics = [
 
 function KnowledgeBase() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[4fr_8fr] relative">
-      <KnowledgeBaseSideBar />
-      <div className="p-8 md:py-8 md:pl-4 md:pr-8">
-        <Outlet />
+    <div className="w-auto h-screen flex flex-col gap-8 overflow-y-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-[4fr_8fr] relative">
+        <KnowledgeBaseSideBar />
+        <div className="p-8 md:py-8 md:pl-4 md:pr-8">
+          <Outlet />
+        </div>
       </div>
     </div>
   )

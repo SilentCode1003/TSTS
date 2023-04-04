@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 import NavigationBar from './components/NavigationBar'
 
 const navShowingClasses =
-  'items-center justify-center grid-cols-[125px_minmax(0,_1fr)] sm:grid-cols-[250px_minmax(0,_1fr)]'
+  'grid-cols-[125px_minmax(0,_1fr)] sm:grid-cols-[250px_minmax(0,_1fr)]'
 const caretShowingClasses =
   'left-[96px] sm:left-[220px] items-center justify-center'
 

@@ -19,7 +19,7 @@ function KnowledgeBaseSideBar() {
   }
 
   return (
-    <div className="pl-8 pr-4 w-full md:h-screen md:sticky top-0 overflow-y-auto">
+    <div className="pl-8 pr-4 w-full lg:h-screen lg:sticky top-0 overflow-y-auto">
       <h1 className="mt-24 mb-8 text-2xl font-bold">Knowledge Base</h1>
       <ul className="flex flex-col gap-2">
         <input

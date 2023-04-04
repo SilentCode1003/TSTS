@@ -42,7 +42,7 @@ function TicketAssignment() {
 
   // TODO: Invalidate incorrect values on the dropdown
   return (
-    <div className="p-8 flex flex-col gap-8">
+    <div className="w-auto h-screen p-8 flex flex-col gap-8 overflow-y-auto">
       <p className="text-2xl md:text-4xl font-bold text-center">
         Ticket Assignment
       </p>
@@ -140,13 +140,16 @@ function TicketAssignment() {
             </div>
 
             <div className="flex flex-col items-start gap-4">
-              <p className="font-bold">Attachments: </p>
-              <input
-                type="file"
-                name="file"
-                multiple
-                onChange={handleFileEvent}
-              />
+              <label className="px-4 py-2 bg-red-500 hover:bg-red-700 rounded cursor-pointer font-bold text-white">
+                Choose Files
+                <input
+                  type="file"
+                  name="file"
+                  multiple
+                  onChange={handleFileEvent}
+                  className="hidden"
+                />
+              </label>
 
               {uploadedFiles.length < 1 ? (
                 'No files selected'

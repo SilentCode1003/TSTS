@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 function NavigationLinks({ items }) {
   return (
-    <>
+    <ul className="flex flex-col text-white text-sm text-center">
       {items.map((item, index) => (
         <li key={index} className="w-full">
           <NavLink
@@ -11,15 +11,16 @@ function NavigationLinks({ items }) {
               isPending
                 ? 'text-gray-400'
                 : isActive
-                ? 'p-2 w-full text-center uppercase font-semibold inline-block border-b-2 border-white'
-                : 'p-2 w-full text-center uppercase font-semibold inline-block border-b-2 border-red-500 hover:border-b-2 hover:border-white'
+                ? 'p-1 sm:p-4 w-full flex flex-col sm:flex-row gap-2 items-center bg-red-700'
+                : 'p-1 sm:p-4 w-full flex flex-col sm:flex-row gap-2 items-center hover:bg-red-700'
             }
           >
+            {item.icon}
             {item.name}
           </NavLink>
         </li>
       ))}
-    </>
+    </ul>
   )
 }
 

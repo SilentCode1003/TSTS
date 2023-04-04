@@ -2,6 +2,7 @@ import {
   MdAssignmentAdd,
   MdChat,
   MdLightbulb,
+  MdNewspaper,
   MdReport,
   MdSettings,
   MdTrackChanges,
@@ -45,10 +46,12 @@ export const clientItems = [
   {
     name: 'Ticket Submission',
     url: '/client/ticket-submission',
+    icon: <MdNewspaper className="text-xl inline-block" />,
   },
   {
     name: 'Communication',
     url: '/client/communication',
+    icon: <MdChat className="text-xl inline-block" />,
   },
 ]
 
@@ -67,7 +70,7 @@ function NavigationBar({ isAdmin, setNavIsCollapsed }) {
       </div>
 
       <div>
-        <NavigationLinks items={adminItems} />
+        <NavigationLinks items={isAdmin ? adminItems : clientItems} />
       </div>
     </div>
   )

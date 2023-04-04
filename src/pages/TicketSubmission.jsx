@@ -16,7 +16,7 @@ function TicketSubmission() {
   }
 
   return (
-    <div className="p-8 flex flex-col gap-8">
+    <div className="w-auto h-screen p-8 flex flex-col gap-8 overflow-y-auto">
       <h1 className="text-2xl md:text-4xl font-bold text-center">
         Ticket Submission
       </h1>
@@ -76,8 +76,10 @@ function TicketSubmission() {
           </div>
 
           <div>
-            <label htmlFor="files">Upload files: </label>
-            <input type="file" id="files" multiple {...register('files')} />
+            <label htmlFor="files">
+              Upload Files
+              <input type="file" id="files" multiple {...register('files')} />
+            </label>
           </div>
 
           <div className="flex items-center justify-center">

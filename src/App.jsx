@@ -19,7 +19,7 @@ function App() {
     <div className={`grid ${!navIsCollapsed && navShowingClasses}`}>
       <div
         onClick={toggleNav}
-        className={`w-14 h-14 bg-white border-2 border-red-500 rounded-full flex absolute top-1/2 z-50 cursor-pointer ${
+        className={`w-14 h-14 bg-white border-2 border-red-500 shadow-md hover:shadow-lg rounded-full flex absolute top-1/2 z-50 cursor-pointer ${
           !navIsCollapsed
             ? caretShowingClasses
             : '-left-7 items-center justify-end'

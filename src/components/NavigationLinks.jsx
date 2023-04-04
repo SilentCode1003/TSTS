@@ -11,7 +11,7 @@ function NavigationLinks({ items }) {
               isPending
                 ? 'text-gray-400'
                 : isActive
-                ? 'p-1 sm:p-4 w-full flex flex-col sm:flex-row gap-2 items-center bg-red-700'
+                ? 'p-1 sm:p-4 w-full flex flex-col sm:flex-row gap-2 items-center bg-red-700 font-semibold'
                 : 'p-1 sm:p-4 w-full flex flex-col sm:flex-row gap-2 items-center hover:bg-red-700'
             }
           >

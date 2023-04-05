@@ -1,6 +1,7 @@
 import {
   MdAssignmentAdd,
   MdChat,
+  MdDashboard,
   MdLightbulb,
   MdNewspaper,
   MdReport,
@@ -10,6 +11,11 @@ import {
 import NavigationLinks from './NavigationLinks'
 
 export const adminItems = [
+  {
+    name: 'Dashboard',
+    url: '/',
+    icon: <MdDashboard className="text-xl inline-block" />,
+  },
   {
     name: 'Ticket Assignment',
     url: '/ticket-assignment',

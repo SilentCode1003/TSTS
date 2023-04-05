@@ -3,6 +3,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
+import AdminProtectedRoute from './components/AdminProtectedRoute'
+import ClientProtectedRoute from './components/ClientProtectedRoute'
 import './index.css'
 const CommunicationConversation = loadable(() =>
   import('./pages/CommunicationConversation')
@@ -25,7 +27,11 @@ const TicketTracking = loadable(() => import('./pages/TicketTracking'))
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: (
+      <AdminProtectedRoute>
+        <App />
+      </AdminProtectedRoute>
+    ),
     children: [
       {
         path: '/',
@@ -79,7 +85,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/client',
-    element: <ClientLayout />,
+    element: (
+      <ClientProtectedRoute>
+        <ClientLayout />
+      </ClientProtectedRoute>
+    ),
     children: [
       {
         path: '/client',

@@ -1,6 +1,13 @@
+import { useAtom } from 'jotai'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { isAdminStore, isLoggedInStore } from '../store/authStore'
 
 function Login() {
+  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInStore)
+  const [isAdmin, setIsAdmin] = useAtom(isAdminStore)
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -10,6 +17,16 @@ function Login() {
 
   const onSubmit = (data) => {
     console.log(data)
+
+    if (data.username === 'admin' && data.password === 'admin') {
+      setIsLoggedIn(true)
+      setIsAdmin(true)
+      navigate('/')
+    } else if (data.username === 'client' && data.password === 'client') {
+      setIsLoggedIn(true)
+      setIsAdmin(false)
+      navigate('/client')
+    }
   }
 
   return (

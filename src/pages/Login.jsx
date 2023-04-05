@@ -17,8 +17,6 @@ function Login() {
   } = useForm()
 
   const onSubmit = (data) => {
-    console.log(data)
-
     if (data.username === 'admin' && data.password === 'admin') {
       setIsLoggedIn(true)
       setIsAdmin(true)

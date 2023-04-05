@@ -12,6 +12,7 @@ function Login() {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm()
 
@@ -26,6 +27,15 @@ function Login() {
       setIsLoggedIn(true)
       setIsAdmin(false)
       navigate('/client')
+    } else {
+      setError('username', {
+        type: 'custom',
+        message: 'Invalid username or password',
+      })
+      setError('password', {
+        type: 'custom',
+        message: 'Invalid username or password',
+      })
     }
   }
 
@@ -67,7 +77,7 @@ function Login() {
                 />
               </div>
             </div>
-            <div className="flex justify-center items-center gap-4">
+            <div className="flex justify-center items-center gap-4 relative">
               <button
                 type="submit"
                 className="py-2 px-4 bg-red-500 hover:bg-red-700 text-white font-bold rounded"
@@ -81,6 +91,11 @@ function Login() {
               >
                 Reset
               </button>
+              {errors.username && (
+                <p className="text-sm text-red-500 absolute bottom-12">
+                  Invalid Credentials
+                </p>
+              )}
             </div>
           </form>
         </div>

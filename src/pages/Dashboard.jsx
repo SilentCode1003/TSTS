@@ -42,11 +42,15 @@ function Dashboard() {
           <Card
             key={item.name}
             onClick={() => navigate(item.url)}
-            classNames="p-4 min-h-[200px] hover:shadow-md cursor-pointer"
+            classNames="group p-4 min-h-[200px] hover:shadow-md truncate cursor-pointer"
           >
-            <div>
+            <div className="h-full flex flex-col gap-4">
               <p className="text-lg">{item.name}</p>
-              Icon
+              <div className="h-full flex items-center justify-center">
+                <p className="text-gray-600 group-hover:text-gray-900 flex text-6xl">
+                  {item.icon}
+                </p>
+              </div>
             </div>
           </Card>
         ))}

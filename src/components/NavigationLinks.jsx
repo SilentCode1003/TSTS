@@ -15,7 +15,7 @@ function NavigationLinks({ items }) {
                 : 'p-1 sm:p-4 w-full flex flex-col sm:flex-row gap-2 items-center hover:bg-red-700'
             }
           >
-            {item.icon}
+            <span className="text-xl">{item.icon}</span>
             {item.name}
           </NavLink>
         </li>

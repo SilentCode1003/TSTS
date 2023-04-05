@@ -14,37 +14,37 @@ export const adminItems = [
   {
     name: 'Dashboard',
     url: '/',
-    icon: <MdDashboard className="text-xl inline-block" />,
+    icon: <MdDashboard />,
   },
   {
     name: 'Ticket Assignment',
     url: '/ticket-assignment',
-    icon: <MdAssignmentAdd className="text-xl inline-block" />,
+    icon: <MdAssignmentAdd />,
   },
   {
     name: 'Ticket Tracking',
     url: '/ticket-tracking',
-    icon: <MdTrackChanges className="text-xl inline-block" />,
+    icon: <MdTrackChanges />,
   },
   {
     name: 'Knowledge Base',
     url: '/knowledge-base',
-    icon: <MdLightbulb className="text-xl inline-block" />,
+    icon: <MdLightbulb />,
   },
   {
     name: 'Reporting',
     url: '/reporting',
-    icon: <MdReport className="text-xl inline-block" />,
+    icon: <MdReport />,
   },
   {
     name: 'Communication',
     url: '/communication',
-    icon: <MdChat className="text-xl inline-block" />,
+    icon: <MdChat />,
   },
   {
     name: 'Automation',
     url: '/automation',
-    icon: <MdSettings className="text-xl inline-block" />,
+    icon: <MdSettings />,
   },
 ]
 
@@ -52,12 +52,12 @@ export const clientItems = [
   {
     name: 'Ticket Submission',
     url: '/client/ticket-submission',
-    icon: <MdNewspaper className="text-xl inline-block" />,
+    icon: <MdNewspaper />,
   },
   {
     name: 'Communication',
     url: '/client/communication',
-    icon: <MdChat className="text-xl inline-block" />,
+    icon: <MdChat />,
   },
 ]
 

@@ -10,7 +10,7 @@ function Dashboard() {
   const [urgentTicketsCount, setUrgentTicketsCount] = useState(12)
 
   return (
-    <div className="p-8">
+    <div className="w-auto h-screen p-8 flex flex-col gap-8 overflow-y-auto">
       <p className="text-2xl md:text-4xl font-bold text-center">Dashboard</p>
       <div className="p-8 flex flex-col md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card classNames="px-4 py-5 min-h-[150px] hover:shadow-md cursor-pointer">

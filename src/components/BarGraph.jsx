@@ -48,7 +48,6 @@ function BarGraph() {
 
   useEffect(() => {
     const handleWindowResize = () => {
-      console.log(window.innerWidth)
       if (window.innerWidth < 586) {
         setResponsive(false)
       } else {

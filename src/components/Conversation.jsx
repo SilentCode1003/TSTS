@@ -55,8 +55,6 @@ function Conversation({ chatId }) {
       }
     }
 
-    console.log(e)
-
     setUploadedFile(file)
     setChat((prev) => [message, ...prev])
     setUploadedFile('')

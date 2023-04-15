@@ -1,14 +1,7 @@
-import {
-  Box,
-  Card,
-  CardBody,
-  CardHeader,
-  Heading,
-  SimpleGrid,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { Box, Heading, Stack } from '@chakra-ui/react'
 import React from 'react'
+import TopCards from '../components/TopCards'
+import NavigationCards from '../components/NavigationCards'
 
 const Dashboard = () => {
   return (
@@ -18,36 +11,8 @@ const Dashboard = () => {
           Dashboard
         </Heading>
 
-        {/* Maybe make this a component */}
-        <SimpleGrid columns={[1, 2, 3]} spacing="4">
-          <Card>
-            <CardHeader>
-              <Text size="md">New Tickets</Text>
-            </CardHeader>
-            <CardBody noOfLines="1">
-              <Stack>
-                <Text as="b" fontSize="3xl" textAlign="end">
-                  3
-                </Text>
-              </Stack>
-            </CardBody>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <Text size="md">Urgent Tickets</Text>
-            </CardHeader>
-            <CardBody noOfLines="1">
-              <Stack>
-                <Text as="b" fontSize="3xl" textAlign="end">
-                  12
-                </Text>
-              </Stack>
-            </CardBody>
-          </Card>
-
-          <Card></Card>
-        </SimpleGrid>
+        <TopCards />
+        <NavigationCards />
       </Stack>
     </Box>
   )

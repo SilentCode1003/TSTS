@@ -1,11 +1,25 @@
-import { Box, Text } from '@chakra-ui/react'
+import {
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+} from '@chakra-ui/react'
 import React from 'react'
 
-const LeftBar = () => {
+const LeftBar = ({ onClose, onOpen, isOpen }) => {
   return (
-    <Box p={[2, null, 3]} h="100%" bg="purple.400">
-      <Text>LeftBar</Text>
-    </Box>
+    <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+        <DrawerBody>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
   )
 }
 

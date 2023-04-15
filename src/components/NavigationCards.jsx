@@ -54,14 +54,14 @@ const NavigationCards = () => {
     <SimpleGrid columns={[1, 2, 3]} spacing="4">
       {userIsAdmin &&
         adminItems.map((item) => (
-          <Card>
+          <Card key={item.name}>
             <CardHeader>{item.name}</CardHeader>
             <CardBody>icon</CardBody>
           </Card>
         ))}
       {!userIsAdmin &&
         clientItems.map((item) => (
-          <Card>
+          <Card key={item.name}>
             <CardHeader>{item.name}</CardHeader>
             <CardBody>icon</CardBody>
           </Card>

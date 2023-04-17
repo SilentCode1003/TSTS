@@ -1,13 +1,7 @@
-import { BellIcon, Search2Icon } from '@chakra-ui/icons'
-import {
-  Box,
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Spacer,
-} from '@chakra-ui/react'
+import { Search2Icon } from '@chakra-ui/icons'
+import { Flex, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React from 'react'
+import NotificationBell from './NotificationBell'
 
 const TopBar = () => {
   return (
@@ -32,18 +26,7 @@ const TopBar = () => {
         />
       </InputGroup>
 
-      <Box position="relative">
-        <BellIcon boxSize="8" color="white" />
-        <Box
-          h="3"
-          w="3"
-          borderRadius="full"
-          position="absolute"
-          bottom="0"
-          right="0"
-          bg="red.300"
-        ></Box>
-      </Box>
+      <NotificationBell />
     </Flex>
   )
 }

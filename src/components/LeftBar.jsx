@@ -6,8 +6,8 @@ import UserCard from './UserCard'
 
 const LeftBar = () => {
   return (
-    <Box>
-      <Grid>
+    <Box p={[2, null, 3]} bg="purple.400">
+      <Grid h="100%" templateRows="2fr 2fr 8fr">
         <GridItem>
           <Logo />
         </GridItem>

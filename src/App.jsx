@@ -6,10 +6,10 @@ import TopBar from './components/TopBar'
 
 const App = () => {
   return (
-    <Grid templateColumns={['100px 1fr', null, '250px 1fr']}>
+    <Grid templateColumns={['120px 1fr', null, '250px 1fr']}>
       <LeftBar />
 
-      <Box h="100vh">
+      <Box h="100vh" overflowY="auto">
         <Grid templateRows="64px 1fr">
           <TopBar />
 

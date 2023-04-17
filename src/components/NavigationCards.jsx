@@ -82,7 +82,7 @@ const NavigationCards = () => {
             role="group"
             cursor="pointer"
           >
-            <CardHeader>{item.name}</CardHeader>
+            <CardHeader h="70px">{item.name}</CardHeader>
             <CardBody fontSize="6xl">
               <Flex
                 alignItems="center"

@@ -13,7 +13,7 @@ const TopBar = () => {
   return (
     <Flex
       p={[2, null, 3]}
-      bg="purple.300"
+      bg="purple.400"
       alignItems="center"
       justifyContent="space-between"
       gap="4"

@@ -6,7 +6,12 @@ import UserCard from './UserCard'
 
 const LeftBar = () => {
   return (
-    <Box p={[2, null, 3]} bg="purple.400">
+    <Box
+      p={[2, null, 3]}
+      bg="purple.400"
+      borderRight="2px"
+      borderColor="purple.500"
+    >
       <Grid h="100%" templateRows="2fr 2fr 8fr">
         <GridItem>
           <Logo />

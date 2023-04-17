@@ -4,7 +4,7 @@ import React from 'react'
 const TopCardsItem = ({ header, children }) => {
   return (
     <Card>
-      <CardHeader minH="88px">
+      <CardHeader maxH="64px">
         <Text size="md">{header}</Text>
       </CardHeader>
       <CardBody noOfLines="1">

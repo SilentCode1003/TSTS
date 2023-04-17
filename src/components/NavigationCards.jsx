@@ -1,4 +1,5 @@
-import { Card, CardBody, CardHeader, Flex, SimpleGrid } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
+import React from 'react'
 import {
   MdAssignmentAdd,
   MdChat,
@@ -9,7 +10,7 @@ import {
   MdSettings,
   MdTrackChanges,
 } from 'react-icons/md'
-import React from 'react'
+import { NavigationCard } from './NavigationCard'
 
 export const adminItems = [
   {
@@ -74,41 +75,12 @@ const NavigationCards = () => {
     <SimpleGrid columns={[1, 2, 3]} spacing="4">
       {userIsAdmin &&
         adminItems.map((item) => (
-          <Card
-            key={item.name}
-            _hover={{
-              shadow: 'md',
-            }}
-            role="group"
-            cursor="pointer"
-          >
-            <CardHeader h="70px">{item.name}</CardHeader>
-            <CardBody fontSize="6xl">
-              <Flex
-                alignItems="center"
-                justifyContent="center"
-                color="gray.600"
-                _groupHover={{
-                  color: 'purple.400',
-                }}
-                transition="color 250ms ease"
-              >
-                {item.icon}
-              </Flex>
-            </CardBody>
-          </Card>
+          <NavigationCard key={item.name} item={item} />
         ))}
 
       {!userIsAdmin &&
         clientItems.map((item) => (
-          <Card key={item.name}>
-            <CardHeader>{item.name}</CardHeader>
-            <CardBody fontSize="4xl">
-              <Flex alignItems="center" justifyContent="center">
-                {item.icon}
-              </Flex>
-            </CardBody>
-          </Card>
+          <NavigationCard key={item.name} item={item} />
         ))}
     </SimpleGrid>
   )

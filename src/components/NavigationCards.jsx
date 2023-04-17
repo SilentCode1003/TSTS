@@ -91,6 +91,7 @@ const NavigationCards = () => {
                 _groupHover={{
                   color: 'purple.400',
                 }}
+                transition="color 250ms ease"
               >
                 {item.icon}
               </Flex>

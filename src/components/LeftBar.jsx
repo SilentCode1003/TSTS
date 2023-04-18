@@ -15,30 +15,16 @@ const LeftBar = () => {
   return (
     <Box
       p={[2, null, 3]}
-      w={isCollapsed ? '100px' : '250px'}
+      h="100vh"
+      w={isCollapsed ? '150px' : '250px'}
       bg="purple.400"
       borderRight="2px"
       borderColor="purple.500"
-      position="relative"
       transition="width 250ms ease"
+      overflowY="auto"
+      overflowX="hidden"
     >
-      <Circle
-        as="button"
-        size="8"
-        bg="white"
-        position="absolute"
-        top="13%"
-        right={isCollapsed ? '-17.5%' : '-7%'} // Arbitrary values only :(
-        border="2px"
-        borderColor="purple.500"
-        onClick={toggleCollapse}
-        color="purple.500"
-        fontSize="2xl"
-        transition="all 250ms ease"
-      >
-        {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-      </Circle>
-      <Grid h="100%" templateRows="2fr 2fr 8fr">
+      <Grid gap="4">
         <GridItem>
           <Logo />
         </GridItem>
@@ -48,8 +34,23 @@ const LeftBar = () => {
         </GridItem>
 
         <GridItem>
-          <NavigationLinks />
+          <NavigationLinks isCollapsed={isCollapsed} />
         </GridItem>
+
+        <Circle
+          as="button"
+          size="8"
+          bg="white"
+          border="2px"
+          borderColor="purple.500"
+          onClick={toggleCollapse}
+          color="purple.500"
+          fontSize="2xl"
+          transition="all 250ms ease"
+          placeSelf="center"
+        >
+          {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </Circle>
       </Grid>
     </Box>
   )

@@ -30,22 +30,22 @@ export const adminItems = [
   },
   {
     name: 'Knowledge Base',
-    url: '/admin//knowledge-base',
+    url: '/admin/knowledge-base',
     icon: <MdLightbulb />,
   },
   {
     name: 'Reporting',
-    url: '/admin//reporting',
+    url: '/admin/reporting',
     icon: <MdReport />,
   },
   {
     name: 'Communication',
-    url: '/admin//communication',
+    url: '/admin/communication',
     icon: <MdChat />,
   },
   {
     name: 'Automation',
-    url: '/admin//automation',
+    url: '/admin/automation',
     icon: <MdSettings />,
   },
 ]

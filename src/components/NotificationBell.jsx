@@ -33,8 +33,8 @@ const NotificationBell = () => {
     <Box position="relative">
       <Popover>
         <PopoverTrigger>
-          <Box>
-            <BellIcon boxSize="8" color="white" cursor="pointer" />
+          <Box cursor="pointer">
+            <BellIcon boxSize="8" color="white" />
             <NotificationBellCircle />
           </Box>
         </PopoverTrigger>

@@ -9,7 +9,7 @@ const TopCards = () => {
 
       <TopCardsItem header="Urgent Tickets">12</TopCardsItem>
 
-      <GridItem colSpan="2" rowSpan="2">
+      <GridItem colSpan={[1, null, 2]} rowSpan="2">
         <TopCardsItem header="Resolved vs Unresolved Tickets"></TopCardsItem>
       </GridItem>
     </SimpleGrid>

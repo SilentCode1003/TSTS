@@ -4,9 +4,11 @@ import React from 'react'
 const TopCardsItem = ({ header, children }) => {
   return (
     <Card>
-      <CardHeader maxH="64px">
-        <Text size="md">{header}</Text>
-      </CardHeader>
+      {header && (
+        <CardHeader maxH="64px">
+          <Text size="md">{header}</Text>
+        </CardHeader>
+      )}
       <CardBody noOfLines="1">
         <Stack>
           <Text as="b" fontSize="3xl" textAlign="end">

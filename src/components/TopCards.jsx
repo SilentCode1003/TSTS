@@ -1,6 +1,7 @@
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import TopCardsItem from './TopCardsItem'
+import BarGraph from './BarGraph'
 
 const TopCards = () => {
   return (
@@ -10,7 +11,9 @@ const TopCards = () => {
       <TopCardsItem header="Urgent Tickets">12</TopCardsItem>
 
       <GridItem colSpan={[1, 2]} rowSpan="2">
-        <TopCardsItem header="Resolved vs Unresolved Tickets"></TopCardsItem>
+        <TopCardsItem>
+          <BarGraph />
+        </TopCardsItem>
       </GridItem>
     </SimpleGrid>
   )

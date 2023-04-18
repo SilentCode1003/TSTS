@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import loadable from '@loadable/component'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
@@ -6,16 +7,16 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
 import AdminLayout from './layouts/AdminLayout'
 import ClientLayout from './layouts/ClientLayout'
-import Automation from './pages/Automation'
-import Communication from './pages/Communication'
-import Dashboard from './pages/Dashboard'
-import KnowledgeBase from './pages/KnowledgeBase'
-import Login from './pages/Login'
-import NotFound from './pages/NotFound'
-import Reporting from './pages/Reporting'
-import TicketAssignment from './pages/TicketAssignment'
-import TicketSubmission from './pages/TicketSubmission'
-import TicketTracking from './pages/TicketTracking'
+const Automation = loadable(() => import('./pages/Automation'))
+const Communication = loadable(() => import('./pages/Communication'))
+const Dashboard = loadable(() => import('./pages/Dashboard'))
+const KnowledgeBase = loadable(() => import('./pages/KnowledgeBase'))
+const Login = loadable(() => import('./pages/Login'))
+const NotFound = loadable(() => import('./pages/NotFound'))
+const Reporting = loadable(() => import('./pages/Reporting'))
+const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
+const TicketSubmission = loadable(() => import('./pages/TicketSubmission'))
+const TicketTracking = loadable(() => import('./pages/TicketTracking'))
 
 const router = createBrowserRouter([
   {

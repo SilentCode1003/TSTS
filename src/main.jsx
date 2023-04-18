@@ -7,6 +7,7 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
 import AdminLayout from './layouts/AdminLayout'
 import ClientLayout from './layouts/ClientLayout'
+const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/Automation'))
 const Communication = loadable(() => import('./pages/Communication'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
@@ -60,6 +61,12 @@ const router = createBrowserRouter([
       {
         path: '/admin/knowledge-base',
         element: <KnowledgeBase />,
+        children: [
+          {
+            path: '/admin/knowledge-base/:topicId',
+            element: <KnowledgeContent />,
+          },
+        ],
       },
       {
         path: '/admin/reporting',

@@ -2,8 +2,10 @@ import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import App from './App'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
+import ClientProtectedRoute from './components/ClientProtectedRoute'
+import AdminLayout from './layouts/App'
+import ClientLayout from './layouts/ClientLayout'
 import Automation from './pages/Automation'
 import Communication from './pages/Communication'
 import Dashboard from './pages/Dashboard'
@@ -12,6 +14,7 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Reporting from './pages/Reporting'
 import TicketAssignment from './pages/TicketAssignment'
+import TicketSubmission from './pages/TicketSubmission'
 import TicketTracking from './pages/TicketTracking'
 
 const router = createBrowserRouter([
@@ -37,7 +40,7 @@ const router = createBrowserRouter([
     path: '/admin',
     element: (
       <AdminProtectedRoute>
-        <App />
+        <AdminLayout />
       </AdminProtectedRoute>
     ),
     children: [

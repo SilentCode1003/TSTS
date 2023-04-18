@@ -15,37 +15,37 @@ import { NavigationCard } from './NavigationCard'
 export const adminItems = [
   {
     name: 'Dashboard',
-    url: '/',
+    url: '/admin',
     icon: <MdDashboard />,
   },
   {
     name: 'Ticket Assignment',
-    url: '/ticket-assignment',
+    url: '/admin/ticket-assignment',
     icon: <MdAssignmentAdd />,
   },
   {
     name: 'Ticket Tracking',
-    url: '/ticket-tracking',
+    url: '/admin/ticket-tracking',
     icon: <MdTrackChanges />,
   },
   {
     name: 'Knowledge Base',
-    url: '/knowledge-base',
+    url: '/admin//knowledge-base',
     icon: <MdLightbulb />,
   },
   {
     name: 'Reporting',
-    url: '/reporting',
+    url: '/admin//reporting',
     icon: <MdReport />,
   },
   {
     name: 'Communication',
-    url: '/communication',
+    url: '/admin//communication',
     icon: <MdChat />,
   },
   {
     name: 'Automation',
-    url: '/automation',
+    url: '/admin//automation',
     icon: <MdSettings />,
   },
 ]
@@ -53,17 +53,17 @@ export const adminItems = [
 export const clientItems = [
   {
     name: 'Dashboard',
-    url: '/client',
+    url: '/',
     icon: <MdDashboard />,
   },
   {
     name: 'Ticket Submission',
-    url: '/client/ticket-submission',
+    url: '/ticket-submission',
     icon: <MdNewspaper />,
   },
   {
     name: 'Communication',
-    url: '/client/communication',
+    url: '/communication',
     icon: <MdChat />,
   },
 ]

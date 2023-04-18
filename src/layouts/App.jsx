@@ -1,10 +1,10 @@
 import { Box, Flex, Grid } from '@chakra-ui/react'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import LeftBar from './components/LeftBar'
-import TopBar from './components/TopBar'
+import LeftBar from '../components/LeftBar'
+import TopBar from '../components/TopBar'
 
-const App = () => {
+const AdminLayout = () => {
   return (
     <Flex>
       <LeftBar />
@@ -20,4 +20,4 @@ const App = () => {
   )
 }
 
-export default App
+export default AdminLayout

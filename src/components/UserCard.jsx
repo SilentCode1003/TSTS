@@ -22,7 +22,7 @@ const UserCard = () => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Avatar size="xl" cursor="pointer" src="" />
+        <Avatar size="xl" bg="purple.600" cursor="pointer" src="" />
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />
@@ -30,8 +30,8 @@ const UserCard = () => {
         <PopoverHeader>User</PopoverHeader>
         <PopoverBody>
           <VStack>
-            <Box>
-              <Button colorScheme="purple" onClick={handleLogout}>
+            <Box w="100%">
+              <Button w="100%" colorScheme="purple" onClick={handleLogout}>
                 Logout
               </Button>
             </Box>

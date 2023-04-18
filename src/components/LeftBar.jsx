@@ -1,4 +1,4 @@
-import { Box, Circle, Grid, GridItem } from '@chakra-ui/react'
+import { Box, Button, Circle, Grid, GridItem } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import Logo from './Logo'
 import NavigationLinks from './NavigationLinks'
@@ -37,20 +37,15 @@ const LeftBar = () => {
           <NavigationLinks isCollapsed={isCollapsed} />
         </GridItem>
 
-        <Circle
-          as="button"
-          size="8"
-          bg="white"
-          border="2px"
-          borderColor="purple.500"
+        <Button
+          colorScheme="purple"
           onClick={toggleCollapse}
-          color="purple.500"
           fontSize="2xl"
           transition="all 250ms ease"
           placeSelf="center"
         >
           {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-        </Circle>
+        </Button>
       </Grid>
     </Box>
   )

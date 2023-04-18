@@ -25,7 +25,7 @@ const NavigationLink = ({ item, isCollapsed }) => {
         }}
       >
         <Box fontSize="3xl">{item.icon}</Box>
-        <Box fontSize={isCollapsed ? 'sm' : 'base'}>{item.name}</Box>
+        <Box fontSize={isCollapsed ? 'sm' : 'md'}>{item.name}</Box>
       </Flex>
     </Link>
   )

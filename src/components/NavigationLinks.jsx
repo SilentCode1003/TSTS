@@ -11,6 +11,7 @@ const NavigationLink = ({ item, isCollapsed }) => {
       _activeLink={{ backgroundColor: 'purple.500' }}
       w="100%"
       role="group"
+      p={isCollapsed ? '1' : '3'}
       end
     >
       <Flex
@@ -36,7 +37,7 @@ const NavigationLinks = ({ isCollapsed }) => {
   return (
     <VStack
       alignItems={isCollapsed ? 'center' : 'start'}
-      spacing={isCollapsed ? '3' : '4'}
+      spacing={isCollapsed ? '1' : '2'}
     >
       {isAdmin
         ? adminItems.map((item) => (

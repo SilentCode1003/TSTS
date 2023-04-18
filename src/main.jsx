@@ -3,27 +3,71 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App'
-import ProtectedRoute from './components/ProtectedRoute'
+import AdminProtectedRoute from './components/AdminProtectedRoute'
+import Automation from './pages/Automation'
+import Communication from './pages/Communication'
 import Dashboard from './pages/Dashboard'
+import KnowledgeBase from './pages/KnowledgeBase'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
+import Reporting from './pages/Reporting'
+import TicketAssignment from './pages/TicketAssignment'
+import TicketTracking from './pages/TicketTracking'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <ProtectedRoute>
-        <App />
-      </ProtectedRoute>
+      <ClientProtectedRoute>
+        <ClientLayout />
+      </ClientProtectedRoute>
     ),
     children: [
       {
-        path: '/',
+        path: '/ticket-submission',
+        element: <TicketSubmission />,
+      },
+      {
+        path: '/communication',
+        element: <Communication />,
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    element: (
+      <AdminProtectedRoute>
+        <App />
+      </AdminProtectedRoute>
+    ),
+    children: [
+      {
+        path: '/admin',
         element: <Dashboard />,
       },
       {
-        path: '/ticket-submission',
-        element: <div>Ticket Submission</div>,
+        path: '/admin/ticket-assignment',
+        element: <TicketAssignment />,
+      },
+      {
+        path: '/admin/ticket-tracking',
+        element: <TicketTracking />,
+      },
+      {
+        path: '/admin/knowledge-base',
+        element: <KnowledgeBase />,
+      },
+      {
+        path: '/admin/reporting',
+        element: <Reporting />,
+      },
+      {
+        path: '/admin/communication',
+        element: <Communication />,
+      },
+      {
+        path: '/admin/automation',
+        element: <Automation />,
       },
     ],
   },

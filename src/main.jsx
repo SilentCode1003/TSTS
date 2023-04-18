@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
@@ -101,6 +102,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ChakraProvider>
         <RouterProvider router={router} />
       </ChakraProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>
 )

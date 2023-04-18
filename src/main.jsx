@@ -1,12 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import loadable from '@loadable/component'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
-import AdminLayout from './layouts/AdminLayout'
-import ClientLayout from './layouts/ClientLayout'
+const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
+const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/Automation'))
 const Communication = loadable(() => import('./pages/Communication'))
@@ -18,6 +19,8 @@ const Reporting = loadable(() => import('./pages/Reporting'))
 const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
 const TicketSubmission = loadable(() => import('./pages/TicketSubmission'))
 const TicketTracking = loadable(() => import('./pages/TicketTracking'))
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
@@ -94,8 +97,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ChakraProvider>
-      <RouterProvider router={router} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 )

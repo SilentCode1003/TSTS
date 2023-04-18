@@ -31,7 +31,7 @@ const NotificationBellCircle = () => {
 const NotificationBell = () => {
   return (
     <Box position="relative">
-      <Popover>
+      <Popover isLazy>
         <PopoverTrigger>
           <Box cursor="pointer">
             <BellIcon boxSize="8" color="white" />

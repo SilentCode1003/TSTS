@@ -24,12 +24,12 @@ const LeftBar = () => {
       overflowY="auto"
       overflowX="hidden"
     >
-      <Grid gap="4">
+      <Grid gap="8">
         <GridItem>
           <Logo />
         </GridItem>
 
-        <GridItem>
+        <GridItem placeSelf="center">
           <UserCard />
         </GridItem>
 

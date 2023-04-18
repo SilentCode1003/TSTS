@@ -1,12 +1,15 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import loadable from '@loadable/component'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+const KnowledgeBaseDefault = loadable(() =>
+  import('./pages/KnowledgeBaseDefault')
+)
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
@@ -66,6 +69,10 @@ const router = createBrowserRouter([
         path: '/admin/knowledge-base',
         element: <KnowledgeBase />,
         children: [
+          {
+            path: '/admin/knowledge-base',
+            element: <KnowledgeBaseDefault />,
+          },
           {
             path: '/admin/knowledge-base/:topicId',
             element: <KnowledgeContent />,

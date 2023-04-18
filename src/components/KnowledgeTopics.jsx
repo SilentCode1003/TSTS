@@ -6,9 +6,10 @@ import {
   InputLeftElement,
   Link,
   Spinner,
+  Text,
   VStack,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../api/knowledge-base/getTopics'
 
@@ -32,9 +33,10 @@ const KnowledgeTopics = () => {
       </InputGroup>
 
       <VStack alignItems="start">
-        {isLoading && <Spinner />}
+        {isLoading && <Spinner color="purple.500" />}
+        {error && <Text color="red">{error.message}</Text>}
 
-        {knowledgeTopics?.map((topic) => (
+        {knowledgeTopics?.data?.map((topic) => (
           <Link
             key={topic.id}
             as={NavLink}
@@ -46,8 +48,6 @@ const KnowledgeTopics = () => {
             {topic.title}
           </Link>
         ))}
-
-        {error && <p>{error.message}</p>}
       </VStack>
     </VStack>
   )

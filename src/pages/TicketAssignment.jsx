@@ -1,3 +1,4 @@
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -17,12 +18,12 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
+import { useGetIssue } from '../api/ticket-assignment/getIssue'
 import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
 import TicketAssignmentTable from '../components/TicketAssignmentTable'
-import { useGetIssue } from '../api/ticket-assignment/getIssue'
 import { filesToBase64 } from '../utils/convertToBase64'
 
 const TicketAssignment = () => {
@@ -261,10 +262,18 @@ const TicketAssignment = () => {
 
           <VStack mt="4">
             <ButtonGroup justifyContent="center">
-              <Button type="submit" colorScheme="purple">
+              <Button
+                leftIcon={<CheckIcon />}
+                type="submit"
+                colorScheme="purple"
+              >
                 Submit
               </Button>
-              <Button type="reset" onClick={() => reset()}>
+              <Button
+                leftIcon={<CloseIcon />}
+                type="reset"
+                onClick={() => reset()}
+              >
                 Reset
               </Button>
             </ButtonGroup>

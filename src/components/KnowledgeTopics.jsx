@@ -12,6 +12,7 @@ import {
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../api/knowledge-base/getTopics'
+import LoadingSpinner from './UI/LoadingSpinner'
 
 const KnowledgeTopics = () => {
   const { isLoading, error, data: knowledgeTopics } = useGetTopics()
@@ -32,8 +33,8 @@ const KnowledgeTopics = () => {
         />
       </InputGroup>
 
-      <VStack alignItems="start">
-        {isLoading && <Spinner color="purple.500" />}
+      <VStack w="100%" alignItems="start">
+        {isLoading && <LoadingSpinner />}
         {error && <Text color="red">{error.message}</Text>}
 
         {knowledgeTopics?.data?.map((topic) => (

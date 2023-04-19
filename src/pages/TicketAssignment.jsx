@@ -20,6 +20,7 @@ import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
+import { usePostTicket } from '../api/ticket-assignment/postTicket'
 
 const TicketAssignment = () => {
   const concerns = useGetConcern()
@@ -27,6 +28,7 @@ const TicketAssignment = () => {
   const priorities = useGetPriority()
   const statuses = useGetStatus()
   const personnel = useGetPersonel()
+  const uploadTicket = usePostTicket()
 
   const {
     handleSubmit,
@@ -40,7 +42,7 @@ const TicketAssignment = () => {
   const watchPersonnel = watch('assignedTo')
 
   const onSubmit = (data) => {
-    console.log(data)
+    uploadTicket.mutate(data)
   }
 
   useEffect(() => {
@@ -59,7 +61,7 @@ const TicketAssignment = () => {
   }, [watchPersonnel])
 
   return (
-    <Box p="4">
+    <Box p="8">
       <Flex direction="column" gap="8">
         <Heading textAlign="center" size={['lg', null, 'xl']}>
           Ticket Assignment

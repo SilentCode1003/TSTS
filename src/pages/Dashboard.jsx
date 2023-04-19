@@ -5,7 +5,7 @@ import NavigationCards from '../components/NavigationCards'
 
 const Dashboard = () => {
   return (
-    <Box p="4">
+    <Box p="8">
       <Stack direction="column" spacing="8">
         <Heading textAlign="center" size={['lg', null, 'xl']}>
           Dashboard

@@ -5,7 +5,7 @@ import KnowledgeTopics from '../components/KnowledgeTopics'
 
 const KnowledgeBase = () => {
   return (
-    <Flex direction={['column', null, 'row']} p="4" gap="8">
+    <Flex direction={['column', null, 'row']} p="8" gap="8">
       <Box w={['auto', null, '250px']}>
         <KnowledgeTopics />
       </Box>

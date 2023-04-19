@@ -5,13 +5,14 @@ import {
   InputGroup,
   InputLeftElement,
   Link,
-  Text,
   VStack,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../api/knowledge-base/getTopics'
-import LoadingSpinner from './UI/LoadingSpinner'
+import loadable from '@loadable/component'
+const ErrorMessage = loadable(() => import('./UI/ErrorMessage'))
+const LoadingSpinner = loadable(() => import('./UI/LoadingSpinner'))
 
 const KnowledgeTopics = () => {
   const { isLoading, error, data: knowledgeTopics } = useGetTopics()
@@ -40,7 +41,7 @@ const KnowledgeTopics = () => {
 
       <VStack w="100%" alignItems="start">
         {isLoading && <LoadingSpinner />}
-        {error && <Text color="red">{error.message}</Text>}
+        {error && <ErrorMessage>{error.message}</ErrorMessage>}
 
         {filteredTopics?.map((topic) => (
           <Link

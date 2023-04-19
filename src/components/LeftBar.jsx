@@ -16,7 +16,7 @@ const LeftBar = () => {
     <Box
       p={[2, null, 3]}
       h="100vh"
-      w={isCollapsed ? '150px' : '250px'}
+      w={isCollapsed ? '120px' : '250px'}
       bg="purple.400"
       borderRight="2px"
       borderColor="purple.500"

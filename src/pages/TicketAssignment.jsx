@@ -74,7 +74,7 @@ const TicketAssignment = () => {
   }, [watchPersonnel])
 
   return (
-    <Box p="8">
+    <Box p={['4', null, '8']}>
       <Flex direction="column" gap="8">
         <Heading textAlign="center" size={['lg', null, 'xl']}>
           Ticket Assignment

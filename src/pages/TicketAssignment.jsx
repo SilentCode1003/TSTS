@@ -22,9 +22,12 @@ import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
 import TicketAssignmentTable from '../components/TicketAssignmentTable'
+import { useGetIssue } from '../api/ticket-assignment/getIssue'
+import { filesToBase64 } from '../utils/convertToBase64'
 
 const TicketAssignment = () => {
   const concerns = useGetConcern()
+  const { data: posIssues, mutate: getIssue } = useGetIssue()
   const clients = useGetClient()
   const priorities = useGetPriority()
   const statuses = useGetStatus()
@@ -39,12 +42,21 @@ const TicketAssignment = () => {
     setValue,
     watch,
   } = useForm()
-  const watchRequester = watch('requester')
+  const watchConcern = watch('concernType')
+  const watchRequester = watch('requesterName')
   const watchPersonnel = watch('assignedTo')
 
   const onSubmit = (data) => {
+    const fileListArray = Array.from(data.attachments)
+    const base64FilesArray = filesToBase64(fileListArray)
+    data.attachments = base64FilesArray
+    console.log(data)
     uploadTicket.mutate(data)
   }
+
+  useEffect(() => {
+    getIssue(watchConcern)
+  }, [watchConcern])
 
   useEffect(() => {
     setValue(
@@ -71,23 +83,24 @@ const TicketAssignment = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid gap="4">
             {/* title - /concern
+            issue type - /WIP
             requester - /client
             requester email - /client
             description
             priority - /priority
-            status - WIP
+            status - /status
             assigned to - /personel
             department - /personel
             attachments
             comments
             */}
-            <FormControl isInvalid={errors.title}>
-              <FormLabel htmlFor="title">Title</FormLabel>
+            <FormControl isInvalid={errors.concernType}>
+              <FormLabel htmlFor="concern-type">Concern Type</FormLabel>
 
               <Select
-                id="title"
-                {...register('title', { required: true })}
-                placeholder="Select a title"
+                id="concern-type"
+                {...register('concernType', { required: true })}
+                placeholder="Select concern type"
               >
                 {concerns.data?.data.map((concern) => (
                   <option key={concern.concerncode} value={concern.concernname}>
@@ -99,12 +112,30 @@ const TicketAssignment = () => {
               <FormErrorMessage>This field is required</FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={errors.requester}>
-              <FormLabel htmlFor="requester">Requester</FormLabel>
+            <FormControl isInvalid={errors.issueType}>
+              <FormLabel htmlFor="issue-type">Issue Type</FormLabel>
 
               <Select
-                id="requester"
-                {...register('requester', { required: true })}
+                id="issue-type"
+                {...register('issueType', { required: true })}
+                placeholder="Select issue type"
+              >
+                {posIssues?.data?.map((issue) => (
+                  <option key={issue.issuecode} value={issue.issuename}>
+                    {issue.issuename}
+                  </option>
+                ))}
+              </Select>
+
+              <FormErrorMessage>This field is required</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.requesterName}>
+              <FormLabel htmlFor="requester-name">Requester Name</FormLabel>
+
+              <Select
+                id="requester-name"
+                {...register('requesterName', { required: true })}
                 placeholder="Select name"
               >
                 {clients.data?.data.map((client) => (
@@ -161,13 +192,13 @@ const TicketAssignment = () => {
               <FormErrorMessage>This field is required</FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={errors.status}>
-              <FormLabel htmlFor="status">Status</FormLabel>
+            <FormControl isInvalid={errors.ticketStatus}>
+              <FormLabel htmlFor="ticket-status">Ticket Status</FormLabel>
 
               <Select
-                id="status"
-                {...register('status', { required: true })}
-                placeholder="Select status"
+                id="ticket-status"
+                {...register('ticketStatus', { required: true })}
+                placeholder="Select ticket status"
               >
                 {statuses.data?.data.map((status) => (
                   <option key={status.statuscode} value={status.statusname}>

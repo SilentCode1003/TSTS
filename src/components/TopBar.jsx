@@ -12,7 +12,7 @@ const TopBar = () => {
       justifyContent="space-between"
       gap="4"
     >
-      <InputGroup w={['90%', null, '50%']}>
+      <InputGroup w={['90%', null, '380px']}>
         <InputLeftElement
           pointerEvents="none"
           children={<Search2Icon color="gray.300" />}

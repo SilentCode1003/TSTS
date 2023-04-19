@@ -21,6 +21,7 @@ import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
+import TicketAssignmentTable from '../components/TicketAssignmentTable'
 
 const TicketAssignment = () => {
   const concerns = useGetConcern()
@@ -238,6 +239,8 @@ const TicketAssignment = () => {
             </ButtonGroup>
           </VStack>
         </form>
+
+        <TicketAssignmentTable />
       </Flex>
     </Box>
   )

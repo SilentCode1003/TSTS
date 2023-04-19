@@ -5,17 +5,20 @@ import {
   InputGroup,
   InputLeftElement,
   Link,
-  Spinner,
   Text,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../api/knowledge-base/getTopics'
 import LoadingSpinner from './UI/LoadingSpinner'
 
 const KnowledgeTopics = () => {
   const { isLoading, error, data: knowledgeTopics } = useGetTopics()
+  const [searchTerm, setSearchTerm] = useState('')
+  const filteredTopics = knowledgeTopics?.data?.filter((topic) => {
+    return `${topic.title}`.toLowerCase().includes(searchTerm.toLowerCase())
+  })
 
   return (
     <VStack alignItems="start" spacing="8">
@@ -30,6 +33,8 @@ const KnowledgeTopics = () => {
           variant="outline"
           colorScheme="purple"
           placeholder="Search topics"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </InputGroup>
 
@@ -37,7 +42,7 @@ const KnowledgeTopics = () => {
         {isLoading && <LoadingSpinner />}
         {error && <Text color="red">{error.message}</Text>}
 
-        {knowledgeTopics?.data?.map((topic) => (
+        {filteredTopics?.map((topic) => (
           <Link
             key={topic.id}
             as={NavLink}

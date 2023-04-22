@@ -103,11 +103,15 @@ const TicketAssignment = () => {
                 {...register('concernType', { required: true })}
                 placeholder="Select concern type"
               >
-                {concerns.data?.data.map((concern) => (
-                  <option key={concern.concerncode} value={concern.concernname}>
-                    {concern.concernname}
-                  </option>
-                ))}
+                {concerns.data?.length > 0 &&
+                  concerns.data?.data.map((concern) => (
+                    <option
+                      key={concern.concerncode}
+                      value={concern.concernname}
+                    >
+                      {concern.concernname}
+                    </option>
+                  ))}
               </Select>
 
               <FormErrorMessage>This field is required</FormErrorMessage>
@@ -121,11 +125,12 @@ const TicketAssignment = () => {
                 {...register('issueType', { required: true })}
                 placeholder="Select issue type"
               >
-                {posIssues?.data?.map((issue) => (
-                  <option key={issue.issuecode} value={issue.issuename}>
-                    {issue.issuename}
-                  </option>
-                ))}
+                {posIssues?.data?.length > 0 &&
+                  posIssues?.data?.map((issue) => (
+                    <option key={issue.issuecode} value={issue.issuename}>
+                      {issue.issuename}
+                    </option>
+                  ))}
               </Select>
 
               <FormErrorMessage>This field is required</FormErrorMessage>
@@ -139,11 +144,12 @@ const TicketAssignment = () => {
                 {...register('requesterName', { required: true })}
                 placeholder="Select name"
               >
-                {clients.data?.data.map((client) => (
-                  <option key={client.clientid} value={client.fullname}>
-                    {client.fullname}
-                  </option>
-                ))}
+                {clients?.data?.length > 0 &&
+                  clients.data?.data.map((client) => (
+                    <option key={client.clientid} value={client.fullname}>
+                      {client.fullname}
+                    </option>
+                  ))}
               </Select>
 
               <FormErrorMessage>This field is required</FormErrorMessage>
@@ -180,14 +186,15 @@ const TicketAssignment = () => {
                 {...register('priority', { required: true })}
                 placeholder="Select priority"
               >
-                {priorities.data?.data.map((priority) => (
-                  <option
-                    key={priority.prioritycode}
-                    value={priority.priorityname}
-                  >
-                    {priority.priorityname}
-                  </option>
-                ))}
+                {priorities.data?.length > 0 &&
+                  priorities.data?.data.map((priority) => (
+                    <option
+                      key={priority.prioritycode}
+                      value={priority.priorityname}
+                    >
+                      {priority.priorityname}
+                    </option>
+                  ))}
               </Select>
 
               <FormErrorMessage>This field is required</FormErrorMessage>
@@ -201,11 +208,12 @@ const TicketAssignment = () => {
                 {...register('ticketStatus', { required: true })}
                 placeholder="Select ticket status"
               >
-                {statuses.data?.data.map((status) => (
-                  <option key={status.statuscode} value={status.statusname}>
-                    {status.statusname}
-                  </option>
-                ))}
+                {statuses.data?.length > 0 &&
+                  statuses.data?.data.map((status) => (
+                    <option key={status.statuscode} value={status.statusname}>
+                      {status.statusname}
+                    </option>
+                  ))}
               </Select>
 
               <FormErrorMessage>This field is required</FormErrorMessage>
@@ -219,11 +227,12 @@ const TicketAssignment = () => {
                 {...register('assignedTo', { required: true })}
                 placeholder="Select a personnel"
               >
-                {personnel.data?.data.map((person) => (
-                  <option key={person.personelid} value={person.fullname}>
-                    {person.fullname}
-                  </option>
-                ))}
+                {personnel.data?.length > 0 &&
+                  personnel.data?.data.map((person) => (
+                    <option key={person.personelid} value={person.fullname}>
+                      {person.fullname}
+                    </option>
+                  ))}
               </Select>
 
               <FormErrorMessage>This field is required</FormErrorMessage>

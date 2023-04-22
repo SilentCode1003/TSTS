@@ -1,13 +1,16 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { axios } from '../axios'
 
-export const getContent = (id) => {
-  return axios.get(`/topics/${id}`)
+export const getContent = async (ticketname) => {
+  const res = await axios.post('/issue/getContent', {
+    ticketname: ticketname,
+  })
+  return res.data
 }
 
-export const useGetContent = (topicId) => {
-  return useQuery({
-    queryKey: ['topics', topicId],
-    queryFn: () => getContent(topicId),
+export const useGetContent = () => {
+  return useMutation({
+    mutationKey: ['content'],
+    mutationFn: (ticketname) => getContent(ticketname),
   })
 }

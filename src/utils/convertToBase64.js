@@ -1,12 +1,16 @@
 export function filesToBase64(files) {
-  const result = []
+  let result = ''
   for (let i = 0; i < files.length; i++) {
     const reader = new FileReader()
     reader.readAsDataURL(files[i])
     reader.onload = () => {
-      const base64 = reader.result.split(',')[1]
-      result.push(base64)
+      const base64String = reader.result
+        .replace('data:', '')
+        .replace(/^.+,/, '')
+      result += base64String + ' -- '
+      console.log(result)
     }
   }
+
   return result
 }

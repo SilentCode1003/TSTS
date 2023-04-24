@@ -50,9 +50,26 @@ const TicketAssignment = () => {
   const onSubmit = (data) => {
     const fileListArray = Array.from(data.attachments)
     const base64FilesArray = filesToBase64(fileListArray)
-    data.attachments = base64FilesArray
+    data.concerntype = data.concernType
+    delete data.concernType
+    data.issuetype = data.issueType
+    delete data.issueType
+    data.requestername = data.requesterName
+    delete data.requesterName
+    data.requesteremail = data.requesterEmail
+    delete data.requesterEmail
+    data.ticketstatus = data.ticketStatus
+    delete data.ticketStatus
+    data.assignedto = data.assignedTo
+    delete data.assignedTo
+    data.prioritytype = data.priority
+    delete data.priority
+    data.attachment = base64FilesArray
+    delete data.attachments
+    data.comment = data.comments
+    delete data.comments
     console.log(data)
-    uploadTicket.mutate(data)
+    // uploadTicket.mutate(data)
   }
 
   useEffect(() => {

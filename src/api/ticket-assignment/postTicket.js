@@ -1,8 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { axios } from '../axios'
 
 export const postTicket = async (newTicket) => {
-  const res = await axios.post('/ticket/save', newTicket)
+  const res = await axios.post('/assignticket/save', newTicket)
   return res.data
 }
 

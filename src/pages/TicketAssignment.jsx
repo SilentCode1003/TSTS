@@ -47,9 +47,9 @@ const TicketAssignment = () => {
   const watchRequester = watch('requesterName')
   const watchPersonnel = watch('assignedTo')
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const fileListArray = Array.from(data.attachments)
-    const base64FilesArray = filesToBase64(fileListArray)
+    const base64FilesArray = await filesToBase64(fileListArray)
     data.concerntype = data.concernType
     delete data.concernType
     data.issuetype = data.issueType
@@ -69,7 +69,7 @@ const TicketAssignment = () => {
     data.comment = data.comments
     delete data.comments
     console.log(data)
-    // uploadTicket.mutate(data)
+    uploadTicket.mutate(data)
   }
 
   useEffect(() => {
@@ -117,7 +117,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="concern-type"
-                {...register('concernType', { required: true })}
+                {...register('concernType', { required: false })}
                 placeholder="Select concern type"
               >
                 {concerns.data?.data.map((concern) => (
@@ -135,7 +135,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="issue-type"
-                {...register('issueType', { required: true })}
+                {...register('issueType', { required: false })}
                 placeholder="Select issue type"
               >
                 {posIssues?.data?.map((issue) => (
@@ -153,7 +153,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="requester-name"
-                {...register('requesterName', { required: true })}
+                {...register('requesterName', { required: false })}
                 placeholder="Select name"
               >
                 {clients.data?.data.map((client) => (
@@ -182,7 +182,7 @@ const TicketAssignment = () => {
 
               <Textarea
                 id="description"
-                {...register('description', { required: true })}
+                {...register('description', { required: false })}
                 isInvalid={errors.description}
               />
 
@@ -194,7 +194,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="priority"
-                {...register('priority', { required: true })}
+                {...register('priority', { required: false })}
                 placeholder="Select priority"
               >
                 {priorities.data?.data.map((priority) => (
@@ -215,7 +215,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="ticket-status"
-                {...register('ticketStatus', { required: true })}
+                {...register('ticketStatus', { required: false })}
                 placeholder="Select ticket status"
               >
                 {statuses.data?.data.map((status) => (
@@ -233,7 +233,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="assigned-to"
-                {...register('assignedTo', { required: true })}
+                {...register('assignedTo', { required: false })}
                 placeholder="Select a personnel"
               >
                 {personnel.data?.data.map((person) => (
@@ -253,7 +253,7 @@ const TicketAssignment = () => {
                 type="text"
                 id="department"
                 isDisabled
-                // {...register('department', { required: true })}
+                // {...register('department', { required: false })}
                 {...register('department')}
               />
             </FormControl>
@@ -264,7 +264,7 @@ const TicketAssignment = () => {
               <Input
                 type="file"
                 id="attachments"
-                // {...register('attachments', { required: true })}
+                // {...register('attachments', { required: false })}
                 {...register('attachments')}
                 multiple
               />

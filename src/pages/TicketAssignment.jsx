@@ -117,7 +117,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="concern-type"
-                {...register('concernType', { required: false })}
+                {...register('concernType', { required: true })}
                 placeholder="Select concern type"
               >
                 {concerns.data?.data.map((concern) => (
@@ -135,7 +135,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="issue-type"
-                {...register('issueType', { required: false })}
+                {...register('issueType', { required: true })}
                 placeholder="Select issue type"
               >
                 {posIssues?.data?.map((issue) => (
@@ -153,7 +153,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="requester-name"
-                {...register('requesterName', { required: false })}
+                {...register('requesterName', { required: true })}
                 placeholder="Select name"
               >
                 {clients.data?.data.map((client) => (
@@ -182,7 +182,7 @@ const TicketAssignment = () => {
 
               <Textarea
                 id="description"
-                {...register('description', { required: false })}
+                {...register('description', { required: true })}
                 isInvalid={errors.description}
               />
 
@@ -194,7 +194,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="priority"
-                {...register('priority', { required: false })}
+                {...register('priority', { required: true })}
                 placeholder="Select priority"
               >
                 {priorities.data?.data.map((priority) => (
@@ -215,7 +215,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="ticket-status"
-                {...register('ticketStatus', { required: false })}
+                {...register('ticketStatus', { required: true })}
                 placeholder="Select ticket status"
               >
                 {statuses.data?.data.map((status) => (
@@ -233,7 +233,7 @@ const TicketAssignment = () => {
 
               <Select
                 id="assigned-to"
-                {...register('assignedTo', { required: false })}
+                {...register('assignedTo', { required: true })}
                 placeholder="Select a personnel"
               >
                 {personnel.data?.data.map((person) => (
@@ -253,7 +253,7 @@ const TicketAssignment = () => {
                 type="text"
                 id="department"
                 isDisabled
-                // {...register('department', { required: false })}
+                // {...register('department', { required: true })}
                 {...register('department')}
               />
             </FormControl>
@@ -264,7 +264,7 @@ const TicketAssignment = () => {
               <Input
                 type="file"
                 id="attachments"
-                // {...register('attachments', { required: false })}
+                // {...register('attachments', { required: true })}
                 {...register('attachments')}
                 multiple
               />

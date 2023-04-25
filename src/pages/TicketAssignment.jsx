@@ -23,7 +23,7 @@ import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
-import TicketAssignmentTable from '../components/TicketAssignmentTable'
+import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesToBase64 } from '../utils/convertToBase64'
 
 const TicketAssignment = () => {
@@ -47,9 +47,24 @@ const TicketAssignment = () => {
   const watchRequester = watch('requesterName')
   const watchPersonnel = watch('assignedTo')
 
+  const successToast = useSuccessToast({
+    title: 'Success',
+    description: 'Ticket submitted successfully',
+  })
+  const errorToast = useErrorToast({
+    title: 'Error',
+    description: 'Something went wrong',
+  })
+
   const onSubmit = async (data) => {
+    let base64FilesArray
     const fileListArray = Array.from(data.attachments)
-    const base64FilesArray = await filesToBase64(fileListArray)
+    try {
+      base64FilesArray = await filesToBase64(fileListArray)
+    } catch (e) {
+      errorToast()
+      return
+    }
     data.concerntype = data.concernType
     delete data.concernType
     data.issuetype = data.issueType
@@ -69,7 +84,14 @@ const TicketAssignment = () => {
     data.comment = data.comments
     delete data.comments
     console.log(data)
-    uploadTicket.mutate(data)
+    try {
+      await uploadTicket.mutateAsync(data)
+    } catch (e) {
+      errorToast()
+      return
+    }
+    successToast()
+    reset()
   }
 
   useEffect(() => {

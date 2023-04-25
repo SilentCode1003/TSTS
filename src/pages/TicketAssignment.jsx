@@ -297,7 +297,7 @@ const TicketAssignment = () => {
           </VStack>
         </form>
 
-        <TicketAssignmentTable />
+        {/* <TicketAssignmentTable /> */}
       </Flex>
     </Box>
   )

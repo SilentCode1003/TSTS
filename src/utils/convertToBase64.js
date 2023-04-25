@@ -6,7 +6,7 @@ export function filesToBase64(files) {
       const reader = new FileReader()
       reader.readAsDataURL(files[i])
       reader.onload = () => {
-        const base64 = reader.result.split(',')[1]
+        const base64 = reader.result
         result = result + base64 + ' 5LJOIN '
         count++
         if (count === files.length) {

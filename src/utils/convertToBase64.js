@@ -7,7 +7,14 @@ export function filesToBase64(files) {
       reader.readAsDataURL(files[i])
       reader.onload = () => {
         const base64 = reader.result
-        result = result + base64 + ' 5LJOIN '
+
+        // Only add a separator when its not the last item
+        if (i !== files.length - 1) {
+          result = result + base64 + ' 5LJOIN '
+        } else {
+          result = result + base64
+        }
+
         count++
         if (count === files.length) {
           resolve(result)

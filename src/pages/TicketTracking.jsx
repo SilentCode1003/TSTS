@@ -66,9 +66,17 @@ const columns = [
   columnHelper.accessor('department', {
     header: 'Department',
   }),
-  // columnHelper.accessor('attachement', {
-  //   header: 'Attachment(s)',
-  // }),
+  columnHelper.accessor('attachement', {
+    cell: (info) => {
+      const base64filesArray = info.getValue().split(' 5LJOIN ')
+      return base64filesArray.map((file) => (
+        <a href={file} download>
+          Download
+        </a>
+      ))
+    },
+    header: 'Attachment(s)',
+  }),
   columnHelper.accessor('comment', {
     header: 'Comment',
   }),

@@ -100,6 +100,7 @@ const TicketTracking = () => {
               <div key={column.id} className="px-1">
                 <Checkbox
                   size="sm"
+                  colorScheme="purple"
                   defaultChecked
                   {...{
                     checked: column.getIsVisible(),

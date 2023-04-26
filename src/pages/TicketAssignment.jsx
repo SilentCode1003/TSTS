@@ -57,13 +57,15 @@ const TicketAssignment = () => {
   })
 
   const onSubmit = async (data) => {
-    let base64FilesArray
-    const fileListArray = Array.from(data.attachments)
-    try {
-      base64FilesArray = await filesToBase64(fileListArray)
-    } catch (e) {
-      errorToast()
-      return
+    let base64FilesArray = ''
+    if (data.attachments.length > 0) {
+      const fileListArray = Array.from(data.attachments)
+      try {
+        base64FilesArray = await filesToBase64(fileListArray)
+      } catch (e) {
+        errorToast()
+        return
+      }
     }
     data.concerntype = data.concernType
     delete data.concernType

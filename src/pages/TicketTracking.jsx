@@ -1,6 +1,5 @@
 import {
   Box,
-  Checkbox,
   Heading,
   SimpleGrid,
   Stack,
@@ -8,18 +7,20 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import React, { useMemo } from 'react'
-import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import React from 'react'
+import sampleData from '../../sampledata.json'
+import { useGetTickets } from '../api/ticket-tracking/getTickets'
 
 const columnHelper = createColumnHelper()
 
@@ -79,6 +80,16 @@ const columns = [
   }),
   columnHelper.accessor('comment', {
     header: 'Comment',
+    cell: (info) => (
+      <Text
+        maxW="350px"
+        textOverflow="ellipsis"
+        overflow="hidden"
+        whiteSpace="nowrap"
+      >
+        {info.getValue()}
+      </Text>
+    ),
   }),
   columnHelper.display({
     id: 'actions',
@@ -89,6 +100,7 @@ const columns = [
 const TicketTracking = () => {
   const { data: ticketsRes, isLoading, error } = useGetTickets()
   const tickets = ticketsRes?.data ?? []
+  // const tickets = sampleData.data
   const table = useReactTable({
     data: tickets,
     columns,
@@ -102,25 +114,38 @@ const TicketTracking = () => {
           Ticket Tracking
         </Heading>
 
-        <SimpleGrid columns={[2, 3, 5]} spacing="2">
-          {table.getAllLeafColumns().map((column) => {
-            return (
-              <div key={column.id} className="px-1">
-                <Checkbox
-                  size="sm"
-                  colorScheme="purple"
-                  defaultChecked
+        {tickets.length > 0 && (
+          <SimpleGrid columns={[2, 3, 5]} spacing="2">
+            <div>
+              <label style={{ display: 'flex', gap: '5px' }}>
+                <input
                   {...{
-                    checked: column.getIsVisible(),
-                    onChange: column.getToggleVisibilityHandler(),
+                    type: 'checkbox',
+                    checked: table.getIsAllColumnsVisible(),
+                    onChange: table.getToggleAllColumnsVisibilityHandler(),
                   }}
-                >
-                  {column.id}
-                </Checkbox>
-              </div>
-            )
-          })}
-        </SimpleGrid>
+                />
+                Toggle All
+              </label>
+            </div>
+            {table.getAllLeafColumns().map((column) => {
+              return (
+                <div key={column.id}>
+                  <label style={{ display: 'flex', gap: '5px' }}>
+                    <input
+                      {...{
+                        type: 'checkbox',
+                        checked: column.getIsVisible(),
+                        onChange: column.getToggleVisibilityHandler(),
+                      }}
+                    />
+                    {column.id}
+                  </label>
+                </div>
+              )
+            })}
+          </SimpleGrid>
+        )}
 
         <TableContainer maxW="calc(100vw - 250px)">
           <Table size="sm" variant="striped">

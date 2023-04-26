@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  HStack,
   Heading,
   IconButton,
   Menu,
@@ -16,6 +15,7 @@ import {
   Th,
   Thead,
   Tr,
+  VStack,
 } from '@chakra-ui/react'
 import {
   createColumnHelper,
@@ -23,10 +23,12 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import React, { useState } from 'react'
+import React from 'react'
 import { MdFilterList } from 'react-icons/md'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
+import ErrorMessage from '../components/UI/ErrorMessage'
+import LoadingSpinner from '../components/UI/LoadingSpinner'
 
 const columnHelper = createColumnHelper()
 
@@ -75,6 +77,10 @@ const columns = [
   }),
   columnHelper.accessor('attachement', {
     cell: (info) => {
+      if (!info) {
+        return 'No attachment'
+      }
+
       const base64filesArray = info.getValue().split(' 5LJOIN ')
       return base64filesArray.map((file) => (
         <a href={file} download>
@@ -106,7 +112,6 @@ const columns = [
 const TicketTracking = () => {
   const { data: ticketsRes, isLoading, error } = useGetTickets()
   const tickets = ticketsRes?.data ?? []
-  const [showCheckboxes, setShowCheckboxes] = useState(true)
   // const tickets = sampleData.data
   const table = useReactTable({
     data: tickets,
@@ -129,6 +134,17 @@ const TicketTracking = () => {
             </MenuList>
           </Menu>
         </Flex>
+
+        <VStack>
+          {isLoading && <LoadingSpinner />}
+          {error && <ErrorMessage>{error.message}</ErrorMessage>}
+          {tickets.length < 0 && (
+            <Text textAlign="center" fontSize="3xl">
+              No results
+            </Text>
+          )}
+        </VStack>
+
         <TableContainer maxW="calc(100vw - 250px)">
           <Table size="sm" variant="striped">
             <Thead>

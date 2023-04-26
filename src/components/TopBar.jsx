@@ -21,7 +21,8 @@ const TopBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (!searchTicketId) {
+    if (!searchTicketId || searchTicketId === '') {
+      navigate('/admin/ticket-tracking')
       return
     }
 

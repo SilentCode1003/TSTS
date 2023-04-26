@@ -1,7 +1,12 @@
 import {
   Box,
+  Flex,
+  HStack,
   Heading,
-  SimpleGrid,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
   Stack,
   Table,
   TableContainer,
@@ -18,9 +23,10 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import React from 'react'
-import sampleData from '../../sampledata.json'
+import React, { useState } from 'react'
+import { MdFilterList } from 'react-icons/md'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
+import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 
 const columnHelper = createColumnHelper()
 
@@ -100,6 +106,7 @@ const columns = [
 const TicketTracking = () => {
   const { data: ticketsRes, isLoading, error } = useGetTickets()
   const tickets = ticketsRes?.data ?? []
+  const [showCheckboxes, setShowCheckboxes] = useState(true)
   // const tickets = sampleData.data
   const table = useReactTable({
     data: tickets,
@@ -114,39 +121,14 @@ const TicketTracking = () => {
           Ticket Tracking
         </Heading>
 
-        {tickets.length > 0 && (
-          <SimpleGrid columns={[2, 3, 5]} spacing="2">
-            <div>
-              <label style={{ display: 'flex', gap: '5px' }}>
-                <input
-                  {...{
-                    type: 'checkbox',
-                    checked: table.getIsAllColumnsVisible(),
-                    onChange: table.getToggleAllColumnsVisibilityHandler(),
-                  }}
-                />
-                Toggle All
-              </label>
-            </div>
-            {table.getAllLeafColumns().map((column) => {
-              return (
-                <div key={column.id}>
-                  <label style={{ display: 'flex', gap: '5px' }}>
-                    <input
-                      {...{
-                        type: 'checkbox',
-                        checked: column.getIsVisible(),
-                        onChange: column.getToggleVisibilityHandler(),
-                      }}
-                    />
-                    {column.id}
-                  </label>
-                </div>
-              )
-            })}
-          </SimpleGrid>
-        )}
-
+        <Flex w="100%" justifyContent="end">
+          <Menu>
+            <MenuButton as={IconButton} icon={<MdFilterList />} />
+            <MenuList p="4">
+              {tickets.length > 0 && <TicketTrackingCheckboxes table={table} />}
+            </MenuList>
+          </Menu>
+        </Flex>
         <TableContainer maxW="calc(100vw - 250px)">
           <Table size="sm" variant="striped">
             <Thead>

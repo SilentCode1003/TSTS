@@ -1,5 +1,11 @@
 import { SearchIcon } from '@chakra-ui/icons'
-import { Flex, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NotificationBell from './NotificationBell'
@@ -30,23 +36,24 @@ const TopBar = () => {
       justifyContent="space-between"
       gap="4"
     >
-      <form onSubmit={handleSubmit}>
-        <InputGroup w={['90%', null, '380px']} size="xs">
-          <InputLeftElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.300" />}
-            size="xs"
-          />
-          <Input
-            variant="filled"
-            size="xs"
-            placeholder="Search ticket number"
-            value={searchTicketId}
-            onChange={handleChange}
-          />
-        </InputGroup>
-      </form>
-
+      <Box w={['90%', null, '380px']}>
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <InputGroup size="xs">
+            <InputLeftElement
+              pointerEvents="none"
+              children={<SearchIcon color="gray.300" />}
+              size="xs"
+            />
+            <Input
+              variant="filled"
+              size="xs"
+              placeholder="Search ticket number"
+              value={searchTicketId}
+              onChange={handleChange}
+            />
+          </InputGroup>
+        </form>
+      </Box>
       <NotificationBell />
     </Flex>
   )

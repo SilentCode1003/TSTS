@@ -3,7 +3,7 @@ import React from 'react'
 
 const TicketTrackingCheckboxes = ({ table }) => {
   return (
-    <SimpleGrid columns={[2, 3, 5]} spacing="2">
+    <SimpleGrid columns="2" spacing="2">
       <div>
         <label style={{ display: 'flex', gap: '5px' }}>
           <input

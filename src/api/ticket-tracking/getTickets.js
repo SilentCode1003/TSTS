@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { axios } from '../axios'
 
 export const getTickets = async () => {
-  const res = await axios.get('/assignticket/load')
+  const res = await axios.get('/assignticket/load') // TODO: change this to /view
   return res.data
 }
 

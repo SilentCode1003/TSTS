@@ -23,6 +23,7 @@ const Reporting = loadable(() => import('./pages/Reporting'))
 const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
 const TicketSubmission = loadable(() => import('./pages/TicketSubmission'))
 const TicketTracking = loadable(() => import('./pages/TicketTracking'))
+const TicketSearch = loadable(() => import('./pages/TicketSearch'))
 
 const queryClient = new QueryClient()
 
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/automation',
         element: <Automation />,
+      },
+      {
+        path: '/admin/ticket-search/:ticketId',
+        element: <TicketSearch />,
       },
     ],
   },

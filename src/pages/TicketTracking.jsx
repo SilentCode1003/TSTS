@@ -1,8 +1,11 @@
+import { DownloadIcon } from '@chakra-ui/icons'
 import {
   Box,
   Flex,
+  HStack,
   Heading,
   IconButton,
+  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -29,6 +32,8 @@ import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
+import { getFileExtension, getMimeTypeFromBase64 } from '../utils/fileType'
+import mime from 'mime-types'
 
 const columnHelper = createColumnHelper()
 
@@ -77,16 +82,20 @@ const columns = [
   }),
   columnHelper.accessor('attachement', {
     cell: (info) => {
-      if (!info) {
+      if (!info.getValue()) {
         return 'No attachment'
       }
 
       const base64filesArray = info.getValue().split(' 5LJOIN ')
-      return base64filesArray.map((file) => (
-        <a href={file} download>
-          Download
-        </a>
-      ))
+      return base64filesArray.map((file, index) => {
+        const fileExtension = getFileExtension(file)
+
+        return (
+          <Link href={file} download>
+            {index + 1}.{fileExtension} <DownloadIcon color="blue" />
+          </Link>
+        )
+      })
     },
     header: 'Attachment(s)',
   }),
@@ -168,10 +177,12 @@ const TicketTracking = () => {
                 <Tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <Td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      <HStack>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </HStack>
                     </Td>
                   ))}
                 </Tr>

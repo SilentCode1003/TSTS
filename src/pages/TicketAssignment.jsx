@@ -24,7 +24,7 @@ import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
-import { filesToBase64 } from '../utils/convertToBase64'
+import { filesTo5LSerializedData } from '../utils/fileData'
 
 const TicketAssignment = () => {
   const concerns = useGetConcern()
@@ -58,10 +58,10 @@ const TicketAssignment = () => {
 
   const onSubmit = async (data) => {
     let base64FilesArray = ''
-    if (data.attachments.length > 0) {
+    if (data.attachments.length) {
       const fileListArray = Array.from(data.attachments)
       try {
-        base64FilesArray = await filesToBase64(fileListArray)
+        base64FilesArray = await filesTo5LSerializedData(fileListArray)
       } catch (e) {
         errorToast()
         return

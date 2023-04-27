@@ -32,8 +32,7 @@ import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
-import { getFileExtension, getMimeTypeFromBase64 } from '../utils/fileType'
-import mime from 'mime-types'
+import { serializedDataToFile } from '../utils/fileData'
 
 const columnHelper = createColumnHelper()
 
@@ -87,12 +86,12 @@ const columns = [
       }
 
       const base64filesArray = info.getValue().split(' 5LJOIN ')
-      return base64filesArray.map((file, index) => {
-        const fileExtension = getFileExtension(file)
+      return base64filesArray.map((file) => {
+        const { fileData, fileName } = serializedDataToFile(file)
 
         return (
-          <Link href={file} download>
-            {index + 1}.{fileExtension} <DownloadIcon color="blue" />
+          <Link key={fileName} href={fileData} download={fileName}>
+            {fileName} <DownloadIcon color="blue" />
           </Link>
         )
       })

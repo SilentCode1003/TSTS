@@ -314,6 +314,7 @@ const TicketAssignment = () => {
               <Button
                 leftIcon={<CloseIcon />}
                 type="reset"
+                isLoading={isSubmitting}
                 onClick={() => reset()}
               >
                 Reset

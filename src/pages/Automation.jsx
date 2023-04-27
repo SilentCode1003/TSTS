@@ -100,7 +100,11 @@ const Automation = () => {
               >
                 Save
               </Button>
-              <Button type="reset" onClick={() => reset()}>
+              <Button
+                type="reset"
+                onClick={() => reset()}
+                isLoading={isSubmitting}
+              >
                 Reset
               </Button>
             </ButtonGroup>

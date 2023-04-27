@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
 import ErrorMessage from '../components/UI/ErrorMessage'
+import SearchedTicket from '../components/SearchedTicket'
 
 const TicketSearch = () => {
   const { ticketId } = useParams()
@@ -38,46 +39,12 @@ const TicketSearch = () => {
         <SimpleGrid columns="1" spacing="4">
           {isLoading && <LoadingSpinner />}
           {error && <ErrorMessage>{error.message}</ErrorMessage>}
-          {!searchedTicket && (
+          {!isLoading && !error && !searchedTicket && (
             <Text textAlign="center" fontSize="3xl">
               No results
             </Text>
           )}
-          {searchedTicket && (
-            <Card
-              key={searchedTicket.ticketid}
-              direction={['column', null, 'row']}
-              variant="elevated"
-              alignItems="center"
-            >
-              <CardHeader>
-                <Heading size="md">{searchedTicket.ticketid}</Heading>
-              </CardHeader>
-              <CardBody>
-                <Stack divider={<Divider />}>
-                  <HStack>
-                    <Heading size="xs">Subject</Heading>
-                    <Text fontSize="sm">{searchedTicket.subject}</Text>
-                  </HStack>
-
-                  <HStack>
-                    <Heading size="xs">Date created</Heading>
-                    <Text fontSize="sm">{searchedTicket.datecreated}</Text>
-                  </HStack>
-
-                  <HStack>
-                    <Heading size="xs">Due date</Heading>
-                    <Text fontSize="sm">{searchedTicket.statusdetail}</Text>
-                  </HStack>
-
-                  <HStack>
-                    <Heading size="xs">Status</Heading>
-                    <Badge>{searchedTicket.ticketstatus}</Badge>
-                  </HStack>
-                </Stack>
-              </CardBody>
-            </Card>
-          )}
+          {searchedTicket && <SearchedTicket searchedTicket={searchedTicket} />}
         </SimpleGrid>
       </Stack>
     </Box>

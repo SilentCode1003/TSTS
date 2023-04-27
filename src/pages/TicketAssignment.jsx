@@ -307,6 +307,7 @@ const TicketAssignment = () => {
                 leftIcon={<CheckIcon />}
                 type="submit"
                 colorScheme="purple"
+                isLoading={isSubmitting}
               >
                 Submit
               </Button>

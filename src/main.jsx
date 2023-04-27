@@ -24,6 +24,7 @@ const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
 const TicketSubmission = loadable(() => import('./pages/TicketSubmission'))
 const TicketTracking = loadable(() => import('./pages/TicketTracking'))
 const TicketSearch = loadable(() => import('./pages/TicketSearch'))
+const TicketView = loadable(() => import('./pages/TicketView'))
 
 const queryClient = new QueryClient()
 
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/ticket-search/:ticketId',
         element: <TicketSearch />,
+      },
+      {
+        path: '/admin/ticket-view/:ticketId',
+        element: <TicketView />,
       },
     ],
   },

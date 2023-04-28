@@ -33,12 +33,22 @@ import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
 import { serializedDataToFile } from '../utils/fileData'
+import { Link as RouterLink } from 'react-router-dom'
 
 const columnHelper = createColumnHelper()
 
 const columns = [
   columnHelper.accessor('ticketid', {
     header: 'Ticket Id',
+    cell: (info) => (
+      <Link
+        as={RouterLink}
+        to={`/admin/ticket-view/${info.getValue()}`}
+        color="blue"
+      >
+        {info.getValue()}
+      </Link>
+    ),
   }),
   columnHelper.accessor('subject', {
     header: 'Subject',

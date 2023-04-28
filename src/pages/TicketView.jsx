@@ -25,7 +25,10 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
-import { serializedDataToFile } from '../utils/fileData'
+import {
+  filesTo5LSerializedData,
+  serializedDataToFile,
+} from '../utils/fileData'
 
 const TicketView = () => {
   const { ticketId } = useParams()
@@ -53,7 +56,20 @@ const TicketView = () => {
     formState: { errors, isSubmitting },
   } = useForm()
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    let base64FilesArray = ''
+
+    if (data.attachments.length) {
+      const fileListArray = Array.from(data.attachments)
+      try {
+        base64FilesArray = await filesTo5LSerializedData(fileListArray)
+      } catch (e) {
+        errorToast()
+        return
+      }
+    }
+    data.attachments = base64FilesArray
+
     console.log(data)
   }
 

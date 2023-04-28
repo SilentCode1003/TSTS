@@ -25,6 +25,7 @@ import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
+import { transformData } from '../utils/transformData'
 
 const TicketAssignment = () => {
   const concerns = useGetConcern()
@@ -67,27 +68,11 @@ const TicketAssignment = () => {
         return
       }
     }
-    data.concerntype = data.concernType
-    delete data.concernType
-    data.issuetype = data.issueType
-    delete data.issueType
-    data.requestername = data.requesterName
-    delete data.requesterName
-    data.requesteremail = data.requesterEmail
-    delete data.requesterEmail
-    data.ticketstatus = data.ticketStatus
-    delete data.ticketStatus
-    data.assignedto = data.assignedTo
-    delete data.assignedTo
-    data.prioritytype = data.priority
-    delete data.priority
-    data.attachment = base64FilesArray
-    delete data.attachments
-    data.comment = data.comments
-    delete data.comments
-    console.log(data)
+
+    const transformedData = transformData(data, base64FilesArray)
+    console.log(transformedData)
     try {
-      await uploadTicket.mutateAsync(data)
+      await uploadTicket.mutateAsync(transformedData)
     } catch (e) {
       errorToast()
       return

@@ -12,37 +12,11 @@ import {
   Text,
 } from '@chakra-ui/react'
 import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useBadgeColor } from '../hooks/useBadgeColor'
 
 const SearchedTicket = ({ searchedTicket }) => {
-  const [badgeColor, setBadgeColor] = useState('gray')
-
-  useEffect(() => {
-    switch (searchedTicket.ticketstatus) {
-      case 'NEW': {
-        setBadgeColor('purple')
-        break
-      }
-      case 'OPEN': {
-        setBadgeColor('yellow')
-        break
-      }
-      case 'PENDING': {
-        setBadgeColor('red')
-        break
-      }
-      case 'CLOSED': {
-        setBadgeColor('gray')
-      }
-      case 'RESOLVED': {
-        setBadgeColor('green')
-      }
-      default:
-        break
-    }
-  }, [searchedTicket.ticketstatus])
+  const badgeColor = useBadgeColor(searchedTicket)
 
   return (
     <LinkBox>

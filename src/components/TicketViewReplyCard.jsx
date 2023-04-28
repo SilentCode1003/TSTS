@@ -4,6 +4,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -11,11 +12,15 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { MdDelete, MdReply } from 'react-icons/md'
+import useConfirm from '../hooks/useConfirm'
 import { filesTo5LSerializedData } from '../utils/fileData'
 
 const TicketViewReplyCard = () => {
+  const [showReplyArea, setShowReplyArea] = useState(false)
+  const [ResetConfirmDialog, confirmReset] = useConfirm('Are you sure?', 'All')
   const {
     handleSubmit,
     register,
@@ -40,44 +45,85 @@ const TicketViewReplyCard = () => {
     console.log(data)
   }
 
-  return (
+  const toggleShowReplyArea = () => {
+    setShowReplyArea((prev) => !prev)
+  }
+
+  const handleReset = async () => {
+    const ans = await confirmReset()
+
+    if (!ans) return
+    toggleShowReplyArea()
+    reset()
+  }
+
+  return !showReplyArea ? (
     <Card>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <CardBody>
-          <VStack spacing="4">
-            <FormControl isInvalid={errors.comment}>
-              <Textarea
-                placeholder="Comment"
-                {...register('comment', { required: true })}
-              />
-
-              <FormErrorMessage>This field is required</FormErrorMessage>
-            </FormControl>
-
-            <FormControl>
-              <FormLabel htmlFor="file">Attach File(s)</FormLabel>
-              <Input
-                type="file"
-                id="file"
-                {...register('attachments')}
-                multiple
-              />
-            </FormControl>
-          </VStack>
-        </CardBody>
-
-        <CardFooter>
-          <ButtonGroup w="100%" justifyContent="flex-end">
-            <Button type="submit" colorScheme="purple" isLoading={isSubmitting}>
-              Submit
-            </Button>
-            <Button type="reset" isLoading={isSubmitting}>
-              Reset
-            </Button>
-          </ButtonGroup>
-        </CardFooter>
-      </form>
+      <CardBody>
+        <Flex justifyContent="end">
+          <Button
+            onClick={toggleShowReplyArea}
+            colorScheme="purple"
+            leftIcon={<MdReply />}
+            size="sm"
+          >
+            Reply
+          </Button>
+        </Flex>
+      </CardBody>
     </Card>
+  ) : (
+    <>
+      <ResetConfirmDialog />
+      <Card>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <CardBody>
+            <VStack spacing="4">
+              <FormControl isInvalid={errors.comment}>
+                <Textarea
+                  rows={10}
+                  placeholder="Comment"
+                  {...register('comment', { required: true })}
+                />
+
+                <FormErrorMessage>This field is required</FormErrorMessage>
+              </FormControl>
+
+              <FormControl>
+                <FormLabel htmlFor="file">Attach File(s)</FormLabel>
+                <Input
+                  type="file"
+                  id="file"
+                  {...register('attachments')}
+                  multiple
+                />
+              </FormControl>
+            </VStack>
+          </CardBody>
+
+          <CardFooter>
+            <ButtonGroup w="100%" justifyContent="flex-end" size="sm">
+              <Button
+                leftIcon={<MdReply />}
+                type="submit"
+                colorScheme="purple"
+                isLoading={isSubmitting}
+              >
+                Submit
+              </Button>
+              <Button
+                leftIcon={<MdDelete />}
+                type="reset"
+                isLoading={isSubmitting}
+                onClick={handleReset}
+              >
+                Discard
+              </Button>
+            </ButtonGroup>
+          </CardFooter>
+        </form>
+      </Card>
+    </>
   )
 }
 

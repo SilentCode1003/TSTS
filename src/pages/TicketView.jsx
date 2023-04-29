@@ -2,6 +2,7 @@ import { Box, Grid, GridItem, Heading, Stack } from '@chakra-ui/react'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
+import TicketViewComments from '../components/TicketViewComments'
 import TicketViewReplyCard from '../components/TicketViewReplyCard'
 import TicketViewRightCard from '../components/TicketViewRightCard'
 import TicketViewTopCard from '../components/TicketViewTopCard'
@@ -23,6 +24,8 @@ const TicketView = () => {
           <GridItem>
             <Grid gap="8">
               <TicketViewTopCard searchedTicket={searchedTicket} />
+
+              <TicketViewComments />
 
               <TicketViewReplyCard />
             </Grid>

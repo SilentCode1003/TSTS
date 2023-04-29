@@ -34,6 +34,7 @@ import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
 import { serializedDataToFile } from '../utils/fileData'
 import { Link as RouterLink } from 'react-router-dom'
+import { useState } from 'react'
 
 const columnHelper = createColumnHelper()
 
@@ -141,27 +142,35 @@ const columns = [
 const TicketTracking = () => {
   const { data: ticketsRes, isLoading, error } = useGetTickets()
   const tickets = ticketsRes?.data ?? []
+  const [columnVisibility, setColumnVisibility] = useState({})
   // const tickets = sampleData.data
   const table = useReactTable({
     data: tickets,
     columns,
+    state: {
+      columnVisibility,
+    },
+    onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
   })
 
   return (
     <Box p={['4', null, '8']}>
+      {JSON.stringify(columnVisibility, null, 2)}
       <Stack direction="column" spacing="8" alignItems="center">
         <Heading textAlign="center" size={['lg', null, 'xl']}>
           Ticket Tracking
         </Heading>
 
         <Flex w="100%" justifyContent="end">
-          <Menu>
-            <MenuButton as={IconButton} icon={<MdFilterList />} />
-            <MenuList p="4">
-              {tickets.length > 0 && <TicketTrackingCheckboxes table={table} />}
-            </MenuList>
-          </Menu>
+          {tickets.length && (
+            <Menu>
+              <MenuButton as={IconButton} icon={<MdFilterList />} />
+              <MenuList p="4">
+                <TicketTrackingCheckboxes table={table} />
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
 
         <VStack>

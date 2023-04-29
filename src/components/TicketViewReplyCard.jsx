@@ -65,6 +65,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
       return
     }
 
+    console.log(data)
     successToast()
     reset()
   }
@@ -137,7 +138,6 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
               </Button>
               <Button
                 leftIcon={<MdDelete />}
-                type="reset"
                 isLoading={isSubmitting}
                 onClick={handleReset}
               >

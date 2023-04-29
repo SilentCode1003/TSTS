@@ -1,21 +1,21 @@
-import axios from 'axios'
+import { axios } from '../api/axios'
 import { create } from 'zustand'
 
 const useAuthStore = create((set) => ({
   currentUser: JSON.parse(localStorage.getItem('user')) || null,
 
   login: async (userObject) => {
-    const res = await axios.post('', userObject, {
-      withCredentials: true,
-    })
+    const res = await axios.post('/login/userlogin', userObject)
 
-    set({ currentUser: res.data })
+    if (res.data.msg === 'notmatch') {
+      throw new Error('Invalid credentials')
+    }
+
+    set({ currentUser: res.data.data[0] })
   },
 
   logout: async () => {
-    await axios.post('', null, {
-      withCredentials: true,
-    })
+    await axios.post('', null)
     set({ currentUser: null })
   },
 }))

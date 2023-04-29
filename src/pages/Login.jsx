@@ -11,25 +11,42 @@ import {
   Heading,
   Image,
   Input,
+  Text,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import useAuthStore from '../store/useAuthStore'
 
 const Login = () => {
+  const currentUser = useAuthStore((state) => state.currentUser)
+  const login = useAuthStore((state) => state.login)
+  const navigate = useNavigate()
+  const [error, setError] = useState(null)
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm()
 
-  const onSubmit = (data) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(data))
-        resolve()
-      }, 3000)
-    })
+  const onSubmit = async (data) => {
+    setError(null)
+
+    try {
+      // FIXME: WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      await login(data)
+
+      if (currentUser.role === 'ADMINISTRATOR') {
+        console.log('admin')
+        navigate('/admin')
+      } else if (currentUser.role === 'CLIENT') {
+        console.log('client')
+        navigate('/')
+      }
+    } catch (e) {
+      setError(e)
+    }
   }
 
   return (
@@ -46,23 +63,7 @@ const Login = () => {
         direction={['column', 'row']}
         overflow="hidden"
       >
-        <Box
-          flex="1"
-          position="relative"
-          // bg="center url('https://images.pexels.com/photos/5948347/pexels-photo-5948347.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"
-          // backgroundSize="cover"
-        >
-          {/* <Flex
-            w="100%"
-            h="100%"
-            p="8"
-            alignItems="center"
-            textAlign="center"
-            position="absolute"
-            bg="blackAlpha.600"
-          >
-            <Heading color="white">Technical Service Ticketing System</Heading>
-          </Flex> */}
+        <Box flex="1" position="relative">
           <Image
             h={['200px', '100%']}
             w="100%"
@@ -114,6 +115,8 @@ const Login = () => {
                   Login
                 </Button>
               </ButtonGroup>
+
+              {error && <Text>{error.message}</Text>}
             </VStack>
           </form>
         </Flex>

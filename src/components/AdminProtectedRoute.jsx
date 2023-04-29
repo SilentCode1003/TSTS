@@ -1,15 +1,15 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
+import useAuthStore from '../store/useAuthStore'
 
 const AdminProtectedRoute = ({ children }) => {
-  let loggedIn = true
-  let isAdmin = true
+  const currentUser = useAuthStore((state) => state.currentUser)
 
-  if (!loggedIn) {
+  if (!currentUser) {
     return <Navigate to="/login" />
   }
 
-  if (!isAdmin) {
+  if (currentUser.role !== 'ADMINISTRATOR') {
     return <Navigate to="/login" />
   }
 

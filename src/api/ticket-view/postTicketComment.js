@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { axios } from '../axios'
 
 export const postTicketComment = async (ticketComment) => {
@@ -6,9 +6,12 @@ export const postTicketComment = async (ticketComment) => {
   return res.data
 }
 
-export const usePostTicketComment = () => {
+export const usePostTicketComment = (ticketid) => {
+  const queryClient = useQueryClient()
+
   return useMutation({
-    mutationKey: ['comments'],
     mutationFn: (ticketComment) => postTicketComment(ticketComment),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['comments', `${ticketid}`] }),
   })
 }

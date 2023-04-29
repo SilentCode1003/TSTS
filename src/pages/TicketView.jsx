@@ -25,7 +25,7 @@ const TicketView = () => {
             <Grid gap="8">
               <TicketViewTopCard searchedTicket={searchedTicket} />
 
-              <TicketViewComments />
+              <TicketViewComments searchedTicket={searchedTicket} />
 
               <TicketViewReplyCard searchedTicket={searchedTicket} />
             </Grid>

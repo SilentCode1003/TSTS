@@ -30,7 +30,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
     formState: { errors, isSubmitting },
   } = useForm()
 
-  const uploadTicketComment = usePostTicketComment()
+  const uploadTicketComment = usePostTicketComment(searchedTicket.ticketid)
 
   const successToast = useSuccessToast({
     title: 'Success',

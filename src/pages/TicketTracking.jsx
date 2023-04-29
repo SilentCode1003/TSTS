@@ -67,6 +67,17 @@ const columns = [
   }),
   columnHelper.accessor('description', {
     header: 'Description',
+
+    cell: (info) => (
+      <Text
+        maxW="350px"
+        textOverflow="ellipsis"
+        overflow="hidden"
+        whiteSpace="nowrap"
+      >
+        {info.getValue()}
+      </Text>
+    ),
   }),
   columnHelper.accessor('priority', {
     header: 'Priority',

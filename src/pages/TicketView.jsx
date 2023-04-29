@@ -27,7 +27,7 @@ const TicketView = () => {
 
               <TicketViewComments />
 
-              <TicketViewReplyCard />
+              <TicketViewReplyCard searchedTicket={searchedTicket} />
             </Grid>
           </GridItem>
 

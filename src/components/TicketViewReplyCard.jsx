@@ -15,10 +15,12 @@ import {
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { MdDelete, MdReply } from 'react-icons/md'
+import { usePostTicketComment } from '../api/ticket-view/postTicketComment'
 import useConfirm from '../hooks/useConfirm'
+import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 
-const TicketViewReplyCard = () => {
+const TicketViewReplyCard = ({ searchedTicket }) => {
   const [showReplyArea, setShowReplyArea] = useState(false)
   const [ResetConfirmDialog, confirmReset] = useConfirm('Are you sure?', 'All')
   const {
@@ -27,6 +29,17 @@ const TicketViewReplyCard = () => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm()
+
+  const uploadTicketComment = usePostTicketComment()
+
+  const successToast = useSuccessToast({
+    title: 'Success',
+    description: 'Comment submitted',
+  })
+  const errorToast = useErrorToast({
+    title: 'Error',
+    description: 'Something went wrong',
+  })
 
   const onSubmit = async (data) => {
     let base64FilesArray = ''
@@ -40,9 +53,20 @@ const TicketViewReplyCard = () => {
         return
       }
     }
-    data.attachments = base64FilesArray
+    data.ticketid = searchedTicket?.ticketid
+    data.attachment = base64FilesArray
+    data.commentby = 'tester' //TODO: Should be on session
+    delete data.attachments
 
-    console.log(data)
+    try {
+      await uploadTicketComment.mutateAsync(data)
+    } catch (e) {
+      errorToast()
+      return
+    }
+
+    successToast()
+    reset()
   }
 
   const toggleShowReplyArea = () => {

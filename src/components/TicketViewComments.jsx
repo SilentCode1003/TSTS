@@ -4,6 +4,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Divider,
   HStack,
   Heading,
   Link,
@@ -52,8 +53,8 @@ const TicketViewComments = ({ searchedTicket }) => {
             </CardHeader>
 
             <CardBody>
-              <Stack>
-                <Text>{comment.comment}</Text>
+              <Stack divider={<Divider />}>
+                <Text whiteSpace="pre-line">{comment.comment}</Text>
 
                 {comment.attachement && (
                   <HStack>

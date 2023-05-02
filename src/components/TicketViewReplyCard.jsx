@@ -19,6 +19,8 @@ import { usePostTicketComment } from '../api/ticket-view/postTicketComment'
 import useConfirm from '../hooks/useConfirm'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 const TicketViewReplyCard = ({ searchedTicket }) => {
   const [showReplyArea, setShowReplyArea] = useState(false)
@@ -31,6 +33,8 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
   } = useForm()
 
   const uploadTicketComment = usePostTicketComment(searchedTicket.ticketid)
+
+  const { currentUser } = useContext(AuthContext)
 
   const successToast = useSuccessToast({
     title: 'Success',
@@ -55,7 +59,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
     }
     data.ticketid = searchedTicket?.ticketid
     data.attachment = base64FilesArray
-    data.commentby = 'tester' //TODO: Should be on session
+    data.commentby = currentUser.fullname
     delete data.attachments
 
     try {

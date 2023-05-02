@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom'
 
 const UserCard = () => {
   const navigate = useNavigate()
-  const { logout } = useContext(AuthContext)
+  const { currentUser, logout } = useContext(AuthContext)
 
   const handleLogout = () => {
     logout()
@@ -28,7 +28,7 @@ const UserCard = () => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Avatar size="xl" bg="purple.600" cursor="pointer" src="" />
+        <Avatar size="xl" name={currentUser.fullname} cursor="pointer" src="" />
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />

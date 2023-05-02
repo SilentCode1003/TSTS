@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 const ClientProtectedRoute = ({ children }) => {
-  let loggedIn = true
+  const { currentUser } = useContext(AuthContext)
 
-  if (!loggedIn) {
+  if (!currentUser) {
+    return <Navigate to="/login" />
+  }
+
+  if (currentUser.role !== 'CLIENT') {
     return <Navigate to="/login" />
   }
 

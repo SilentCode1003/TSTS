@@ -12,11 +12,17 @@ import {
   PopoverTrigger,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const UserCard = () => {
+  const navigate = useNavigate()
+  const { logout } = useContext(AuthContext)
+
   const handleLogout = () => {
-    console.log('Log out user')
+    logout()
+    navigate('/login')
   }
 
   return (

@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
 const Login = () => {
@@ -34,18 +34,27 @@ const Login = () => {
 
     try {
       // FIXME: WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-      await login(data)
+      const user = await login(data)
 
-      if (currentUser.role === 'ADMINISTRATOR') {
+      console.log(user)
+      if (user.role === 'ADMINISTRATOR') {
         console.log('admin')
         navigate('/admin')
-      } else if (currentUser.role === 'CLIENT') {
+      } else if (user.role === 'CLIENT') {
         console.log('client')
         navigate('/')
       }
     } catch (e) {
       setError(e)
     }
+  }
+
+  if (currentUser && currentUser.role === 'CLIENT') {
+    return <Navigate to="/" />
+  }
+
+  if (currentUser && currentUser.role === 'ADMINISTRATOR') {
+    return <Navigate to="/admin" />
   }
 
   return (
@@ -59,6 +68,7 @@ const Login = () => {
       <Card
         w={['90%', '70%']}
         maxW="800px"
+        minH="500px"
         direction={['column', 'row']}
         overflow="hidden"
       >

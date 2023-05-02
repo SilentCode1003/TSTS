@@ -9,25 +9,47 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
+import { usePostTicketStatusUpdate } from '../api/ticket-view/postTicketStatusUpdate'
+import { AuthContext } from '../context/AuthContext'
 import useConfirm from '../hooks/useConfirm'
+import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import ErrorMessage from './UI/ErrorMessage'
 import LoadingSpinner from './UI/LoadingSpinner'
+import { useEffect } from 'react'
+import { useGetTickets } from '../api/ticket-tracking/getTickets'
+import { useParams } from 'react-router-dom'
 
-const TicketViewRightCard = ({ searchedTicket }) => {
+const TicketViewRightCard = () => {
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
     'Once the ticket is closed, it will become read-only and cannot be edited. Are you absolutely certain you want to proceed?'
   )
+  const { ticketId } = useParams()
+  const allTickets = useGetTickets()
+  const searchedTicket =
+    allTickets.data?.data?.find((ticket) => ticket.ticketid === ticketId) || {}
   const { data: statuses, isLoading, error } = useGetStatus()
+
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: { selectedStatus: searchedTicket.ticketstatus },
+  } = useForm()
+  const ticketStatusMutation = usePostTicketStatusUpdate(
+    searchedTicket.ticketid
+  )
+  const { currentUser } = useContext(AuthContext)
+  const successToast = useSuccessToast({
+    title: 'Success',
+    description: 'Ticket updated successfully',
+  })
+  const errorToast = useErrorToast({
+    title: 'Error',
+    description: 'Something went wrong',
   })
 
   const onSubmit = async (data) => {
@@ -35,8 +57,24 @@ const TicketViewRightCard = ({ searchedTicket }) => {
 
     if (!ans) return
 
-    console.log(data)
+    try {
+      await ticketStatusMutation.mutateAsync({
+        ticketid: searchedTicket.ticketid,
+        ticketstatus: data.selectedStatus,
+        commentby: currentUser.fullname,
+      })
+    } catch (e) {
+      errorToast()
+      console.log(e)
+    }
+
+    setValue('selectedStatus', data.selectedStatus)
+    successToast()
   }
+
+  useEffect(() => {
+    setValue('selectedStatus', searchedTicket.ticketstatus)
+  }, [searchedTicket.ticketstatus])
 
   return (
     <>

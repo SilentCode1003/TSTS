@@ -8,6 +8,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
 import AuthContextProvider from './context/AuthContext'
+import { Suspense } from 'react'
+import LoadingFallback from './components/LoadingFallback'
 const KnowledgeBaseDefault = loadable(() =>
   import('./pages/KnowledgeBaseDefault')
 )
@@ -119,7 +121,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AuthContextProvider>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
-          <RouterProvider router={router} />
+          <Suspense fallback={<LoadingFallback />}>
+            <RouterProvider router={router} />
+          </Suspense>
         </ChakraProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>

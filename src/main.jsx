@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
+import AuthContextProvider from './context/AuthContext'
 const KnowledgeBaseDefault = loadable(() =>
   import('./pages/KnowledgeBaseDefault')
 )
@@ -115,11 +116,13 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
-        <RouterProvider router={router} />
-      </ChakraProvider>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <AuthContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider>
+          <RouterProvider router={router} />
+        </ChakraProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 )

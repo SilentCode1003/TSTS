@@ -14,14 +14,13 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import useAuthStore from '../store/useAuthStore'
+import { AuthContext } from '../context/AuthContext'
 
 const Login = () => {
-  const currentUser = useAuthStore((state) => state.currentUser)
-  const login = useAuthStore((state) => state.login)
+  const { currentUser, login } = useContext(AuthContext)
   const navigate = useNavigate()
   const [error, setError] = useState(null)
   const {

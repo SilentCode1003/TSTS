@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
-import useAuthStore from '../store/useAuthStore'
+import { AuthContext } from '../context/AuthContext'
 
 const AdminProtectedRoute = ({ children }) => {
-  const currentUser = useAuthStore((state) => state.currentUser)
+  const { currentUser } = useContext(AuthContext)
 
   if (!currentUser) {
     return <Navigate to="/login" />

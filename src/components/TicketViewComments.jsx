@@ -36,40 +36,38 @@ const TicketViewComments = ({ searchedTicket }) => {
     return attachmentsJSX
   }
 
-  return (
-    comments?.data.length && (
-      <>
-        {comments?.data?.map((comment) => (
-          <Card key={comment.commentid} fontSize="sm">
-            <CardHeader>
-              <HStack spacing="4">
-                <Avatar name={comment.commentby} />
+  return comments?.data.length ? (
+    <>
+      {comments?.data?.map((comment) => (
+        <Card key={comment.commentid} fontSize="sm">
+          <CardHeader>
+            <HStack spacing="4">
+              <Avatar name={comment.commentby} />
 
-                <Stack>
-                  <Heading size="xs">{comment.commentby}</Heading>
-                  <Text>{comment.commentdate}</Text>
-                </Stack>
-              </HStack>
-            </CardHeader>
-
-            <CardBody>
-              <Stack divider={<Divider />}>
-                <Text whiteSpace="pre-line">{comment.comment}</Text>
-
-                {comment.attachement && (
-                  <HStack>
-                    {attachments(comment.attachement).map(
-                      (attachmentLink) => attachmentLink
-                    )}
-                  </HStack>
-                )}
+              <Stack>
+                <Heading size="xs">{comment.commentby}</Heading>
+                <Text>{comment.commentdate}</Text>
               </Stack>
-            </CardBody>
-          </Card>
-        ))}
-      </>
-    )
-  )
+            </HStack>
+          </CardHeader>
+
+          <CardBody>
+            <Stack divider={<Divider />}>
+              <Text whiteSpace="pre-line">{comment.comment}</Text>
+
+              {comment.attachement && (
+                <HStack>
+                  {attachments(comment.attachement).map(
+                    (attachmentLink) => attachmentLink
+                  )}
+                </HStack>
+              )}
+            </Stack>
+          </CardBody>
+        </Card>
+      ))}
+    </>
+  ) : undefined
 }
 
 export default TicketViewComments

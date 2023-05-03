@@ -9,6 +9,7 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  Portal,
   Stack,
   Table,
   TableContainer,
@@ -26,15 +27,14 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import React from 'react'
+import React, { useState } from 'react'
 import { MdFilterList } from 'react-icons/md'
+import { Link as RouterLink } from 'react-router-dom'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
-import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
+import TicketTrackingTabs from '../components/TicketTrackingTabs'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
 import { serializedDataToFile } from '../utils/fileData'
-import { Link as RouterLink } from 'react-router-dom'
-import { useState } from 'react'
 
 const columnHelper = createColumnHelper()
 
@@ -156,69 +156,73 @@ const TicketTracking = () => {
 
   return (
     <Box p={['4', null, '8']}>
-      {JSON.stringify(columnVisibility, null, 2)}
       <Stack direction="column" spacing="8" alignItems="center">
         <Heading textAlign="center" size={['lg', null, 'xl']}>
           Ticket Tracking
         </Heading>
 
         <Flex w="100%" justifyContent="end">
-          {tickets.length && (
+          {tickets.length > 1 && (
             <Menu>
               <MenuButton as={IconButton} icon={<MdFilterList />} />
-              <MenuList p="4">
-                <TicketTrackingCheckboxes table={table} />
-              </MenuList>
+              <Portal>
+                <MenuList p="4" w={['290px', null, '500px']}>
+                  <TicketTrackingTabs
+                    table={table}
+                    setColumnVisibility={setColumnVisibility}
+                  />
+                </MenuList>
+              </Portal>
             </Menu>
           )}
         </Flex>
 
-        <VStack>
-          {isLoading && <LoadingSpinner />}
-          {error && <ErrorMessage>{error.message}</ErrorMessage>}
-          {tickets.length < 0 && (
-            <Text textAlign="center" fontSize="3xl">
-              No results
-            </Text>
-          )}
-        </VStack>
-
-        <TableContainer maxW="calc(100vw - 250px)">
-          <Table size="sm" variant="striped">
-            <Thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <Tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <Th key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
+        {error ? (
+          <ErrorMessage>{error.message}</ErrorMessage>
+        ) : isLoading ? (
+          <LoadingSpinner />
+        ) : tickets.length <= 0 ? (
+          <Text textAlign="center" fontSize="3xl">
+            No results
+          </Text>
+        ) : (
+          <TableContainer maxW="calc(100vw - 250px)">
+            <Table size="sm" variant="striped">
+              <Thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <Tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <Th key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </Th>
+                    ))}
+                  </Tr>
+                ))}
+              </Thead>
+              <Tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <Tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <Td key={cell.id}>
+                        <HStack>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
                           )}
-                    </Th>
-                  ))}
-                </Tr>
-              ))}
-            </Thead>
-            <Tbody>
-              {table.getRowModel().rows.map((row) => (
-                <Tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <Td key={cell.id}>
-                      <HStack>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </HStack>
-                    </Td>
-                  ))}
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
+                        </HStack>
+                      </Td>
+                    ))}
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        )}
       </Stack>
     </Box>
   )

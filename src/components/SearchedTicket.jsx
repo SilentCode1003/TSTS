@@ -46,7 +46,7 @@ const SearchedTicket = ({ searchedTicket }) => {
 
               <HStack>
                 <Heading size="xs">Due date</Heading>
-                <Text fontSize="sm">{searchedTicket.statusdetail}</Text>
+                <Text fontSize="sm">{searchedTicket.duedate}</Text>
               </HStack>
 
               <HStack>

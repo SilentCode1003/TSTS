@@ -9,7 +9,6 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  Portal,
   Stack,
   Table,
   TableContainer,
@@ -19,7 +18,6 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
 } from '@chakra-ui/react'
 import {
   createColumnHelper,
@@ -165,14 +163,13 @@ const TicketTracking = () => {
           {tickets.length > 1 && (
             <Menu>
               <MenuButton as={IconButton} icon={<MdFilterList />} />
-              <Portal>
-                <MenuList p="4" w={['290px', null, '500px']}>
-                  <TicketTrackingTabs
-                    table={table}
-                    setColumnVisibility={setColumnVisibility}
-                  />
-                </MenuList>
-              </Portal>
+              <MenuList p="4" w={['290px', null, '500px']}>
+                <TicketTrackingTabs
+                  table={table}
+                  columnVisibility={columnVisibility}
+                  setColumnVisibility={setColumnVisibility}
+                />
+              </MenuList>
             </Menu>
           )}
         </Flex>

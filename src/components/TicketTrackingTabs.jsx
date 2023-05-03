@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from 'react'
 import TicketTrackingCheckboxes from './TicketTrackingCheckboxes'
 
-const filterProfiles = [
+const filterProfilesData = [
   {
     id: 1,
     filtername: 'Profile 1',
@@ -64,7 +64,12 @@ const filterProfiles = [
   },
 ]
 
-const TicketTrackingTabs = ({ table, setColumnVisibility }) => {
+const TicketTrackingTabs = ({
+  table,
+  columnVisibility,
+  setColumnVisibility,
+}) => {
+  const [filterProfiles, setFilterProfiles] = useState(filterProfilesData)
   const [currentFilter, setCurrentFilter] = useState(filterProfiles[1])
   const [selectValue, setSelectValue] = useState('')
 
@@ -83,14 +88,59 @@ const TicketTrackingTabs = ({ table, setColumnVisibility }) => {
     // setColumnVisibility(currentFilter.filterdata)
   }
 
+  const handleAddProfile = () => {
+    const newProfile = {
+      id: filterProfiles.length + 1,
+      filtername: 'New Profile',
+      filterdata: {
+        ticketid: true,
+        subject: false,
+        concern: false,
+        issue: true,
+        requestername: true,
+        requesteremail: true,
+        description: true,
+        priority: false,
+        ticketstatus: false,
+        datecreated: false,
+        duedate: false,
+        statusdetail: false,
+        assignedto: false,
+        department: false,
+        attachement: false,
+        comment: false,
+        actions: false,
+      },
+    }
+
+    setFilterProfiles((prev) => [...prev, newProfile])
+    setSelectValue(newProfile.id)
+    setCurrentFilter(newProfile)
+    setColumnVisibility(newProfile.filterdata)
+  }
+
+  const handleProfileSave = () => {
+    const objIndex = filterProfiles.findIndex((obj) => obj.id == selectValue)
+    filterProfiles[objIndex].filterdata = columnVisibility
+    const updatedProfile = filterProfiles
+
+    setFilterProfiles(updatedProfile)
+  }
+
   useEffect(() => {
     setSelectValue(currentFilter.id)
     setColumnVisibility(currentFilter.filterdata)
   }, [])
 
   return (
-    <Tabs variant="enclosed" isFitted>
-      <TabList>
+    <Tabs
+      h="350px"
+      overflowY="auto"
+      overflowX="hidden"
+      variant="enclosed"
+      isFitted
+    >
+      <TabList position="sticky" top="0" background="white" zIndex="70">
         <Tab>Select Profile</Tab>
         <Tab>Create/Edit profile</Tab>
       </TabList>
@@ -131,13 +181,17 @@ const TicketTrackingTabs = ({ table, setColumnVisibility }) => {
                 ))}
               </Select>
 
-              <Button leftIcon={<AddIcon />}>Add</Button>
+              <Button leftIcon={<AddIcon />} onClick={handleAddProfile}>
+                Add
+              </Button>
             </HStack>
 
             <TicketTrackingCheckboxes table={table} />
 
             <ButtonGroup>
-              <Button colorScheme="purple">Save Changes</Button>
+              <Button colorScheme="purple" onClick={handleProfileSave}>
+                Save Changes
+              </Button>
             </ButtonGroup>
           </VStack>
         </TabPanel>

@@ -72,7 +72,9 @@ const TicketTrackingTabs = ({
   setColumnVisibility,
 }) => {
   const filterProfiles = useGetFilterProfiles()
-  const [currentFilter, setCurrentFilter] = useState(filterProfiles[1])
+  const [currentFilter, setCurrentFilter] = useState(
+    filterProfiles.data?.data[0]
+  )
   const [selectValue, setSelectValue] = useState('')
 
   const handleChange = (e) => {
@@ -86,14 +88,31 @@ const TicketTrackingTabs = ({
   }
 
   const handleApply = () => {
-    const newKeys = {}
-    const renamedObj = renameKeys()
-    // setColumnVisibility(currentFilter.filterdata)
+    const newKeys = {
+      isticketid: 'ticketid',
+      issubject: ' subject',
+      isconcern: 'concern',
+      isissue: 'issue',
+      isrequestername: 'requestername',
+      isrequesteremail: 'requesteremail',
+      isdescription: 'description',
+      ispriority: 'priorit',
+      isticketstatus: 'ticketstatus',
+      isdatecreated: 'datecreated',
+      isduedate: 'duedate',
+      isstatusdetail: 'isstatusdetail',
+      isassignedto: 'assignedto',
+      isdepartment: 'department',
+      isattachement: 'attachement',
+      iscomment: 'comment',
+    }
+    const renamedObj = renameKeys(currentFilter, newKeys)
+    setColumnVisibility(renamedObj)
   }
 
   const handleAddProfile = () => {
     // const newProfile = {
-    //   id: filterProfiles.length + 1,
+    // id: filterProfiles.length + 1,
     //   filtername: 'New Profile',
     //   filterdata: {
     //     ticketid: true,

@@ -24,6 +24,7 @@ import columnVisibilityToFilterData from '../utils/ColumnVisibilityToFilterData'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
+import { useApplyFilterProfile } from '../api/ticket-tracking/applyFilterProfile'
 
 const TicketTrackingTabs = ({
   table,
@@ -33,6 +34,7 @@ const TicketTrackingTabs = ({
   const { currentUser } = useContext(AuthContext)
   const filterProfiles = useGetFilterProfiles()
   const addFilterProfile = useAddFilterProfile()
+  const applyFilterProfile = useApplyFilterProfile()
   const [selectValue, setSelectValue] = useState('')
   const [newFilterName, setNewFilterName] = useState('')
 
@@ -49,13 +51,26 @@ const TicketTrackingTabs = ({
     setSelectValue(e.target.value)
   }
 
-  const handleApply = () => {
+  const handleApply = async () => {
     const selectedFilter = filterProfiles.data?.data.find(
       (filter) => filter.filtername === selectValue
     )
     const filterVisibility = filterDataToColumnVisibility(selectedFilter)
 
-    setColumnVisibility(filterVisibility)
+    try {
+      const res = await applyFilterProfile.mutateAsync({
+        filtername: selectValue,
+      })
+
+      setColumnVisibility(filterVisibility)
+      successToast({
+        description: 'Filter applied successfully',
+      })
+    } catch (e) {
+      errorToast({
+        description: 'Error applying filter',
+      })
+    }
   }
 
   const handleAddProfile = async () => {
@@ -82,9 +97,8 @@ const TicketTrackingTabs = ({
 
   useEffect(() => {
     const defaultFilter =
-      filterProfiles.data?.data.find(
-        (filter) => filter.status === 'INACTIVE'
-      ) || ''
+      filterProfiles.data?.data.find((filter) => filter.status === 'ACTIVE') ||
+      ''
     const filterVisibility = filterDataToColumnVisibility(defaultFilter)
     console.log(filterVisibility)
 

@@ -1,27 +1,27 @@
 import { createContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { axios } from '../api/axios'
+import CryptoJS from 'crypto-js'
+import { ENC_SECRET_KEY } from '../config'
 
 export const AuthContext = createContext()
 
 const AuthContextProvider = (props) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem('user')) || null
-  )
+  const [currentUser, setCurrentUser] = useState(() => {
+    const encryptedUser = localStorage.getItem('user')
 
-  const login = async (userObject, cb) => {
+    if (!encryptedUser) return null
+
+    const bytes = CryptoJS.AES.decrypt(encryptedUser, ENC_SECRET_KEY)
+    const decryptedData = bytes.toString(CryptoJS.enc.Utf8)
+
+    if (!decryptedData) return null
+
+    const parsedData = JSON.parse(decryptedData)
+    return parsedData || null
+  })
+
+  const login = async (userObject) => {
     const res = await axios.post('/login/userlogin', userObject)
-
-    // const res = {
-    //   data: {
-    //     data: [
-    //       {
-    //         userid: userObject.username === 'admin' ? 1 : 2,
-    //         role: userObject.username === 'admin' ? 'ADMINISTRATOR' : 'CLIENT',
-    //       },
-    //     ],
-    //   },
-    // }
 
     if (res.data.msg === 'notmatch') {
       throw new Error('Invalid credentials')
@@ -37,7 +37,12 @@ const AuthContextProvider = (props) => {
   }
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(currentUser))
+    const encryptedUser = CryptoJS.AES.encrypt(
+      JSON.stringify(currentUser),
+      ENC_SECRET_KEY
+    ).toString()
+
+    localStorage.setItem('user', encryptedUser)
   }, [currentUser])
 
   return (

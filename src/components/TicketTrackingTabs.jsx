@@ -12,59 +12,11 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
-import TicketTrackingCheckboxes from './TicketTrackingCheckboxes'
+import { useState } from 'react'
 import { useGetFilterProfiles } from '../api/ticket-tracking/getFilterProfiles'
-import renameKeys from '../utils/renameKeys'
-
-// const filterProfilesData = [
-//   {
-//     id: 1,
-//     filtername: 'Profile 1',
-//     filterdata: {
-//       ticketid: true,
-//       subject: true,
-//       concern: true,
-//       issue: true,
-//       requestername: true,
-//       requesteremail: true,
-//       description: true,
-//       priority: true,
-//       ticketstatus: true,
-//       datecreated: true,
-//       duedate: true,
-//       statusdetail: true,
-//       assignedto: true,
-//       department: true,
-//       attachement: true,
-//       comment: true,
-//       actions: true,
-//     },
-//   },
-//   {
-//     id: 2,
-//     filtername: 'Profile 2',
-//     filterdata: {
-//       ticketid: true,
-//       subject: false,
-//       concern: false,
-//       issue: false,
-//       requestername: false,
-//       requesteremail: false,
-//       description: false,
-//       priority: false,
-//       ticketstatus: false,
-//       datecreated: false,
-//       duedate: false,
-//       statusdetail: false,
-//       assignedto: false,
-//       department: false,
-//       attachement: false,
-//       comment: false,
-//       actions: false,
-//     },
-//   },
-// ]
+import convertObject from '../utils/filterDataToColumnVisibility'
+import TicketTrackingCheckboxes from './TicketTrackingCheckboxes'
+import { useEffect } from 'react'
 
 const TicketTrackingTabs = ({
   table,
@@ -72,9 +24,7 @@ const TicketTrackingTabs = ({
   setColumnVisibility,
 }) => {
   const filterProfiles = useGetFilterProfiles()
-  const [currentFilter, setCurrentFilter] = useState(
-    filterProfiles.data?.data[0]
-  )
+  const [currentFilter, setCurrentFilter] = useState(columnVisibility)
   const [selectValue, setSelectValue] = useState('')
 
   const handleChange = (e) => {
@@ -84,33 +34,16 @@ const TicketTrackingTabs = ({
     console.log(e.target.value)
     setCurrentFilter(selectedFilter)
     setSelectValue(e.target.value)
-    // setColumnVisibility(selectedFilter.filterdata)
   }
 
   const handleApply = () => {
-    const newKeys = {
-      isticketid: 'ticketid',
-      issubject: ' subject',
-      isconcern: 'concern',
-      isissue: 'issue',
-      isrequestername: 'requestername',
-      isrequesteremail: 'requesteremail',
-      isdescription: 'description',
-      ispriority: 'priorit',
-      isticketstatus: 'ticketstatus',
-      isdatecreated: 'datecreated',
-      isduedate: 'duedate',
-      isstatusdetail: 'isstatusdetail',
-      isassignedto: 'assignedto',
-      isdepartment: 'department',
-      isattachement: 'attachement',
-      iscomment: 'comment',
-    }
-    const renamedObj = renameKeys(currentFilter, newKeys)
-    setColumnVisibility(renamedObj)
+    const convertedObject = convertObject(currentFilter)
+    console.log(convertedObject)
+    setColumnVisibility(convertedObject)
   }
 
   const handleAddProfile = () => {
+    // /filter/save
     // const newProfile = {
     // id: filterProfiles.length + 1,
     //   filtername: 'New Profile',
@@ -147,14 +80,14 @@ const TicketTrackingTabs = ({
     // setFilterProfiles(updatedProfile)
   }
 
-  // useEffect(() => {
-  // setSelectValue(currentFilter.id)
-  // setColumnVisibility(currentFilter.filterdata)
-  // }, [])
+  useEffect(() => {
+    setSelectValue('')
+    setColumnVisibility(currentFilter)
+  }, [])
 
   return (
     <Tabs
-      h="350px"
+      maxH="350px"
       overflowY="auto"
       overflowX="hidden"
       variant="enclosed"
@@ -169,6 +102,7 @@ const TicketTrackingTabs = ({
         <TabPanel>
           <VStack spacing="4" divider={<Divider />}>
             <Select onChange={handleChange} value={selectValue}>
+              <option value="">Show all</option>
               {filterProfiles.data?.data.length > 0 &&
                 filterProfiles.data.data.map((profile) => (
                   <option key={profile.filtercode} value={profile.filtercode}>
@@ -181,12 +115,12 @@ const TicketTrackingTabs = ({
               <Button colorScheme="purple" onClick={handleApply}>
                 Apply
               </Button>
-              <Button colorScheme="purple" variant="outline">
+              {/* <Button colorScheme="purple" variant="outline">
                 Create
               </Button>
               <Button colorScheme="purple" variant="ghost">
                 Edit
-              </Button>
+              </Button> */}
             </VStack>
           </VStack>
         </TabPanel>

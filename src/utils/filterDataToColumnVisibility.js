@@ -1,6 +1,6 @@
 import renameKeys from './renameKeys'
 
-const convertObject = (obj) => {
+const filterDataToColumnVisibility = (obj) => {
   const newKeys = {
     isticketid: 'ticketid',
     issubject: 'subject',
@@ -23,7 +23,6 @@ const convertObject = (obj) => {
   delete renamedObj.filtername
   delete renamedObj.filtercode
   delete renamedObj.status
-  delete renamedObj.status
   delete renamedObj.createdby
   delete renamedObj.createddate
 
@@ -39,4 +38,4 @@ const convertObject = (obj) => {
   return convertedObject
 }
 
-export default convertObject
+export default filterDataToColumnVisibility

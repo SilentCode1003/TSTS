@@ -3,7 +3,9 @@ import {
   Button,
   ButtonGroup,
   Divider,
+  FormControl,
   HStack,
+  Input,
   Select,
   Tab,
   TabList,
@@ -14,76 +16,81 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useGetFilterProfiles } from '../api/ticket-tracking/getFilterProfiles'
-import convertObject from '../utils/filterDataToColumnVisibility'
+import filterDataToColumnVisibility from '../utils/filterDataToColumnVisibility'
 import TicketTrackingCheckboxes from './TicketTrackingCheckboxes'
 import { useEffect } from 'react'
+import { useAddFilterProfile } from '../api/ticket-tracking/addFilterProfile'
+import columnVisibilityToFilterData from '../utils/ColumnVisibilityToFilterData'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 
 const TicketTrackingTabs = ({
   table,
   columnVisibility,
   setColumnVisibility,
 }) => {
+  const { currentUser } = useContext(AuthContext)
   const filterProfiles = useGetFilterProfiles()
-  const [currentFilter, setCurrentFilter] = useState(columnVisibility)
+  const addFilterProfile = useAddFilterProfile()
   const [selectValue, setSelectValue] = useState('')
+  const [newFilterName, setNewFilterName] = useState('')
+
+  const successToast = useSuccessToast({
+    title: 'Success',
+    description: 'Filter created successfully',
+  })
+  const errorToast = useErrorToast({
+    title: 'Error',
+    description: 'Something went wrong',
+  })
 
   const handleChange = (e) => {
-    const selectedFilter = filterProfiles.data.data.find(
-      (filter) => filter.filtercode === +e.target.value
-    )
-    console.log(e.target.value)
-    setCurrentFilter(selectedFilter)
     setSelectValue(e.target.value)
   }
 
   const handleApply = () => {
-    const convertedObject = convertObject(currentFilter)
-    console.log(convertedObject)
-    setColumnVisibility(convertedObject)
+    const selectedFilter = filterProfiles.data?.data.find(
+      (filter) => filter.filtername === selectValue
+    )
+    const filterVisibility = filterDataToColumnVisibility(selectedFilter)
+
+    setColumnVisibility(filterVisibility)
   }
 
-  const handleAddProfile = () => {
-    // /filter/save
-    // const newProfile = {
-    // id: filterProfiles.length + 1,
-    //   filtername: 'New Profile',
-    //   filterdata: {
-    //     ticketid: true,
-    //     subject: false,
-    //     concern: false,
-    //     issue: true,
-    //     requestername: true,
-    //     requesteremail: true,
-    //     description: true,
-    //     priority: false,
-    //     ticketstatus: false,
-    //     datecreated: false,
-    //     duedate: false,
-    //     statusdetail: false,
-    //     assignedto: false,
-    //     department: false,
-    //     attachement: false,
-    //     comment: false,
-    //     actions: false,
-    //   },
-    // }
-    // setFilterProfiles((prev) => [...prev, newProfile])
-    // setSelectValue(newProfile.id)
-    // setCurrentFilter(newProfile)
-    // setColumnVisibility(newProfile.filterdata)
-  }
+  const handleAddProfile = async () => {
+    if (!newFilterName) {
+      return
+    }
 
-  const handleProfileSave = () => {
-    // const objIndex = filterProfiles.findIndex((obj) => obj.id == selectValue)
-    // filterProfiles[objIndex].filterdata = columnVisibility
-    // const updatedProfile = filterProfiles
-    // setFilterProfiles(updatedProfile)
+    const newFilterData = columnVisibilityToFilterData(columnVisibility)
+
+    const newProfile = {
+      filtername: newFilterName,
+      createdby: currentUser.fullname,
+      ...newFilterData,
+    }
+
+    try {
+      const res = await addFilterProfile.mutateAsync(newProfile)
+      successToast()
+    } catch (e) {
+      console.log(e)
+      errorToast()
+    }
   }
 
   useEffect(() => {
-    setSelectValue('')
-    setColumnVisibility(currentFilter)
-  }, [])
+    const defaultFilter =
+      filterProfiles.data?.data.find(
+        (filter) => filter.status === 'INACTIVE'
+      ) || ''
+    const filterVisibility = filterDataToColumnVisibility(defaultFilter)
+    console.log(filterVisibility)
+
+    setSelectValue(defaultFilter.filtername)
+    setColumnVisibility(filterVisibility)
+  }, [filterProfiles.data])
 
   return (
     <Tabs
@@ -102,10 +109,9 @@ const TicketTrackingTabs = ({
         <TabPanel>
           <VStack spacing="4" divider={<Divider />}>
             <Select onChange={handleChange} value={selectValue}>
-              <option value="">Show all</option>
               {filterProfiles.data?.data.length > 0 &&
                 filterProfiles.data.data.map((profile) => (
-                  <option key={profile.filtercode} value={profile.filtercode}>
+                  <option key={profile.filtercode} value={profile.filtername}>
                     {profile.filtername}
                   </option>
                 ))}
@@ -127,25 +133,26 @@ const TicketTrackingTabs = ({
 
         <TabPanel>
           <VStack spacing="4" divider={<Divider />}>
-            <HStack w="100%" spacing="8" justifyContent="space-between">
-              {/* <Select onChange={handleChange} value={selectValue}>
-                {filterProfiles.data?.length > 0 &&
-                  filterProfiles.data.map((profile) => (
-                    <option key={profile.id} value={profile.id}>
+            <FormControl>
+              <Input
+                list="filterProfiles"
+                value={newFilterName}
+                onChange={(e) => setNewFilterName(e.target.value)}
+              />
+              <datalist id="filterProfiles">
+                {filterProfiles.data?.data.length > 0 &&
+                  filterProfiles.data.data.map((profile) => (
+                    <option key={profile.filtercode} value={profile.filtername}>
                       {profile.filtername}
                     </option>
                   ))}
-              </Select> */}
-
-              <Button leftIcon={<AddIcon />} onClick={handleAddProfile}>
-                Add
-              </Button>
-            </HStack>
+              </datalist>
+            </FormControl>
 
             <TicketTrackingCheckboxes table={table} />
 
             <ButtonGroup>
-              <Button colorScheme="purple" onClick={handleProfileSave}>
+              <Button colorScheme="purple" onClick={handleAddProfile}>
                 Save Changes
               </Button>
             </ButtonGroup>

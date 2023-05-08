@@ -160,7 +160,7 @@ const TicketTracking = () => {
         </Heading>
 
         <Flex w="100%" justifyContent="end">
-          {tickets.length > 1 && (
+          {tickets.length > 0 && (
             <Menu>
               <MenuButton as={IconButton} icon={<MdFilterList />} />
               <MenuList p="4" w={['290px', null, '500px']}>

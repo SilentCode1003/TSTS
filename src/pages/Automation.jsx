@@ -2,12 +2,12 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Checkbox,
   Flex,
   FormControl,
   FormHelperText,
   FormLabel,
   Grid,
-  HStack,
   Heading,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -15,12 +15,27 @@ import {
   NumberInputField,
   NumberInputStepper,
   Select,
+  Stack,
   VStack,
 } from '@chakra-ui/react'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { shallow } from 'zustand/shallow'
+import useDashboardCardStore from '../store/DashboardCardStore'
+import { useState } from 'react'
 
 const Automation = () => {
+  const { cards, activeIds, cardsData, filterCards } = useDashboardCardStore(
+    (state) => ({
+      cards: state.cards,
+      activeIds: state.activeIds,
+      cardsData: state.cardsData,
+      filterCards: state.filterCards,
+    }),
+    shallow
+  )
+  const [checkedIds, setCheckedIds] = useState(activeIds())
+
   const {
     handleSubmit,
     register,
@@ -33,6 +48,21 @@ const Automation = () => {
       language: 'english',
     },
   })
+
+  const handleCheckboxChange = (e) => {
+    console.log(e.target.checked)
+    if (!e.target.checked) {
+      const filtered = checkedIds.filter((id) => id !== +e.target.value)
+      setCheckedIds(filtered)
+    }
+    if (e.target.checked) {
+      setCheckedIds((prev) => [...prev, +e.target.value])
+    }
+  }
+
+  const handleApply = () => {
+    filterCards(checkedIds)
+  }
 
   const onSubmit = (data) => {
     return new Promise((resolve) => {
@@ -110,6 +140,28 @@ const Automation = () => {
             </ButtonGroup>
           </VStack>
         </form>
+
+        <VStack spacing="4">
+          <Heading size="md">Filter Dashboard Cards</Heading>
+
+          <Stack spacing="2" direction="column">
+            {cardsData.map((card) => (
+              <Checkbox
+                key={card.id}
+                colorScheme="purple"
+                value={card.id}
+                onChange={handleCheckboxChange}
+                isChecked={checkedIds.includes(card.id)}
+              >
+                {card.header}
+              </Checkbox>
+            ))}
+          </Stack>
+
+          <Button size="sm" onClick={handleApply}>
+            Apply
+          </Button>
+        </VStack>
       </Flex>
     </Box>
   )

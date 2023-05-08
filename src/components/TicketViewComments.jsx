@@ -17,7 +17,7 @@ import { serializedDataToFile } from '../utils/fileData'
 
 const TicketViewComments = ({ searchedTicket }) => {
   const ticketComments = useGetTicketComments(searchedTicket.ticketid)
-  const comments = ticketComments?.data
+  const comments = ticketComments?.data || ''
 
   const attachments = (comment) => {
     const attachmentsJSX = []
@@ -36,7 +36,7 @@ const TicketViewComments = ({ searchedTicket }) => {
     return attachmentsJSX
   }
 
-  return comments?.data.length ? (
+  return comments.data?.length ? (
     <>
       {comments?.data?.map((comment) => (
         <Card key={comment.commentid} fontSize="sm">

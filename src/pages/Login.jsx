@@ -125,7 +125,11 @@ const Login = () => {
                 </Button>
               </ButtonGroup>
 
-              {error && <Text>{error.message}</Text>}
+              {error && (
+                <Text color="red.500" fontWeight="semibold">
+                  {error.message}
+                </Text>
+              )}
             </VStack>
           </form>
         </Flex>

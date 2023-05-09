@@ -50,7 +50,6 @@ const Automation = () => {
   })
 
   const handleCheckboxChange = (e) => {
-    console.log(e.target.checked)
     if (!e.target.checked) {
       const filtered = checkedIds.filter((id) => id !== +e.target.value)
       setCheckedIds(filtered)

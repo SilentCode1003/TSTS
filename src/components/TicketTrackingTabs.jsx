@@ -100,7 +100,6 @@ const TicketTrackingTabs = ({
       filterProfiles.data?.data.find((filter) => filter.status === 'ACTIVE') ||
       ''
     const filterVisibility = filterDataToColumnVisibility(defaultFilter)
-    console.log(filterVisibility)
 
     setSelectValue(defaultFilter.filtername)
     setColumnVisibility(filterVisibility)

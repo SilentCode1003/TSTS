@@ -31,7 +31,6 @@ const useDashboardCardStore = create((set, get) => ({
     return ids
   },
   filterCards: (idArray) => {
-    console.log(idArray)
     set((state) => {
       const filtered = state.cardsData.filter(
         (card) => idArray.indexOf(card.id) !== -1

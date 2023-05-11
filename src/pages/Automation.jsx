@@ -23,6 +23,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { shallow } from 'zustand/shallow'
 import useDashboardCardStore from '../store/DashboardCardStore'
 import { useState } from 'react'
+import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 
 const Automation = () => {
   const { cards, activeIds, cardsData, filterCards } = useDashboardCardStore(
@@ -49,6 +50,14 @@ const Automation = () => {
     },
   })
 
+  const successToast = useSuccessToast({
+    title: 'Success',
+    description: 'Setting applied successfully',
+  })
+  const errorToast = useErrorToast({
+    title: 'Error',
+  })
+
   const handleCheckboxChange = (e) => {
     if (!e.target.checked) {
       const filtered = checkedIds.filter((id) => id !== +e.target.value)
@@ -61,6 +70,7 @@ const Automation = () => {
 
   const handleApply = () => {
     filterCards(checkedIds)
+    successToast()
   }
 
   const onSubmit = (data) => {

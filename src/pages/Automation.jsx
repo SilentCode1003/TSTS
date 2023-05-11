@@ -150,27 +150,29 @@ const Automation = () => {
           </VStack>
         </form>
 
-        <VStack spacing="4">
-          <Heading size="md">Filter Dashboard Cards</Heading>
+        <Flex>
+          <VStack spacing="4">
+            <Heading size="md">Filter Dashboard Cards</Heading>
 
-          <Stack spacing="2" direction="column">
-            {cardsData.map((card) => (
-              <Checkbox
-                key={card.id}
-                colorScheme="purple"
-                value={card.id}
-                onChange={handleCheckboxChange}
-                isChecked={checkedIds.includes(card.id)}
-              >
-                {card.header}
-              </Checkbox>
-            ))}
-          </Stack>
+            <Stack spacing="2" direction="column">
+              {cardsData.map((card) => (
+                <Checkbox
+                  key={card.id}
+                  colorScheme="purple"
+                  value={card.id}
+                  onChange={handleCheckboxChange}
+                  isChecked={checkedIds.includes(card.id)}
+                >
+                  {card.header}
+                </Checkbox>
+              ))}
+            </Stack>
 
-          <Button size="sm" onClick={handleApply}>
-            Apply
-          </Button>
-        </VStack>
+            <Button size="sm" onClick={handleApply}>
+              Apply
+            </Button>
+          </VStack>
+        </Flex>
       </Flex>
     </Box>
   )

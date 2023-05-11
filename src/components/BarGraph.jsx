@@ -25,19 +25,26 @@ const options = {
   },
 }
 
-const labels = ['January', 'February', 'March']
+const labels = Array.from({ length: 12 }, (item, i) => {
+  return new Date(0, i).toLocaleString('en-Us', { month: 'long' })
+})
+
+const arr1 = new Uint8Array(12)
+crypto.getRandomValues(arr1)
+const arr2 = new Uint8Array(12)
+crypto.getRandomValues(arr2)
 
 const data = {
   labels,
   datasets: [
     {
       label: 'Resolved',
-      data: [5, 10, 15],
+      data: arr1,
       backgroundColor: '#9F7AEA88',
     },
     {
       label: 'Unresolved',
-      data: [2, 4, 6],
+      data: arr2,
       backgroundColor: '#EA7A8D88',
     },
   ],

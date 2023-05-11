@@ -25,13 +25,13 @@ const options = {
   },
 }
 
-const labels = Array.from({ length: 12 }, (item, i) => {
+const labels = Array.from({ length: 3 }, (item, i) => {
   return new Date(0, i).toLocaleString('en-Us', { month: 'long' })
 })
 
-const arr1 = new Uint8Array(12)
+const arr1 = new Uint8Array(3)
 crypto.getRandomValues(arr1)
-const arr2 = new Uint8Array(12)
+const arr2 = new Uint8Array(3)
 crypto.getRandomValues(arr2)
 
 const data = {

@@ -27,7 +27,10 @@ const TicketView = () => {
 
               <TicketViewComments searchedTicket={searchedTicket} />
 
-              <TicketViewReplyCard searchedTicket={searchedTicket} />
+              {searchedTicket.ticketstatus !== 'CLOSED' &&
+                searchedTicket.ticketstatus !== 'RESOLVED' && (
+                  <TicketViewReplyCard searchedTicket={searchedTicket} />
+                )}
             </Grid>
           </GridItem>
 

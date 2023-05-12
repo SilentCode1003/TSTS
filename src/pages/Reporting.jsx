@@ -105,32 +105,23 @@ const columns = [
 ]
 
 const Reporting = () => {
+  const [selectedStatus, setSelectedStatus] = useState('')
+  const [selectedDates, setSelectedDates] = useState([
+    new Date().toISOString().split('T')[0],
+  ])
   const tableRef = useRef(null)
-  const [columnFilters, setColumnFilters] = useState([])
   const { data: ticketsRes, isLoading, error } = useGetTickets()
   const tickets = ticketsRes?.data ?? []
   const statuses = useGetStatus()
   const table = useReactTable({
     data: tickets,
     columns,
-    state: {
-      columnFilters,
-    },
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
   })
 
   const handleChange = (e) => {
-    console.log('wewe')
-    setColumnFilters([
-      {
-        id: 'status',
-        value: e.target.value,
-      },
-    ])
+    setSelectedStatus((prev) => [...prev, e.target.value])
   }
-  const rerender = React.useReducer(() => ({}), {})[1]
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
@@ -139,7 +130,6 @@ const Reporting = () => {
   })
 
   const handleGenerateReport = (e) => {
-    rerender()
     onDownload()
   }
 
@@ -151,11 +141,15 @@ const Reporting = () => {
         </Heading>
 
         <Box w="100%">
-          <Flex direction="column" gap="4">
-            <FormControl>
+          <Flex direction="column" gap="4" alignItems="start">
+            <FormControl w="50%">
               <FormLabel htmlFor="ticket-status">Ticket Status</FormLabel>
 
-              <Select onChange={handleChange} id="ticket-status">
+              <Select
+                onChange={handleChange}
+                id="ticket-status"
+                value={selectedStatus}
+              >
                 <option value="">ALL</option>
                 {statuses.data?.data?.map((status) => (
                   <option key={status.statuscode} value={status.statusname}>
@@ -163,6 +157,19 @@ const Reporting = () => {
                   </option>
                 ))}
               </Select>
+            </FormControl>
+
+            <FormControl>
+              <FormLabel htmlFor="date-range">Date range</FormLabel>
+
+              <input
+                type="date"
+                id="date-range"
+                value={selectedDates}
+                onChange={(e) => {
+                  setSelectedDates(e.target.value)
+                }}
+              />
             </FormControl>
 
             <Button colorScheme="purple" onClick={handleGenerateReport}>

@@ -124,16 +124,6 @@ const Reporting = () => {
     setSelectedStatus(e.target.value)
   }
 
-  // const { onDownload } = useDownloadExcel({
-  //   currentTableRef: tableRef.current,
-  //   filename: 'Generated Report',
-  //   sheet: 'Report',
-  // })
-
-  // const handleGenerateReport = (e) => {
-  //   onDownload()
-  // }
-
   useEffect(() => {
     if (selectedStatus === '') {
       mutateAsync({

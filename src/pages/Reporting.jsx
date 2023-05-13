@@ -22,20 +22,18 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import React, { useEffect } from 'react'
+import { RangeDatepicker } from 'chakra-dayzed-datepicker'
+import React, { useEffect, useRef, useState } from 'react'
+import { DownloadTableExcel } from 'react-export-table-to-excel'
+import { SiMicrosoftexcel } from 'react-icons/si'
 import { Link as RouterLink } from 'react-router-dom'
-import { useGetTickets } from '../api/ticket-tracking/getTickets'
+import { useGetAllTickets } from '../api/reporting/getAllTickets'
+import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
+import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
-import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import { useState } from 'react'
-import { useDownloadExcel } from 'react-export-table-to-excel'
-import { useRef } from 'react'
-import { RangeDatepicker } from 'chakra-dayzed-datepicker'
-import { useGetAllTickets } from '../api/reporting/getAllTickets'
 
 const columnHelper = createColumnHelper()
 
@@ -109,7 +107,8 @@ const columns = [
 const Reporting = () => {
   const [selectedStatus, setSelectedStatus] = useState('')
   const [selectedDates, setSelectedDates] = useState([new Date(), new Date()])
-  const { mutateAsync, error, isLoading } = useGetAllTickets()
+  const { mutateAsync, error, isLoading } = useGetAllTickets('')
+  const getTicketByStatusMutation = useGetTicketsByStatus(selectedStatus)
   const tableRef = useRef(null)
   const [tickets, setTickets] = useState([])
   // const { data: ticketsRes, isLoading, error } = useGetTickets()
@@ -125,15 +124,15 @@ const Reporting = () => {
     setSelectedStatus(e.target.value)
   }
 
-  const { onDownload } = useDownloadExcel({
-    currentTableRef: tableRef.current,
-    filename: 'Generated Report',
-    sheet: 'Report',
-  })
+  // const { onDownload } = useDownloadExcel({
+  //   currentTableRef: tableRef.current,
+  //   filename: 'Generated Report',
+  //   sheet: 'Report',
+  // })
 
-  const handleGenerateReport = (e) => {
-    onDownload()
-  }
+  // const handleGenerateReport = (e) => {
+  //   onDownload()
+  // }
 
   useEffect(() => {
     console.log(selectedStatus)
@@ -145,6 +144,15 @@ const Reporting = () => {
         setTickets(data.data)
       })
     } else {
+      getTicketByStatusMutation
+        .mutateAsync({
+          ticketstatus: selectedStatus,
+          datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+          dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+        })
+        .then((data) => {
+          setTickets(data.data)
+        })
     }
   }, [selectedStatus, selectedDates])
 
@@ -174,7 +182,7 @@ const Reporting = () => {
               </Select>
             </FormControl>
 
-            <FormControl>
+            <FormControl w="50%">
               <FormLabel htmlFor="date-range">Date range</FormLabel>
               <RangeDatepicker
                 id="date-range"
@@ -183,9 +191,14 @@ const Reporting = () => {
               />
             </FormControl>
 
-            <Button colorScheme="purple" onClick={handleGenerateReport}>
-              Generate
-            </Button>
+            <DownloadTableExcel
+              filename="Generated Report"
+              currentTableRef={tableRef.current}
+            >
+              <Button leftIcon={<SiMicrosoftexcel />} colorScheme="green">
+                Generate
+              </Button>
+            </DownloadTableExcel>
           </Flex>
         </Box>
 

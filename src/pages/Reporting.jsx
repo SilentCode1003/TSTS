@@ -135,7 +135,6 @@ const Reporting = () => {
   // }
 
   useEffect(() => {
-    console.log(selectedStatus)
     if (selectedStatus === '') {
       mutateAsync({
         datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,

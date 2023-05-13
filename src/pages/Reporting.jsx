@@ -25,7 +25,7 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import ErrorMessage from '../components/UI/ErrorMessage'
@@ -34,6 +34,8 @@ import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { useState } from 'react'
 import { useDownloadExcel } from 'react-export-table-to-excel'
 import { useRef } from 'react'
+import { RangeDatepicker } from 'chakra-dayzed-datepicker'
+import { useGetAllTickets } from '../api/reporting/getAllTickets'
 
 const columnHelper = createColumnHelper()
 
@@ -106,12 +108,12 @@ const columns = [
 
 const Reporting = () => {
   const [selectedStatus, setSelectedStatus] = useState('')
-  const [selectedDates, setSelectedDates] = useState([
-    new Date().toISOString().split('T')[0],
-  ])
+  const [selectedDates, setSelectedDates] = useState([new Date(), new Date()])
+  const { mutateAsync, error, isLoading } = useGetAllTickets()
   const tableRef = useRef(null)
-  const { data: ticketsRes, isLoading, error } = useGetTickets()
-  const tickets = ticketsRes?.data ?? []
+  const [tickets, setTickets] = useState([])
+  // const { data: ticketsRes, isLoading, error } = useGetTickets()
+  // const tickets = ticketsRes?.data ?? []
   const statuses = useGetStatus()
   const table = useReactTable({
     data: tickets,
@@ -120,7 +122,7 @@ const Reporting = () => {
   })
 
   const handleChange = (e) => {
-    setSelectedStatus((prev) => [...prev, e.target.value])
+    setSelectedStatus(e.target.value)
   }
 
   const { onDownload } = useDownloadExcel({
@@ -132,6 +134,19 @@ const Reporting = () => {
   const handleGenerateReport = (e) => {
     onDownload()
   }
+
+  useEffect(() => {
+    console.log(selectedStatus)
+    if (selectedStatus === '') {
+      mutateAsync({
+        datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+        dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+      }).then((data) => {
+        setTickets(data.data)
+      })
+    } else {
+    }
+  }, [selectedStatus, selectedDates])
 
   return (
     <Box p={['4', null, '8']}>
@@ -161,14 +176,10 @@ const Reporting = () => {
 
             <FormControl>
               <FormLabel htmlFor="date-range">Date range</FormLabel>
-
-              <input
-                type="date"
+              <RangeDatepicker
                 id="date-range"
-                value={selectedDates}
-                onChange={(e) => {
-                  setSelectedDates(e.target.value)
-                }}
+                selectedDates={selectedDates}
+                onDateChange={setSelectedDates}
               />
             </FormControl>
 

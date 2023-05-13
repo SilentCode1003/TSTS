@@ -18,13 +18,22 @@ import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import SearchedTicket from '../components/SearchedTicket'
+import { useSearchTicket } from '../api/reporting/searchTicket'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const TicketSearch = () => {
+  const [searchedTicket, setSearchedTicket] = useState(null)
   const { ticketId } = useParams()
-  const { data: allTickets, isLoading, error } = useGetTickets()
-  const searchedTicket = allTickets?.data?.find(
-    (ticket) => ticket.ticketid === ticketId
-  )
+  const { mutateAsync, isLoading, error } = useSearchTicket(ticketId)
+
+  useEffect(() => {
+    mutateAsync({
+      ticketid: `${ticketId}`,
+    }).then((res) => {
+      setSearchedTicket(res.data[0])
+    })
+  }, [ticketId])
 
   return (
     <Box p={['4', null, '8']}>

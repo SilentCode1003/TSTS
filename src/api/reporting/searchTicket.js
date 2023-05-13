@@ -6,7 +6,7 @@ export const searchTicket = async (inputs) => {
   return res.data
 }
 
-export const useGetAllTickets = (inputs) => {
+export const useSearchTicket = (inputs) => {
   const queryClient = useQueryClient()
 
   return useMutation({

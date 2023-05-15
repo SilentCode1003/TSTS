@@ -26,7 +26,10 @@ import {
 } from '@tanstack/react-table'
 import { RangeDatepicker } from 'chakra-dayzed-datepicker'
 import React, { useEffect, useRef, useState } from 'react'
-import { DownloadTableExcel } from 'react-export-table-to-excel'
+import {
+  DownloadTableExcel,
+  useDownloadExcel,
+} from 'react-export-table-to-excel'
 import { SiMicrosoftexcel } from 'react-icons/si'
 import { Link as RouterLink } from 'react-router-dom'
 import { useGetAllTickets } from '../api/reporting/getAllTickets'
@@ -34,6 +37,8 @@ import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
+import { jsPDF } from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
 const columnHelper = createColumnHelper()
 
@@ -104,9 +109,14 @@ const columns = [
   }),
 ]
 
+const date = new Date()
+
 const Reporting = () => {
   const [selectedStatus, setSelectedStatus] = useState('')
-  const [selectedDates, setSelectedDates] = useState([new Date(), new Date()])
+  const [selectedDates, setSelectedDates] = useState([
+    new Date(date.getFullYear(), date.getMonth(), 1),
+    new Date(date.getFullYear(), date.getMonth() + 1, 0),
+  ])
   const { mutateAsync, error, isLoading } = useGetAllTickets('')
   const getTicketByStatusMutation = useGetTicketsByStatus(selectedStatus)
   const tableRef = useRef(null)
@@ -119,6 +129,24 @@ const Reporting = () => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: 'Generated Report',
+    sheet: 'Report',
+  })
+
+  const exportPDF = () => {
+    const doc = new jsPDF('l')
+    doc.setFont('Helvetica')
+    autoTable(doc, { html: '#reports-table' })
+    doc.save('reports-table.pdf')
+  }
+
+  const handleGenerate = (e) => {
+    onDownload()
+    exportPDF()
+  }
 
   const handleChange = (e) => {
     setSelectedStatus(e.target.value)
@@ -180,14 +208,13 @@ const Reporting = () => {
               />
             </FormControl>
 
-            <DownloadTableExcel
-              filename="Generated Report"
-              currentTableRef={tableRef.current}
+            <Button
+              leftIcon={<SiMicrosoftexcel />}
+              colorScheme="green"
+              onClick={handleGenerate}
             >
-              <Button leftIcon={<SiMicrosoftexcel />} colorScheme="green">
-                Generate
-              </Button>
-            </DownloadTableExcel>
+              Generate
+            </Button>
           </Flex>
         </Box>
 
@@ -201,7 +228,12 @@ const Reporting = () => {
           </Text>
         ) : (
           <TableContainer maxW="calc(100vw - 250px)">
-            <Table ref={tableRef} size="sm" variant="striped">
+            <Table
+              ref={tableRef}
+              id="reports-table"
+              size="sm"
+              variant="striped"
+            >
               <Thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Tr key={headerGroup.id}>

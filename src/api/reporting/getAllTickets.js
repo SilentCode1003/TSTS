@@ -10,6 +10,7 @@ export const useGetAllTickets = (inputs) => {
   const queryClient = useQueryClient()
 
   return useMutation({
+    mutationKey: ['tickets', `${inputs}`],
     mutationFn: (inputs) => getAllTickets(inputs),
     onSuccess: () =>
       queryClient.invalidateQueries({

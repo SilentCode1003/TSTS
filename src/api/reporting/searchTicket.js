@@ -10,6 +10,7 @@ export const useSearchTicket = (inputs) => {
   const queryClient = useQueryClient()
 
   return useMutation({
+    mutationKey: ['tickets', `${inputs}`],
     mutationFn: (inputs) => searchTicket(inputs),
     onSuccess: () =>
       queryClient.invalidateQueries({

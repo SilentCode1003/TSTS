@@ -10,6 +10,7 @@ export const useGetTicketsByStatus = (inputs) => {
   const queryClient = useQueryClient()
 
   return useMutation({
+    mutationKey: ['tickets', `${inputs}`],
     mutationFn: (inputs) => getTicketsByStatus(inputs),
     onSuccess: () =>
       queryClient.invalidateQueries({

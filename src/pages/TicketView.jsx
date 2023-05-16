@@ -11,12 +11,7 @@ const TicketView = () => {
   const { ticketId } = useParams()
   const [searchedTicket, setSearchedTicket] = useState(null)
   const [lastAction, setLastAction] = useState(null)
-  // const { data: allTickets, isLoading, error } = useGetTickets()
-  // const searchedTicket =
-  //   allTickets?.data?.find((ticket) => ticket.ticketid === ticketId) || {}
   const { isLoading, error, mutateAsync } = useSearchTicket(ticketId)
-
-  console.log(searchedTicket)
 
   useEffect(() => {
     const fetchTicket = async () => {

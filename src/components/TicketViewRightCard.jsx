@@ -29,10 +29,6 @@ const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
     'Are you sure?',
     'Once the ticket is closed, it will become read-only and cannot be edited. Are you absolutely certain you want to proceed?'
   )
-  // const { ticketId } = useParams()
-  // const allTickets = useGetTickets()
-  // const searchedTicket =
-  //   allTickets.data?.data?.find((ticket) => ticket.ticketid === ticketId) || {}
   const { data: statuses, isLoading, error } = useGetStatus()
 
   const {

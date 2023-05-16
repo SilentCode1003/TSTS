@@ -50,6 +50,7 @@ const TopBar = () => {
               size="xs"
               placeholder="Search ticket number"
               value={searchTicketId}
+              name="search"
               onChange={handleChange}
             />
           </InputGroup>

@@ -41,6 +41,11 @@ const useDashboardCardStore = create((set, get) => ({
       }
     })
   },
+  setCards: (newState) => {
+    set((state) => {
+      return { cards: newState }
+    })
+  },
   // set((state) => ({
   //   cards: state.cards.filter((item) => idArray.indexOf(item.id) === -1),
   // })),

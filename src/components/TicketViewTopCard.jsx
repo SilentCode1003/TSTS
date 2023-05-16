@@ -30,6 +30,8 @@ const TicketAttachments = ({ searchedTicket }) => {
 }
 
 const TicketViewTopCard = ({ searchedTicket }) => {
+  if (!searchedTicket) return
+
   return (
     <Card>
       <CardHeader>

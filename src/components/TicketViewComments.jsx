@@ -16,6 +16,8 @@ import { useGetTicketComments } from '../api/ticket-view/getTicketComments'
 import { serializedDataToFile } from '../utils/fileData'
 
 const TicketViewComments = ({ searchedTicket }) => {
+  if (!searchedTicket) return
+
   const ticketComments = useGetTicketComments(searchedTicket.ticketid)
   const comments = ticketComments?.data || ''
 

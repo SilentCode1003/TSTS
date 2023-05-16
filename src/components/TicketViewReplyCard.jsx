@@ -23,6 +23,8 @@ import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 const TicketViewReplyCard = ({ searchedTicket }) => {
+  if (!searchedTicket) return
+
   const [showReplyArea, setShowReplyArea] = useState(false)
   const [ResetConfirmDialog, confirmReset] = useConfirm('Are you sure?', 'All')
   const {

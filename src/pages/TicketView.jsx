@@ -35,7 +35,7 @@ const TicketView = () => {
           </GridItem>
 
           <GridItem>
-            <TicketViewRightCard searchedTicket={searchedTicket} />
+            <TicketViewRightCard />
           </GridItem>
         </Grid>
       </Stack>

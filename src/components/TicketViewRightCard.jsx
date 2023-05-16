@@ -66,6 +66,7 @@ const TicketViewRightCard = () => {
     } catch (e) {
       errorToast()
       console.log(e)
+      return
     }
 
     setValue('selectedStatus', data.selectedStatus)

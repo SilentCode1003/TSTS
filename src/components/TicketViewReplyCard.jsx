@@ -23,8 +23,6 @@ import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 const TicketViewReplyCard = ({ searchedTicket }) => {
-  if (!searchedTicket) return
-
   const [showReplyArea, setShowReplyArea] = useState(false)
   const [ResetConfirmDialog, confirmReset] = useConfirm('Are you sure?', 'All')
   const {
@@ -34,7 +32,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
     formState: { errors, isSubmitting },
   } = useForm()
 
-  const uploadTicketComment = usePostTicketComment(searchedTicket.ticketid)
+  const uploadTicketComment = usePostTicketComment(searchedTicket?.ticketid)
 
   const { currentUser } = useContext(AuthContext)
 
@@ -87,6 +85,8 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
     toggleShowReplyArea()
     reset()
   }
+
+  if (!searchedTicket) return
 
   return !showReplyArea ? (
     <Card>

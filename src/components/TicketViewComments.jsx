@@ -16,9 +16,7 @@ import { useGetTicketComments } from '../api/ticket-view/getTicketComments'
 import { serializedDataToFile } from '../utils/fileData'
 
 const TicketViewComments = ({ searchedTicket }) => {
-  if (!searchedTicket) return
-
-  const ticketComments = useGetTicketComments(searchedTicket.ticketid)
+  const ticketComments = useGetTicketComments(searchedTicket?.ticketid)
   const comments = ticketComments?.data || ''
 
   const attachments = (comment) => {
@@ -37,6 +35,8 @@ const TicketViewComments = ({ searchedTicket }) => {
 
     return attachmentsJSX
   }
+
+  if (!searchedTicket) return
 
   return comments.data?.length ? (
     <>

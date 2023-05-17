@@ -23,8 +23,6 @@ import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import { useParams } from 'react-router-dom'
 
 const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
-  if (!searchedTicket) return
-
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
     'Once the ticket is closed, it will become read-only and cannot be edited. Are you absolutely certain you want to proceed?'
@@ -38,7 +36,7 @@ const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
     formState: { errors, isSubmitting },
   } = useForm()
   const ticketStatusMutation = usePostTicketStatusUpdate(
-    searchedTicket.ticketid
+    searchedTicket?.ticketid
   )
   const { currentUser } = useContext(AuthContext)
   const successToast = useSuccessToast({
@@ -59,7 +57,7 @@ const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
 
     try {
       await ticketStatusMutation.mutateAsync({
-        ticketid: searchedTicket.ticketid,
+        ticketid: searchedTicket?.ticketid,
         ticketstatus: data.selectedStatus,
         commentby: currentUser.fullname,
       })
@@ -74,8 +72,10 @@ const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
   }
 
   useEffect(() => {
-    setValue('selectedStatus', searchedTicket.ticketstatus)
-  }, [searchedTicket.ticketstatus])
+    setValue('selectedStatus', searchedTicket?.ticketstatus)
+  }, [searchedTicket?.ticketstatus])
+
+  if (!searchedTicket) return
 
   return (
     <>

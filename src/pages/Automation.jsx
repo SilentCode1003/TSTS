@@ -162,6 +162,7 @@ const Automation = () => {
                   value={card.id}
                   onChange={handleCheckboxChange}
                   isChecked={checkedIds.includes(card.id)}
+                  name="cardChecklist"
                 >
                   {card.header}
                 </Checkbox>

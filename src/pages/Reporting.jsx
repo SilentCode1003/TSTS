@@ -211,7 +211,7 @@ const Reporting = () => {
             </FormControl>
 
             <FormControl w="50%">
-              <FormLabel htmlFor="date-range">Date range</FormLabel>
+              <FormLabel>Date range</FormLabel>
               <RangeDatepicker
                 id="date-range"
                 selectedDates={selectedDates}

@@ -182,6 +182,7 @@ const Reporting = () => {
   // The only solution I managed to create for the excel export
   useEffect(() => {
     setSelectedStatus((prev) => prev)
+    setSelectedDates((prev) => prev)
   }, [])
 
   return (

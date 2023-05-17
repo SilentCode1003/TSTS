@@ -33,11 +33,16 @@ const UserCard = () => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverHeader>User</PopoverHeader>
+        <PopoverHeader>{currentUser.fullname}</PopoverHeader>
         <PopoverBody>
           <VStack>
             <Box w="100%">
-              <Button w="100%" colorScheme="purple" onClick={handleLogout}>
+              <Button
+                w="100%"
+                colorScheme="purple"
+                variant="outline"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             </Box>

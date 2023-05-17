@@ -179,12 +179,6 @@ const Reporting = () => {
     }
   }, [selectedStatus, selectedDates])
 
-  // The only solution I managed to create for the excel export
-  useEffect(() => {
-    setSelectedStatus((prev) => prev)
-    setSelectedDates((prev) => prev)
-  }, [])
-
   return (
     <Box p={['4', null, '8']}>
       <Stack direction="column" spacing="8" alignItems="center">

@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Popover,
-  PopoverAnchor,
   PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
@@ -13,8 +12,8 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 const UserCard = () => {
   const navigate = useNavigate()

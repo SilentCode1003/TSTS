@@ -14,6 +14,7 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import SortableItem from './SortableItem'
+import { restrictToParentElement } from '@dnd-kit/modifiers'
 
 const TopCards = () => {
   const { cards, cardsData, filterCards, setCards } = useDashboardCardStore(
@@ -56,6 +57,7 @@ const TopCards = () => {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
       sensors={sensors}
+      modifiers={[restrictToParentElement]}
     >
       <SortableContext items={cards}>
         <SimpleGrid columns={[1, 2, 4]} spacing="4">

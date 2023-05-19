@@ -4,7 +4,14 @@ import TopCardsItem from './TopCardsItem'
 import BarGraph from './BarGraph'
 import useDashboardCardStore from '../store/DashboardCardStore'
 import { shallow } from 'zustand/shallow'
-import { DndContext, closestCenter } from '@dnd-kit/core'
+import {
+  DndContext,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import SortableItem from './SortableItem'
 
@@ -19,6 +26,21 @@ const TopCards = () => {
     shallow
   )
 
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  })
+
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 200,
+      tolerance: 5,
+    },
+  })
+
+  const sensors = useSensors(mouseSensor, touchSensor)
+
   const handleDragEnd = (e) => {
     const { active, over } = e
 
@@ -30,7 +52,11 @@ const TopCards = () => {
   }
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+    <DndContext
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
       <SortableContext items={cards}>
         <SimpleGrid columns={[1, 2, 4]} spacing="4">
           {cards.map((card) => (

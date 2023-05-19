@@ -4,31 +4,49 @@ import TopCardsItem from './TopCardsItem'
 import BarGraph from './BarGraph'
 import useDashboardCardStore from '../store/DashboardCardStore'
 import { shallow } from 'zustand/shallow'
+import { DndContext, closestCenter } from '@dnd-kit/core'
+import { SortableContext, arrayMove } from '@dnd-kit/sortable'
+import SortableItem from './SortableItem'
 
 const TopCards = () => {
-  const { cards, cardsData, filterCards } = useDashboardCardStore(
+  const { cards, cardsData, filterCards, setCards } = useDashboardCardStore(
     (state) => ({
       cards: state.cards,
       cardsData: state.cardsData,
       filterCards: state.filterCards,
+      setCards: state.setCards,
     }),
     shallow
   )
 
-  return (
-    <SimpleGrid columns={[1, 2, 4]} spacing="4">
-      {cards.map((card) => (
-        <TopCardsItem key={card.id} header={card.header}>
-          {card.content}
-        </TopCardsItem>
-      ))}
+  const handleDragEnd = (e) => {
+    const { active, over } = e
 
-      <GridItem colSpan={[1, 2]} rowSpan="2">
-        <TopCardsItem>
-          <BarGraph />
-        </TopCardsItem>
-      </GridItem>
-    </SimpleGrid>
+    if (active.id !== over.id) {
+      const activeIndex = cards.map((e) => e.id).indexOf(active.id)
+      const overIndex = cards.map((e) => e.id).indexOf(over.id)
+      setCards(arrayMove(cards, activeIndex, overIndex))
+    }
+  }
+
+  return (
+    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <SortableContext items={cards}>
+        <SimpleGrid columns={[1, 2, 4]} spacing="4">
+          {cards.map((card) => (
+            <SortableItem key={card.id} id={card.id}>
+              <TopCardsItem header={card.header}>{card.content}</TopCardsItem>
+            </SortableItem>
+          ))}
+
+          <GridItem colSpan={[1, 2]} rowSpan="2">
+            <TopCardsItem>
+              <BarGraph />
+            </TopCardsItem>
+          </GridItem>
+        </SimpleGrid>
+      </SortableContext>
+    </DndContext>
   )
 }
 

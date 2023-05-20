@@ -1,9 +1,4 @@
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
-import React from 'react'
-import TopCardsItem from './TopCardsItem'
-import BarGraph from './BarGraph'
-import useDashboardCardStore from '../store/DashboardCardStore'
-import { shallow } from 'zustand/shallow'
 import {
   DndContext,
   MouseSensor,
@@ -12,9 +7,14 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import { SortableContext, arrayMove } from '@dnd-kit/sortable'
-import SortableItem from './SortableItem'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
+import { SortableContext, arrayMove } from '@dnd-kit/sortable'
+import React from 'react'
+import { shallow } from 'zustand/shallow'
+import useDashboardCardStore from '../store/DashboardCardStore'
+import BarGraph from './BarGraph'
+import SortableItem from './SortableItem'
+import TopCardsItem from './TopCardsItem'
 
 const TopCards = () => {
   const { cards, cardsData, filterCards, setCards } = useDashboardCardStore(

@@ -1,4 +1,4 @@
-import { GridItem, SimpleGrid } from '@chakra-ui/react'
+import { Button, GridItem, SimpleGrid } from '@chakra-ui/react'
 import {
   DndContext,
   MouseSensor,
@@ -72,6 +72,9 @@ const TopCards = () => {
               <BarGraph />
             </TopCardsItem>
           </GridItem>
+          <Button colorScheme="purple" variant="outline">
+            Apply
+          </Button>
         </SimpleGrid>
       </SortableContext>
     </DndContext>

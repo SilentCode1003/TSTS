@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -34,7 +34,7 @@ crypto.getRandomValues(arr1)
 const arr2 = new Uint8Array(3)
 crypto.getRandomValues(arr2)
 
-const data = {
+const dummyData = {
   labels,
   datasets: [
     {
@@ -51,6 +51,8 @@ const data = {
 }
 
 const BarGraph = () => {
+  const [data, setData] = useState(dummyData)
+
   return <Bar options={options} data={data} />
 }
 

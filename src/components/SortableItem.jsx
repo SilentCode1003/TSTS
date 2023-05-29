@@ -10,7 +10,7 @@ const SortableItem = ({ id, children }) => {
     transform: CSS.Transform.toString(transform),
     transition,
     touchAction: 'manipulation',
-    zIndex: 10,
+    zIndex: 1,
     userSelect: 'none',
     cursor: 'grab',
   }

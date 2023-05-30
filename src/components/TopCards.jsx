@@ -72,9 +72,6 @@ const TopCards = () => {
               <BarGraph />
             </TopCardsItem>
           </GridItem>
-          <Button colorScheme="purple" variant="outline">
-            Apply
-          </Button>
         </SimpleGrid>
       </SortableContext>
     </DndContext>

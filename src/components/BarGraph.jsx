@@ -51,6 +51,8 @@ const dummyData = {
 }
 
 const BarGraph = () => {
+  const [labels, setLabels] = useState([])
+  const [dataSets, setDataSets] = useState([])
   const [data, setData] = useState(dummyData)
 
   return <Bar options={options} data={data} />

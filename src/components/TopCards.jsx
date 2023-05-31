@@ -42,6 +42,37 @@ const TopCards = () => {
 
   const sensors = useSensors(mouseSensor, touchSensor)
 
+  const statusDummyData = {
+    labels: [new Date().toLocaleString(undefined, { month: 'long' })],
+    datasets: [
+      {
+        label: 'New',
+        data: [25],
+        backgroundColor: '#9F7AEA99',
+      },
+      {
+        label: 'Open',
+        data: [73],
+        backgroundColor: '#eae37a99',
+      },
+      {
+        label: 'Pending',
+        data: [55],
+        backgroundColor: '#EA7A8D99',
+      },
+      {
+        label: 'Closed',
+        data: [49],
+        backgroundColor: '#6d4d4d99',
+      },
+      {
+        label: 'Resolved',
+        data: [75],
+        backgroundColor: '#C5EA7A99',
+      },
+    ],
+  }
+
   const handleDragEnd = (e) => {
     const { active, over } = e
 
@@ -69,7 +100,7 @@ const TopCards = () => {
 
           <GridItem colSpan={[1, 2]} rowSpan="2">
             <TopCardsItem>
-              <BarGraph />
+              <BarGraph data={statusDummyData} />
             </TopCardsItem>
           </GridItem>
         </SimpleGrid>

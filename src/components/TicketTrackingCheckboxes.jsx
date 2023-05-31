@@ -7,6 +7,7 @@ const TicketTrackingCheckboxes = ({ table }) => {
       <div>
         <label style={{ display: 'flex', gap: '5px' }}>
           <input
+            name="tableColumnVisibility"
             {...{
               type: 'checkbox',
               checked: table.getIsAllColumnsVisible(),
@@ -21,6 +22,7 @@ const TicketTrackingCheckboxes = ({ table }) => {
           <div key={column.id}>
             <label style={{ display: 'flex', gap: '5px' }}>
               <input
+                name="tableColumnVisibility"
                 {...{
                   type: 'checkbox',
                   checked: column.getIsVisible(),

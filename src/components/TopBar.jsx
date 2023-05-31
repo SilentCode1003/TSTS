@@ -15,7 +15,8 @@ const TopBar = () => {
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    setSearchTicketId(e.target.value)
+    const trimmedInput = e.target.value.trimStart()
+    setSearchTicketId(trimmedInput)
   }
 
   const handleSubmit = (e) => {
@@ -50,6 +51,7 @@ const TopBar = () => {
               size="xs"
               placeholder="Search ticket number"
               value={searchTicketId}
+              name="search"
               onChange={handleChange}
             />
           </InputGroup>

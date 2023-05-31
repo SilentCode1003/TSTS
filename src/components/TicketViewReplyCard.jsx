@@ -32,7 +32,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
     formState: { errors, isSubmitting },
   } = useForm()
 
-  const uploadTicketComment = usePostTicketComment(searchedTicket.ticketid)
+  const uploadTicketComment = usePostTicketComment(searchedTicket?.ticketid)
 
   const { currentUser } = useContext(AuthContext)
 
@@ -85,6 +85,8 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
     toggleShowReplyArea()
     reset()
   }
+
+  if (!searchedTicket) return
 
   return !showReplyArea ? (
     <Card>

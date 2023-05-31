@@ -13,7 +13,7 @@ export const usePostTicketStatusUpdate = (ticketid) => {
     mutationFn: (ticketDetails) => postTicketStatusUpdate(ticketDetails),
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: ['tickets'],
+        queryKey: ['tickets', `${ticketid}`],
       }),
   })
 }

@@ -6,15 +6,15 @@ export const searchTicket = async (inputs) => {
   return res.data
 }
 
-export const useSearchTicket = (inputs) => {
+export const useSearchTicket = (ticketid) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationKey: ['tickets', `${inputs}`],
+    mutationKey: ['tickets', `${ticketid}`],
     mutationFn: (inputs) => searchTicket(inputs),
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: ['tickets', `${inputs}`],
+        queryKey: ['tickets', `${ticketid}`],
       }),
   })
 }

@@ -1,26 +1,10 @@
-import {
-  Badge,
-  Box,
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-  HStack,
-  Heading,
-  SimpleGrid,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
-import React from 'react'
+import { Box, Heading, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetTickets } from '../api/ticket-tracking/getTickets'
-import LoadingSpinner from '../components/UI/LoadingSpinner'
-import ErrorMessage from '../components/UI/ErrorMessage'
-import SearchedTicket from '../components/SearchedTicket'
 import { useSearchTicket } from '../api/reporting/searchTicket'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import SearchedTicket from '../components/SearchedTicket'
+import ErrorMessage from '../components/UI/ErrorMessage'
+import LoadingSpinner from '../components/UI/LoadingSpinner'
 
 const TicketSearch = () => {
   const [searchedTicket, setSearchedTicket] = useState(null)

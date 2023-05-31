@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { axios } from '../axios'
 
 export const getFilterProfiles = async () => {
-  const res = await axios.get('/filter/load') // TODO: change this to /view
+  const res = await axios.get('/filter/load')
   return res.data
 }
 

@@ -13,6 +13,10 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.0.18",
     "@chakra-ui/react": "^2.5.5",
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/modifiers": "^6.0.1",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@loadable/component": "^5.15.3",
@@ -28,7 +32,6 @@
     "framer-motion": "^10.12.4",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
-    "mime-types": "^2.1.35",
     "pako": "^2.1.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",

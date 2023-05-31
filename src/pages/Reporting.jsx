@@ -6,7 +6,11 @@ import {
   FormLabel,
   HStack,
   Heading,
+  IconButton,
   Link,
+  Menu,
+  MenuButton,
+  MenuList,
   Select,
   Stack,
   Table,
@@ -25,20 +29,19 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { RangeDatepicker } from 'chakra-dayzed-datepicker'
+import { jsPDF } from 'jspdf'
+import autoTable from 'jspdf-autotable'
 import React, { useEffect, useRef, useState } from 'react'
-import {
-  DownloadTableExcel,
-  useDownloadExcel,
-} from 'react-export-table-to-excel'
+import { useDownloadExcel } from 'react-export-table-to-excel'
+import { MdFilterList } from 'react-icons/md'
 import { SiMicrosoftexcel } from 'react-icons/si'
 import { Link as RouterLink } from 'react-router-dom'
 import { useGetAllTickets } from '../api/reporting/getAllTickets'
 import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
+import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
-import { jsPDF } from 'jspdf'
-import autoTable from 'jspdf-autotable'
 
 const columnHelper = createColumnHelper()
 
@@ -112,6 +115,7 @@ const columns = [
 const date = new Date()
 
 const Reporting = () => {
+  const [columnVisibility, setColumnVisibility] = useState({})
   const [selectedStatus, setSelectedStatus] = useState('')
   const [selectedDates, setSelectedDates] = useState([
     new Date(date.getFullYear(), date.getMonth(), 1),
@@ -121,11 +125,13 @@ const Reporting = () => {
   const getTicketByStatusMutation = useGetTicketsByStatus(selectedStatus)
   const tableRef = useRef(null)
   const [tickets, setTickets] = useState([])
-  // const { data: ticketsRes, isLoading, error } = useGetTickets()
-  // const tickets = ticketsRes?.data ?? []
   const statuses = useGetStatus()
   const table = useReactTable({
     data: tickets,
+    state: {
+      columnVisibility,
+    },
+    onColumnVisibilityChange: setColumnVisibility,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
@@ -200,7 +206,7 @@ const Reporting = () => {
             </FormControl>
 
             <FormControl w="50%">
-              <FormLabel htmlFor="date-range">Date range</FormLabel>
+              <FormLabel>Date range</FormLabel>
               <RangeDatepicker
                 id="date-range"
                 selectedDates={selectedDates}
@@ -212,11 +218,23 @@ const Reporting = () => {
               leftIcon={<SiMicrosoftexcel />}
               colorScheme="green"
               onClick={handleGenerate}
+              isLoading={isLoading}
             >
               Generate
             </Button>
           </Flex>
         </Box>
+
+        <Flex w="100%" justifyContent="end">
+          {tickets.length > 0 && (
+            <Menu>
+              <MenuButton as={IconButton} icon={<MdFilterList />} />
+              <MenuList p="4">
+                <TicketTrackingCheckboxes table={table} />
+              </MenuList>
+            </Menu>
+          )}
+        </Flex>
 
         {error ? (
           <ErrorMessage>{error.message}</ErrorMessage>

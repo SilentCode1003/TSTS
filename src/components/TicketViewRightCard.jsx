@@ -22,15 +22,11 @@ import { useEffect } from 'react'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import { useParams } from 'react-router-dom'
 
-const TicketViewRightCard = () => {
+const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
     'Once the ticket is closed, it will become read-only and cannot be edited. Are you absolutely certain you want to proceed?'
   )
-  const { ticketId } = useParams()
-  const allTickets = useGetTickets()
-  const searchedTicket =
-    allTickets.data?.data?.find((ticket) => ticket.ticketid === ticketId) || {}
   const { data: statuses, isLoading, error } = useGetStatus()
 
   const {
@@ -40,7 +36,7 @@ const TicketViewRightCard = () => {
     formState: { errors, isSubmitting },
   } = useForm()
   const ticketStatusMutation = usePostTicketStatusUpdate(
-    searchedTicket.ticketid
+    searchedTicket?.ticketid
   )
   const { currentUser } = useContext(AuthContext)
   const successToast = useSuccessToast({
@@ -57,15 +53,18 @@ const TicketViewRightCard = () => {
 
     if (!ans) return
 
+    setLastAction(data.selectedStatus)
+
     try {
       await ticketStatusMutation.mutateAsync({
-        ticketid: searchedTicket.ticketid,
+        ticketid: searchedTicket?.ticketid,
         ticketstatus: data.selectedStatus,
         commentby: currentUser.fullname,
       })
     } catch (e) {
       errorToast()
       console.log(e)
+      return
     }
 
     setValue('selectedStatus', data.selectedStatus)
@@ -73,8 +72,10 @@ const TicketViewRightCard = () => {
   }
 
   useEffect(() => {
-    setValue('selectedStatus', searchedTicket.ticketstatus)
-  }, [searchedTicket.ticketstatus])
+    setValue('selectedStatus', searchedTicket?.ticketstatus)
+  }, [searchedTicket?.ticketstatus])
+
+  if (!searchedTicket) return
 
   return (
     <>

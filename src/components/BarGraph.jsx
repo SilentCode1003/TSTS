@@ -7,8 +7,9 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
+import { useGetStatusCount } from '../api/dashboard/getStatusCount'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -23,35 +24,114 @@ const options = {
     //   text: 'Resolved vs Unresolved Tickets per Month',
     // },
   },
+  scales: {
+    y: {
+      title: {
+        display: true,
+        text: 'Count',
+      },
+      ticks: {
+        stepSize: 1,
+      },
+    },
+  },
 }
 
-// const labels = Array.from({ length: 3 }, (item, i) => {
-//   return new Date(0, i).toLocaleString('en-Us', { month: 'long' })
-// })
+const BarGraph = () => {
+  const newCountMutation = useGetStatusCount('new')
+  const openCountMutation = useGetStatusCount('open')
+  const pendingCountMutation = useGetStatusCount('pending')
+  const closedCountMutation = useGetStatusCount('closed')
+  const resolvedCountMutation = useGetStatusCount('resolved')
 
-// const arr1 = new Uint8Array(3)
-// crypto.getRandomValues(arr1)
-// const arr2 = new Uint8Array(3)
-// crypto.getRandomValues(arr2)
+  const [newCount, setNewCount] = useState(1)
+  const [openCount, setOpenCount] = useState(2)
+  const [pendingCount, setPendingCount] = useState(3)
+  const [closedCount, setClosedCount] = useState(4)
+  const [resolvedCount, setResolvedCount] = useState(5)
 
-// const dummyData = {
-//   labels,
-//   datasets: [
-//     {
-//       label: 'Resolved',
-//       data: arr1,
-//       backgroundColor: '#9F7AEA88',
-//     },
-//     {
-//       label: 'Unresolved',
-//       data: arr2,
-//       backgroundColor: '#EA7A8D88',
-//     },
-//   ],
-// }
+  const statusCountData = {
+    labels: [new Date().toLocaleString(undefined, { month: 'long' })],
+    datasets: [
+      {
+        label: 'New',
+        data: [newCount],
+        backgroundColor: '#9F7AEA99',
+      },
+      {
+        label: 'Open',
+        data: [openCount],
+        backgroundColor: '#eae37a99',
+      },
+      {
+        label: 'Pending',
+        data: [pendingCount],
+        backgroundColor: '#EA7A8D99',
+      },
+      {
+        label: 'Closed',
+        data: [closedCount],
+        backgroundColor: '#6d4d4d99',
+      },
+      {
+        label: 'Resolved',
+        data: [resolvedCount],
+        backgroundColor: '#C5EA7A99',
+      },
+    ],
+  }
 
-const BarGraph = ({ data }) => {
-  return <Bar options={options} data={data} />
+  useEffect(() => {
+    try {
+      newCountMutation
+        .mutateAsync({
+          ticketstatus: 'NEW',
+          datefrom: '2023-05-01 00:00',
+          dateto: '2023-05-30 23:59',
+        })
+        .then((res) => setNewCount(res.data[0].ticketcount))
+
+      openCountMutation
+        .mutateAsync({
+          ticketstatus: 'OPEN',
+          datefrom: '2023-05-01 00:00',
+          dateto: '2023-05-30 23:59',
+        })
+        .then((res) => setOpenCount(res.data[0].ticketcount))
+
+      pendingCountMutation
+        .mutateAsync({
+          ticketstatus: 'PENDING',
+          datefrom: '2023-05-01 00:00',
+          dateto: '2023-05-30 23:59',
+        })
+        .then((res) => setPendingCount(res.data[0].ticketcount))
+
+      closedCountMutation
+        .mutateAsync({
+          ticketstatus: 'CLOSED',
+          datefrom: '2023-05-01 00:00',
+          dateto: '2023-05-30 23:59',
+        })
+        .then((res) => setClosedCount(res.data[0].ticketcount))
+
+      resolvedCountMutation
+        .mutateAsync({
+          ticketstatus: 'RESOLVED',
+          datefrom: '2023-05-01 00:00',
+          dateto: '2023-05-30 23:59',
+        })
+        .then((res) => setResolvedCount(res.data[0].ticketcount))
+    } catch (e) {
+      setNewCount(0)
+      setOpenCount(0)
+      setPendingCount(0)
+      setClosedCount(0)
+      setResolvedCount(0)
+    }
+  }, [])
+
+  return <Bar options={options} data={statusCountData} />
 }
 
 export default BarGraph

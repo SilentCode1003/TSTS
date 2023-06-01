@@ -44,11 +44,11 @@ const BarGraph = () => {
   const closedCountMutation = useGetStatusCount('closed')
   const resolvedCountMutation = useGetStatusCount('resolved')
 
-  const [newCount, setNewCount] = useState(1)
-  const [openCount, setOpenCount] = useState(2)
-  const [pendingCount, setPendingCount] = useState(3)
-  const [closedCount, setClosedCount] = useState(4)
-  const [resolvedCount, setResolvedCount] = useState(5)
+  const [newCount, setNewCount] = useState(0)
+  const [openCount, setOpenCount] = useState(0)
+  const [pendingCount, setPendingCount] = useState(0)
+  const [closedCount, setClosedCount] = useState(0)
+  const [resolvedCount, setResolvedCount] = useState(0)
 
   const statusCountData = {
     labels: [new Date().toLocaleString(undefined, { month: 'long' })],
@@ -91,52 +91,59 @@ const BarGraph = () => {
       .toString()
       .padStart(2, '0')
 
+    let interval
     try {
-      newCountMutation
-        .mutateAsync({
-          ticketstatus: 'NEW',
-          datefrom: `${year}-${month}-01 00:00`,
-          dateto: `${year}-${month}-${day} 23:59`,
-        })
-        .then((res) => setNewCount(res.data[0].ticketcount))
+      interval = setInterval(() => {
+        newCountMutation
+          .mutateAsync({
+            ticketstatus: 'NEW',
+            datefrom: `${year}-${month}-01 00:00`,
+            dateto: `${year}-${month}-${day} 23:59`,
+          })
+          .then((res) => setNewCount(res.data[0].ticketcount))
 
-      openCountMutation
-        .mutateAsync({
-          ticketstatus: 'OPEN',
-          datefrom: `${year}-${month}-01 00:00`,
-          dateto: `${year}-${month}-${day} 23:59`,
-        })
-        .then((res) => setOpenCount(res.data[0].ticketcount))
+        openCountMutation
+          .mutateAsync({
+            ticketstatus: 'OPEN',
+            datefrom: `${year}-${month}-01 00:00`,
+            dateto: `${year}-${month}-${day} 23:59`,
+          })
+          .then((res) => setOpenCount(res.data[0].ticketcount))
 
-      pendingCountMutation
-        .mutateAsync({
-          ticketstatus: 'PENDING',
-          datefrom: `${year}-${month}-01 00:00`,
-          dateto: `${year}-${month}-${day} 23:59`,
-        })
-        .then((res) => setPendingCount(res.data[0].ticketcount))
+        pendingCountMutation
+          .mutateAsync({
+            ticketstatus: 'PENDING',
+            datefrom: `${year}-${month}-01 00:00`,
+            dateto: `${year}-${month}-${day} 23:59`,
+          })
+          .then((res) => setPendingCount(res.data[0].ticketcount))
 
-      closedCountMutation
-        .mutateAsync({
-          ticketstatus: 'CLOSED',
-          datefrom: `${year}-${month}-01 00:00`,
-          dateto: `${year}-${month}-${day} 23:59`,
-        })
-        .then((res) => setClosedCount(res.data[0].ticketcount))
+        closedCountMutation
+          .mutateAsync({
+            ticketstatus: 'CLOSED',
+            datefrom: `${year}-${month}-01 00:00`,
+            dateto: `${year}-${month}-${day} 23:59`,
+          })
+          .then((res) => setClosedCount(res.data[0].ticketcount))
 
-      resolvedCountMutation
-        .mutateAsync({
-          ticketstatus: 'RESOLVED',
-          datefrom: `${year}-${month}-01 00:00`,
-          dateto: `${year}-${month}-${day} 23:59`,
-        })
-        .then((res) => setResolvedCount(res.data[0].ticketcount))
+        resolvedCountMutation
+          .mutateAsync({
+            ticketstatus: 'RESOLVED',
+            datefrom: `${year}-${month}-01 00:00`,
+            dateto: `${year}-${month}-${day} 23:59`,
+          })
+          .then((res) => setResolvedCount(res.data[0].ticketcount))
+      }, 2500)
     } catch (e) {
       setNewCount(0)
       setOpenCount(0)
       setPendingCount(0)
       setClosedCount(0)
       setResolvedCount(0)
+    }
+
+    return () => {
+      clearInterval(interval)
     }
   }, [])
 

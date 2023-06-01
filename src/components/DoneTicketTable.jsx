@@ -9,48 +9,23 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
+import { useGetAssignTicketDetails } from '../api/dashboard/getAssignTicketDetail'
+import ErrorMessage from './UI/ErrorMessage'
+import LoadingSpinner from './UI/LoadingSpinner'
 
 const DoneTicketTable = () => {
-  const [data, setData] = useState([
-    {
-      ticketid: 'SR-202310003',
-      subject: 'POS ISOLATION[3111 CTS MACTAN]SR-202310003',
-      assignedto: 'Jum Kloe Buhisan',
-      assignedby: 'test',
-    },
-    {
-      ticketid: 'SR-202310005',
-      subject: 'POS ISOLATION[3111 CTS MACTAN]SR-202310005',
-      assignedto: 'Joseph Orencio',
-    },
-    {
-      ticketid: 'SR-202310024',
-      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
-      assignedto: 'Joseph Orencio',
-    },
-    {
-      ticketid: 'SR-202310051',
-      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
-      assignedto: 'Joseph Orencio',
-    },
-    {
-      ticketid: 'SR-202310053',
-      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
-      assignedto: 'Joseph Orencio',
-    },
-    {
-      ticketid: 'SR-202310054',
-      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
-      assignedto: 'Joseph Orencio',
-    },
-    {
-      ticketid: 'SR-202310062',
-      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
-      assignedto: 'Joseph Orencio',
-    },
-  ])
+  const { data: tickets, isLoading, error } = useGetAssignTicketDetails()
+
+  const data = tickets?.data
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return <ErrorMessage>{error.message}</ErrorMessage>
+  }
 
   return (
     <TableContainer maxH="300px" overflowY="auto">
@@ -67,7 +42,7 @@ const DoneTicketTable = () => {
         </Thead>
 
         <Tbody fontSize="sm" fontWeight="normal">
-          {data.map((ticket) => (
+          {data?.map((ticket) => (
             <Tr key={ticket.ticketid}>
               <Td>
                 <Link
@@ -79,8 +54,8 @@ const DoneTicketTable = () => {
                 </Link>
               </Td>
               <Td>{ticket.subject}</Td>
-              <Td>{ticket.assignedto}</Td>
-              <Td>{ticket.assignedby}</Td>
+              <Td>{ticket.assignto}</Td>
+              <Td>{ticket.assignby}</Td>
             </Tr>
           ))}
         </Tbody>

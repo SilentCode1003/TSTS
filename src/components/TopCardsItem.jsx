@@ -9,7 +9,7 @@ const TopCardsItem = ({ header, children }) => {
           <Text size="md">{header}</Text>
         </CardHeader>
       )}
-      <CardBody maxH="300px" noOfLines="1" overflow="auto">
+      <CardBody noOfLines="1">
         <Stack>
           <Text as="b" fontSize="3xl" textAlign="end">
             {children}

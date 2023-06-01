@@ -18,6 +18,7 @@ const DoneTicketTable = () => {
       ticketid: 'SR-202310003',
       subject: 'POS ISOLATION[3111 CTS MACTAN]SR-202310003',
       assignedto: 'Jum Kloe Buhisan',
+      assignedby: 'test',
     },
     {
       ticketid: 'SR-202310005',
@@ -52,7 +53,7 @@ const DoneTicketTable = () => {
   ])
 
   return (
-    <TableContainer>
+    <TableContainer maxH="300px" overflowY="auto">
       <Table size="sm" variant="striped">
         <TableCaption>Done tickets</TableCaption>
 
@@ -61,6 +62,7 @@ const DoneTicketTable = () => {
             <Th>Ticket Id</Th>
             <Th>Subject</Th>
             <Th>Assigned To</Th>
+            <Th>Assigned By</Th>
           </Tr>
         </Thead>
 
@@ -78,6 +80,7 @@ const DoneTicketTable = () => {
               </Td>
               <Td>{ticket.subject}</Td>
               <Td>{ticket.assignedto}</Td>
+              <Td>{ticket.assignedby}</Td>
             </Tr>
           ))}
         </Tbody>

@@ -1,7 +1,7 @@
-import { Box, Divider, Flex, Link, VStack } from '@chakra-ui/react'
+import { Box, Flex, Link, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { adminItems, clientItems } from './NavigationCards'
 import { NavLink } from 'react-router-dom'
+import { adminItems, clientItems } from './NavigationCards'
 
 const NavigationLink = ({ item, isCollapsed }) => {
   return (

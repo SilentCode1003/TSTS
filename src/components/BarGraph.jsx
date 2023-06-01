@@ -82,44 +82,53 @@ const BarGraph = () => {
   }
 
   useEffect(() => {
+    const dt = new Date()
+
+    const year = dt.getFullYear()
+    const month = (dt.getMonth() + 1).toString().padStart(2, '0')
+    const day = new Date(year, month + 1, 0)
+      .getDate()
+      .toString()
+      .padStart(2, '0')
+
     try {
       newCountMutation
         .mutateAsync({
           ticketstatus: 'NEW',
-          datefrom: '2023-05-01 00:00',
-          dateto: '2023-05-30 23:59',
+          datefrom: `${year}-${month}-01 00:00`,
+          dateto: `${year}-${month}-${day} 23:59`,
         })
         .then((res) => setNewCount(res.data[0].ticketcount))
 
       openCountMutation
         .mutateAsync({
           ticketstatus: 'OPEN',
-          datefrom: '2023-05-01 00:00',
-          dateto: '2023-05-30 23:59',
+          datefrom: `${year}-${month}-01 00:00`,
+          dateto: `${year}-${month}-${day} 23:59`,
         })
         .then((res) => setOpenCount(res.data[0].ticketcount))
 
       pendingCountMutation
         .mutateAsync({
           ticketstatus: 'PENDING',
-          datefrom: '2023-05-01 00:00',
-          dateto: '2023-05-30 23:59',
+          datefrom: `${year}-${month}-01 00:00`,
+          dateto: `${year}-${month}-${day} 23:59`,
         })
         .then((res) => setPendingCount(res.data[0].ticketcount))
 
       closedCountMutation
         .mutateAsync({
           ticketstatus: 'CLOSED',
-          datefrom: '2023-05-01 00:00',
-          dateto: '2023-05-30 23:59',
+          datefrom: `${year}-${month}-01 00:00`,
+          dateto: `${year}-${month}-${day} 23:59`,
         })
         .then((res) => setClosedCount(res.data[0].ticketcount))
 
       resolvedCountMutation
         .mutateAsync({
           ticketstatus: 'RESOLVED',
-          datefrom: '2023-05-01 00:00',
-          dateto: '2023-05-30 23:59',
+          datefrom: `${year}-${month}-01 00:00`,
+          dateto: `${year}-${month}-${day} 23:59`,
         })
         .then((res) => setResolvedCount(res.data[0].ticketcount))
     } catch (e) {

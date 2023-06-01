@@ -15,6 +15,7 @@ import useDashboardCardStore from '../store/DashboardCardStore'
 import BarGraph from './BarGraph'
 import SortableItem from './SortableItem'
 import TopCardsItem from './TopCardsItem'
+import DoneTicketTable from './DoneTicketTable'
 
 const TopCards = () => {
   const { cards, cardsData, filterCards, setCards } = useDashboardCardStore(
@@ -101,6 +102,12 @@ const TopCards = () => {
           <GridItem colSpan={[1, 2]} rowSpan="2">
             <TopCardsItem>
               <BarGraph data={statusDummyData} />
+            </TopCardsItem>
+          </GridItem>
+
+          <GridItem colSpan={[1, 2]} rowSpan="2">
+            <TopCardsItem>
+              <DoneTicketTable />
             </TopCardsItem>
           </GridItem>
         </SimpleGrid>

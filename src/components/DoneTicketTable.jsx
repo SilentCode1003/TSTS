@@ -24,6 +24,31 @@ const DoneTicketTable = () => {
       subject: 'POS ISOLATION[3111 CTS MACTAN]SR-202310005',
       assignedto: 'Joseph Orencio',
     },
+    {
+      ticketid: 'SR-202310024',
+      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
+      assignedto: 'Joseph Orencio',
+    },
+    {
+      ticketid: 'SR-202310051',
+      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
+      assignedto: 'Joseph Orencio',
+    },
+    {
+      ticketid: 'SR-202310053',
+      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
+      assignedto: 'Joseph Orencio',
+    },
+    {
+      ticketid: 'SR-202310054',
+      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
+      assignedto: 'Joseph Orencio',
+    },
+    {
+      ticketid: 'SR-202310062',
+      subject: 'POS PRINTER ISOLATION[3111 CTS MACTAN]SR-202310024',
+      assignedto: 'Joseph Orencio',
+    },
   ])
 
   return (

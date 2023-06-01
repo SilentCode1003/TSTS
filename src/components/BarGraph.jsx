@@ -19,10 +19,10 @@ const options = {
     legend: {
       position: 'top',
     },
-    // title: {
-    //   display: true,
-    //   text: 'Resolved vs Unresolved Tickets per Month',
-    // },
+    title: {
+      display: true,
+      text: 'Ticket Count by Status',
+    },
   },
   scales: {
     y: {

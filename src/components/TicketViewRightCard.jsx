@@ -9,7 +9,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicketStatusUpdate } from '../api/ticket-view/postTicketStatusUpdate'
@@ -18,11 +18,9 @@ import useConfirm from '../hooks/useConfirm'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import ErrorMessage from './UI/ErrorMessage'
 import LoadingSpinner from './UI/LoadingSpinner'
-import { useEffect } from 'react'
-import { useGetTickets } from '../api/ticket-tracking/getTickets'
-import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
+const TicketViewRightCard = ({ searchedTicket }) => {
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
     'Once the ticket is closed, it will become read-only and cannot be edited. Are you absolutely certain you want to proceed?'
@@ -48,12 +46,12 @@ const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
     description: 'Something went wrong',
   })
 
+  const navigate = useNavigate()
+
   const onSubmit = async (data) => {
     const ans = await confirm()
 
     if (!ans) return
-
-    setLastAction(data.selectedStatus)
 
     try {
       await ticketStatusMutation.mutateAsync({
@@ -61,6 +59,8 @@ const TicketViewRightCard = ({ searchedTicket, setLastAction }) => {
         ticketstatus: data.selectedStatus,
         commentby: currentUser.fullname,
       })
+
+      navigate(0)
     } catch (e) {
       errorToast()
       console.log(e)

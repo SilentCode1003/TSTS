@@ -37,7 +37,7 @@ const options = {
   },
 }
 
-const BarGraph = () => {
+const BarGraph = ({ dates }) => {
   const newCountMutation = useGetStatusCount('new')
   const openCountMutation = useGetStatusCount('open')
   const pendingCountMutation = useGetStatusCount('pending')
@@ -51,7 +51,11 @@ const BarGraph = () => {
   const [resolvedCount, setResolvedCount] = useState(0)
 
   const statusCountData = {
-    labels: [new Date().toLocaleString(undefined, { month: 'long' })],
+    labels: [
+      dates
+        ? 'Date range'
+        : new Date().toLocaleString(undefined, { month: 'long' }),
+    ],
     datasets: [
       {
         label: 'New',
@@ -91,46 +95,57 @@ const BarGraph = () => {
       .toString()
       .padStart(2, '0')
 
+    let datefrom
+    let dateto
+
+    if (dates) {
+      datefrom = `${dates[0]?.toISOString().split('T')[0]} 00:00`
+      dateto = `${dates[1]?.toISOString().split('T')[0]} 23:59`
+    } else {
+      datefrom = `${year}-${month}-01 00:00`
+      dateto = `${year}-${month}-${day} 23:59`
+    }
+
     let interval
     try {
       interval = setInterval(() => {
         newCountMutation
           .mutateAsync({
             ticketstatus: 'NEW',
-            datefrom: `${year}-${month}-01 00:00`,
-            dateto: `${year}-${month}-${day} 23:59`,
+            datefrom,
+            dateto,
           })
           .then((res) => setNewCount(res.data[0].ticketcount))
 
         openCountMutation
           .mutateAsync({
             ticketstatus: 'OPEN',
-            datefrom: `${year}-${month}-01 00:00`,
-            dateto: `${year}-${month}-${day} 23:59`,
+            datefrom,
+            dateto,
           })
           .then((res) => setOpenCount(res.data[0].ticketcount))
 
         pendingCountMutation
           .mutateAsync({
             ticketstatus: 'PENDING',
-            datefrom: `${year}-${month}-01 00:00`,
-            dateto: `${year}-${month}-${day} 23:59`,
+            datefrom,
+            dateto,
           })
           .then((res) => setPendingCount(res.data[0].ticketcount))
 
         closedCountMutation
           .mutateAsync({
             ticketstatus: 'CLOSED',
-            datefrom: `${year}-${month}-01 00:00`,
-            dateto: `${year}-${month}-${day} 23:59`,
+            datefrom,
+            dateto,
           })
           .then((res) => setClosedCount(res.data[0].ticketcount))
 
         resolvedCountMutation
           .mutateAsync({
             ticketstatus: 'RESOLVED',
-            datefrom: `${year}-${month}-01 00:00`,
-            dateto: `${year}-${month}-${day} 23:59`,
+            datefrom,
+            dateto,
           })
           .then((res) => setResolvedCount(res.data[0].ticketcount))
       }, 2500)
@@ -145,7 +160,7 @@ const BarGraph = () => {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [dates])
 
   return <Bar options={options} data={statusCountData} />
 }

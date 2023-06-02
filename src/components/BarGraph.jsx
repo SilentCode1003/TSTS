@@ -87,7 +87,6 @@ const BarGraph = ({ dates }) => {
 
   useEffect(() => {
     const dt = new Date()
-
     const year = dt.getFullYear()
     const month = (dt.getMonth() + 1).toString().padStart(2, '0')
     const day = new Date(year, month + 1, 0)
@@ -106,57 +105,55 @@ const BarGraph = ({ dates }) => {
       dateto = `${year}-${month}-${day} 23:59`
     }
 
-    let interval
-    try {
-      interval = setInterval(() => {
-        newCountMutation
-          .mutateAsync({
+    const fetchCounts = async () => {
+      try {
+        const responses = await Promise.all([
+          newCountMutation.mutateAsync({
             ticketstatus: 'NEW',
             datefrom,
             dateto,
-          })
-          .then((res) => setNewCount(res.data[0].ticketcount))
+          }),
 
-        openCountMutation
-          .mutateAsync({
+          openCountMutation.mutateAsync({
             ticketstatus: 'OPEN',
             datefrom,
             dateto,
-          })
-          .then((res) => setOpenCount(res.data[0].ticketcount))
+          }),
 
-        pendingCountMutation
-          .mutateAsync({
+          pendingCountMutation.mutateAsync({
             ticketstatus: 'PENDING',
             datefrom,
             dateto,
-          })
-          .then((res) => setPendingCount(res.data[0].ticketcount))
+          }),
 
-        closedCountMutation
-          .mutateAsync({
+          closedCountMutation.mutateAsync({
             ticketstatus: 'CLOSED',
             datefrom,
             dateto,
-          })
-          .then((res) => setClosedCount(res.data[0].ticketcount))
+          }),
 
-        resolvedCountMutation
-          .mutateAsync({
+          resolvedCountMutation.mutateAsync({
             ticketstatus: 'RESOLVED',
             datefrom,
             dateto,
-          })
-          .then((res) => setResolvedCount(res.data[0].ticketcount))
-      }, 2500)
-    } catch (e) {
-      setNewCount(0)
-      setOpenCount(0)
-      setPendingCount(0)
-      setClosedCount(0)
-      setResolvedCount(0)
+          }),
+        ])
+
+        setNewCount(responses[0].data[0].ticketcount)
+        setOpenCount(responses[1].data[0].ticketcount)
+        setPendingCount(responses[2].data[0].ticketcount)
+        setClosedCount(responses[3].data[0].ticketcount)
+        setResolvedCount(responses[4].data[0].ticketcount)
+      } catch (e) {
+        setNewCount(0)
+        setOpenCount(0)
+        setPendingCount(0)
+        setClosedCount(0)
+        setResolvedCount(0)
+      }
     }
 
+    const interval = setInterval(fetchCounts, 1000)
     return () => {
       clearInterval(interval)
     }

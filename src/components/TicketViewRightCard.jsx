@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom'
 const TicketViewRightCard = ({ searchedTicket }) => {
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
-    'Once the ticket is closed, it will become read-only and cannot be edited. Are you absolutely certain you want to proceed?'
+    'Closed tickets are removed from view on Ticket Tracking page and can only be viewed on Reporting page.'
   )
   const { data: statuses, isLoading, error } = useGetStatus()
 

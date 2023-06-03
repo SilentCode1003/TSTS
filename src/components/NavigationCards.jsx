@@ -38,11 +38,11 @@ export const adminItems = [
     url: '/admin/reporting',
     icon: <MdReport />,
   },
-  {
-    name: 'Communication',
-    url: '/admin/communication',
-    icon: <MdChat />,
-  },
+  // {
+  //   name: 'Communication',
+  //   url: '/admin/communication',
+  //   icon: <MdChat />,
+  // },
   {
     name: 'Automation',
     url: '/admin/automation',
@@ -61,11 +61,11 @@ export const clientItems = [
     url: '/ticket-submission',
     icon: <MdNewspaper />,
   },
-  {
-    name: 'Communication',
-    url: '/communication',
-    icon: <MdChat />,
-  },
+  // {
+  //   name: 'Communication',
+  //   url: '/communication',
+  //   icon: <MdChat />,
+  // },
 ]
 
 const NavigationCards = () => {

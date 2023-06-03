@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  Card,
+  CardBody,
   Flex,
   FormControl,
   FormLabel,
@@ -12,6 +14,7 @@ import {
   MenuButton,
   MenuList,
   Select,
+  SimpleGrid,
   Stack,
   Table,
   TableContainer,
@@ -42,6 +45,7 @@ import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
+import BarGraph from '../components/BarGraph'
 
 const columnHelper = createColumnHelper()
 
@@ -186,9 +190,9 @@ const Reporting = () => {
           Reporting
         </Heading>
 
-        <Box w="100%">
+        <SimpleGrid w="100%" columns={[1, null, 2]} gap="4">
           <Flex direction="column" gap="4" alignItems="start">
-            <FormControl w="50%">
+            <FormControl>
               <FormLabel htmlFor="ticket-status">Ticket Status</FormLabel>
 
               <Select
@@ -205,7 +209,7 @@ const Reporting = () => {
               </Select>
             </FormControl>
 
-            <FormControl w="50%">
+            <FormControl>
               <FormLabel>Date range</FormLabel>
               <RangeDatepicker
                 id="date-range"
@@ -223,7 +227,13 @@ const Reporting = () => {
               Generate
             </Button>
           </Flex>
-        </Box>
+
+          <Card>
+            <CardBody>
+              <BarGraph dates={selectedDates} />
+            </CardBody>
+          </Card>
+        </SimpleGrid>
 
         <Flex w="100%" justifyContent="end">
           {tickets.length > 0 && (

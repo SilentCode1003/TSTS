@@ -10,7 +10,6 @@ import TicketViewTopCard from '../components/TicketViewTopCard'
 const TicketView = () => {
   const { ticketId } = useParams()
   const [searchedTicket, setSearchedTicket] = useState(null)
-  const [lastAction, setLastAction] = useState(null)
   const { isLoading, error, mutateAsync } = useSearchTicket(ticketId)
 
   useEffect(() => {
@@ -42,9 +41,7 @@ const TicketView = () => {
 
               <TicketViewComments searchedTicket={searchedTicket} />
 
-              {lastAction !== 'CLOSED' &&
-                lastAction !== 'RESOLVED' &&
-                searchedTicket?.ticketstatus !== 'CLOSED' &&
+              {searchedTicket?.ticketstatus !== 'CLOSED' &&
                 searchedTicket?.ticketstatus !== 'RESOLVED' && (
                   <TicketViewReplyCard searchedTicket={searchedTicket} />
                 )}
@@ -52,10 +49,7 @@ const TicketView = () => {
           </GridItem>
 
           <GridItem>
-            <TicketViewRightCard
-              searchedTicket={searchedTicket}
-              setLastAction={setLastAction}
-            />
+            <TicketViewRightCard searchedTicket={searchedTicket} />
           </GridItem>
         </Grid>
       </Stack>

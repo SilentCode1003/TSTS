@@ -16,7 +16,7 @@ const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/Automation'))
-const Communication = loadable(() => import('./pages/Communication'))
+// const Communication = loadable(() => import('./pages/Communication'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
 const KnowledgeBase = loadable(() => import('./pages/KnowledgeBase'))
 const Login = loadable(() => import('./pages/Login'))
@@ -43,10 +43,10 @@ const router = createBrowserRouter([
         path: '/ticket-submission',
         element: <TicketSubmission />,
       },
-      {
-        path: '/communication',
-        element: <Communication />,
-      },
+      // {
+      //   path: '/communication',
+      //   element: <Communication />,
+      // },
     ],
   },
   {
@@ -87,10 +87,10 @@ const router = createBrowserRouter([
         path: '/admin/reporting',
         element: <Reporting />,
       },
-      {
-        path: '/admin/communication',
-        element: <Communication />,
-      },
+      // {
+      //   path: '/admin/communication',
+      //   element: <Communication />,
+      // },
       {
         path: '/admin/automation',
         element: <Automation />,

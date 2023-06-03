@@ -16,17 +16,16 @@ import {
 } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { usePostChildTicket } from '../api/child-ticket/postChildTicket'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
 import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import { usePostTicket } from '../api/ticket-assignment/postTicket'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
-import { usePostChildTicket } from '../api/child-ticket/postChildTicket'
 
 const ChildTicket = () => {
   const concerns = useGetConcern()

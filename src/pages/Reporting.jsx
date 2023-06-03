@@ -149,7 +149,12 @@ const Reporting = () => {
   const exportPDF = () => {
     const doc = new jsPDF('l')
     doc.setFont('Helvetica')
-    autoTable(doc, { html: '#reports-table' })
+    autoTable(doc, {
+      html: '#reports-table',
+      theme: 'grid',
+      styles: { cellWidth: 20, fontSize: 8 },
+      margin: { left: 10 },
+    })
     doc.save('reports-table.pdf')
   }
 

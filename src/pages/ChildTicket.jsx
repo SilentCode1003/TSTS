@@ -73,7 +73,6 @@ const ChildTicket = () => {
     const transformedData = transformData(data, base64FilesArray)
     try {
       await uploadTicket.mutateAsync(transformedData)
-      console.log(transformedData)
     } catch (e) {
       errorToast()
       return

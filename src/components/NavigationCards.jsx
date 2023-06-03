@@ -2,10 +2,10 @@ import { SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import {
   MdAssignmentAdd,
-  MdChat,
   MdDashboard,
   MdLightbulb,
   MdNewspaper,
+  MdOutlineSubdirectoryArrowRight,
   MdReport,
   MdSettings,
   MdTrackChanges,
@@ -24,6 +24,11 @@ export const adminItems = [
     icon: <MdAssignmentAdd />,
   },
   {
+    name: 'Child Ticket',
+    url: '/admin/child-ticket',
+    icon: <MdOutlineSubdirectoryArrowRight />,
+  },
+  {
     name: 'Ticket Tracking',
     url: '/admin/ticket-tracking',
     icon: <MdTrackChanges />,
@@ -38,11 +43,6 @@ export const adminItems = [
     url: '/admin/reporting',
     icon: <MdReport />,
   },
-  // {
-  //   name: 'Communication',
-  //   url: '/admin/communication',
-  //   icon: <MdChat />,
-  // },
   {
     name: 'Automation',
     url: '/admin/automation',
@@ -61,11 +61,6 @@ export const clientItems = [
     url: '/ticket-submission',
     icon: <MdNewspaper />,
   },
-  // {
-  //   name: 'Communication',
-  //   url: '/communication',
-  //   icon: <MdChat />,
-  // },
 ]
 
 const NavigationCards = () => {

@@ -9,6 +9,8 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
 import LoadingFallback from './components/LoadingFallback'
 import AuthContextProvider from './context/AuthContext'
+
+const ChildTicket = loadable(() => import('./pages/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
   import('./pages/KnowledgeBaseDefault')
 )
@@ -87,10 +89,10 @@ const router = createBrowserRouter([
         path: '/admin/reporting',
         element: <Reporting />,
       },
-      // {
-      //   path: '/admin/communication',
-      //   element: <Communication />,
-      // },
+      {
+        path: '/admin/child-ticket',
+        element: <ChildTicket />,
+      },
       {
         path: '/admin/automation',
         element: <Automation />,

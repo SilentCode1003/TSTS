@@ -112,6 +112,7 @@ const ChildTicket = () => {
               <FormLabel htmlFor="reference-ticket">Reference Ticket</FormLabel>
 
               <Input
+                id="reference-ticket"
                 type="text"
                 {...register('referenceticket', { required: true })}
                 placeholder="Enter reference ticket number"

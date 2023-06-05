@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   MdAssignmentAdd,
   MdDashboard,
@@ -10,6 +10,7 @@ import {
   MdSettings,
   MdTrackChanges,
 } from 'react-icons/md'
+import { AuthContext } from '../context/AuthContext'
 import { NavigationCard } from './NavigationCard'
 
 export const adminItems = [
@@ -64,16 +65,17 @@ export const clientItems = [
 ]
 
 const NavigationCards = () => {
-  let userIsAdmin = true
+  const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
 
   return (
     <SimpleGrid columns={[1, 2, 3]} spacing="4">
-      {userIsAdmin &&
+      {isAdmin &&
         adminItems.map((item) => (
           <NavigationCard key={item.name} item={item} />
         ))}
 
-      {!userIsAdmin &&
+      {!isAdmin &&
         clientItems.map((item) => (
           <NavigationCard key={item.name} item={item} />
         ))}

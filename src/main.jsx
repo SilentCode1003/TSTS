@@ -42,6 +42,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path: '/',
+        element: <Dashboard />,
+      },
+      {
         path: '/ticket-submission',
         element: <TicketSubmission />,
       },

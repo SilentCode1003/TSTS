@@ -1,6 +1,7 @@
 import { Box, Flex, Link, VStack } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 import { adminItems, clientItems } from './NavigationCards'
 
 const NavigationLink = ({ item, isCollapsed }) => {
@@ -32,7 +33,8 @@ const NavigationLink = ({ item, isCollapsed }) => {
 }
 
 const NavigationLinks = ({ isCollapsed }) => {
-  let isAdmin = true
+  const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
 
   return (
     <VStack

@@ -1,9 +1,13 @@
 import { Box, Heading, Stack } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import TopCards from '../components/TopCards'
 import NavigationCards from '../components/NavigationCards'
+import { AuthContext } from '../context/AuthContext'
 
 const Dashboard = () => {
+  const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
+
   return (
     <Box p={['4', null, '8']}>
       <Stack direction="column" spacing="8">
@@ -11,7 +15,7 @@ const Dashboard = () => {
           Dashboard
         </Heading>
 
-        <TopCards />
+        {isAdmin && <TopCards />}
         <NavigationCards />
       </Stack>
     </Box>

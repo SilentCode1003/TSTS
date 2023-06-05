@@ -25,6 +25,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import loadable from '@loadable/component'
 import {
   createColumnHelper,
   flexRender,
@@ -42,10 +43,11 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useGetAllTickets } from '../api/reporting/getAllTickets'
 import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import BarGraph from '../components/BarGraph'
 import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
+
+const BarGraph = loadable(() => import('../components/BarGraph'))
 
 const columnHelper = createColumnHelper()
 

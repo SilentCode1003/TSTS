@@ -6,13 +6,17 @@ import {
   InputGroup,
   InputLeftElement,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 import NotificationBell from './NotificationBell'
 
 const TopBar = () => {
   const [searchTicketId, setSearchTicketId] = useState('')
   const navigate = useNavigate()
+
+  const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
 
   const handleChange = (e) => {
     const trimmedInput = e.target.value.trimStart()
@@ -23,11 +27,19 @@ const TopBar = () => {
     e.preventDefault()
 
     if (!searchTicketId || searchTicketId === '') {
-      navigate('/admin/ticket-tracking')
+      if (isAdmin) {
+        navigate('/admin/ticket-tracking')
+      } else {
+        navigate('/')
+      }
       return
     }
 
-    navigate(`/admin/ticket-search/${searchTicketId}`)
+    if (isAdmin) {
+      navigate(`/admin/ticket-search/${searchTicketId}`)
+    } else {
+      navigate(`/`)
+    }
   }
 
   return (

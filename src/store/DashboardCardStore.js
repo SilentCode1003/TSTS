@@ -105,7 +105,7 @@ const useDashboardCardStore = create((set, get) => ({
 
     set({
       newCount: newCountRes.data[0].ticketcount,
-      closedCount: openCountRes.data[0].ticketcount,
+      openCount: openCountRes.data[0].ticketcount,
       pendingCount: pendingCountRes.data[0].ticketcount,
       closedCount: closedCountRes.data[0].ticketcount,
     })

@@ -16,17 +16,14 @@ import BarGraph from './BarGraph'
 import DoneTicketTable from './DoneTicketTable'
 import SortableItem from './SortableItem'
 import TopCardsItem from './TopCardsItem'
+import { useEffect } from 'react'
 
 const TopCards = () => {
-  const { cards, cardsData, filterCards, setCards } = useDashboardCardStore(
-    (state) => ({
-      cards: state.cards,
-      cardsData: state.cardsData,
-      filterCards: state.filterCards,
-      setCards: state.setCards,
-    }),
-    shallow
-  )
+  const { cards, updateCount, setCards } = useDashboardCardStore((state) => ({
+    cards: state.cards,
+    setCards: state.setCards,
+    updateCount: state.updateCount,
+  }))
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -53,6 +50,14 @@ const TopCards = () => {
     }
   }
 
+  useEffect(() => {
+    const interval = setInterval(updateCount, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
   return (
     <DndContext
       collisionDetection={closestCenter}
@@ -64,7 +69,7 @@ const TopCards = () => {
         <SimpleGrid columns={[1, 2, 4]} spacing="4">
           {cards.map((card) => (
             <SortableItem key={card.id} id={card.id}>
-              <TopCardsItem header={card.header}>{card.content}</TopCardsItem>
+              <TopCardsItem header={card.header}>{card.content()}</TopCardsItem>
             </SortableItem>
           ))}
 

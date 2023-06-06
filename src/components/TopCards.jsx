@@ -78,7 +78,7 @@ const TopCards = () => {
           ))}
 
           <GridItem colSpan={[1, 2]} rowSpan="2">
-            <TopCardsItem>
+            <TopCardsItem header="Ticket Requests">
               <RequestTicketTable />
             </TopCardsItem>
           </GridItem>
@@ -90,7 +90,7 @@ const TopCards = () => {
           </GridItem>
 
           <GridItem colSpan={[1, 2]} rowSpan="2">
-            <TopCardsItem>
+            <TopCardsItem header="Done Tickets">
               <DoneTicketTable />
             </TopCardsItem>
           </GridItem>

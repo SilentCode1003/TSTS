@@ -155,7 +155,7 @@ const Automation = () => {
             <Heading size="md">Filter Dashboard Cards</Heading>
 
             <Stack spacing="2" direction="column">
-              {cards.map((card) => (
+              {cardsData.map((card) => (
                 <Checkbox
                   key={card.id}
                   colorScheme="purple"

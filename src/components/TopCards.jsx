@@ -9,21 +9,22 @@ import {
 } from '@dnd-kit/core'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
-import React from 'react'
-import { shallow } from 'zustand/shallow'
+import React, { useEffect } from 'react'
 import useDashboardCardStore from '../store/DashboardCardStore'
 import BarGraph from './BarGraph'
 import DoneTicketTable from './DoneTicketTable'
 import SortableItem from './SortableItem'
 import TopCardsItem from './TopCardsItem'
-import { useEffect } from 'react'
 
 const TopCards = () => {
-  const { cards, updateCount, setCards } = useDashboardCardStore((state) => ({
-    cards: state.cards,
-    setCards: state.setCards,
-    updateCount: state.updateCount,
-  }))
+  const { cards, updateCount, cardsData, setCards } = useDashboardCardStore(
+    (state) => ({
+      cards: state.cards,
+      setCards: state.setCards,
+      cardsData: state.cardsData,
+      updateCount: state.updateCount,
+    })
+  )
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {

@@ -9,6 +9,25 @@ const day = new Date(year, month + 1, 0).getDate().toString().padStart(2, '0')
 const datefrom = `${year}-${month}-01 00:00`
 const dateto = `${year}-${month}-${day} 23:59`
 
+const cardsData = [
+  {
+    id: 1,
+    header: 'New Tickets',
+  },
+  {
+    id: 2,
+    header: 'Open Tickets',
+  },
+  {
+    id: 3,
+    header: 'Pending Tickets',
+  },
+  {
+    id: 4,
+    header: 'Closed Tickets',
+  },
+]
+
 const useDashboardCardStore = create((set, get) => ({
   newCount: 1,
   openCount: 2,
@@ -36,15 +55,18 @@ const useDashboardCardStore = create((set, get) => ({
       content: () => get().closedCount,
     },
   ],
+  cardsData,
   activeIds: () => {
     const ids = get().cards.map((card) => card.id)
     return ids
   },
   filterCards: (idArray) => {
     set((state) => {
-      const filtered = state.cardsData.filter(
+      const filtered = state.cards.filter(
         (card) => idArray.indexOf(card.id) !== -1
       )
+
+      console.log(filtered)
 
       return {
         cards: filtered,

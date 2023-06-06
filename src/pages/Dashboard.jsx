@@ -4,6 +4,7 @@ import React, { useContext } from 'react'
 import NavigationCards from '../components/NavigationCards'
 import { AuthContext } from '../context/AuthContext'
 
+const ClientTopCards = loadable(() => import('../components/ClientTopCards'))
 const TopCards = loadable(() => import('../components/TopCards'))
 
 const Dashboard = () => {
@@ -18,6 +19,7 @@ const Dashboard = () => {
         </Heading>
 
         {isAdmin && <TopCards />}
+        {!isAdmin && <ClientTopCards />}
         <NavigationCards />
       </Stack>
     </Box>

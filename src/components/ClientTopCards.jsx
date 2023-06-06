@@ -14,14 +14,14 @@ const ClientActiveRequestTable = loadable(() =>
 
 const ClientTopCards = () => {
   return (
-    <SimpleGrid columns={[1, 2, 4]} spacing="4">
-      <GridItem colSpan={[1, 2]} rowSpan="2">
+    <SimpleGrid columns={[1, 4]} spacing="4">
+      <GridItem colSpan={[4, 4, 2]} rowSpan="2">
         <TopCardsItem header="Active Tickets">
           <ClientActiveTicketsTable />
         </TopCardsItem>
       </GridItem>
 
-      <GridItem colSpan={[1, 2]} rowSpan="2">
+      <GridItem colSpan={[4, 4, 2]} rowSpan="2">
         <TopCardsItem header="Top Concerns">
           <ClientTopConcernsTable />
         </TopCardsItem>

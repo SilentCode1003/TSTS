@@ -9,12 +9,15 @@ import {
 } from '@dnd-kit/core'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
+import loadable from '@loadable/component'
 import React, { useEffect } from 'react'
 import useDashboardCardStore from '../store/DashboardCardStore'
-import BarGraph from './BarGraph'
-import DoneTicketTable from './DoneTicketTable'
 import SortableItem from './SortableItem'
 import TopCardsItem from './TopCardsItem'
+
+const BarGraph = loadable(() => import('./BarGraph'))
+const DoneTicketTable = loadable(() => import('./DoneTicketTable'))
+const RequestTicketTable = loadable(() => import('./RequestTicketTable'))
 
 const TopCards = () => {
   const { cards, updateCount, cardsData, setCards } = useDashboardCardStore(
@@ -73,6 +76,12 @@ const TopCards = () => {
               <TopCardsItem header={card.header}>{card.content()}</TopCardsItem>
             </SortableItem>
           ))}
+
+          <GridItem colSpan={[1, 2]} rowSpan="2">
+            <TopCardsItem>
+              <RequestTicketTable />
+            </TopCardsItem>
+          </GridItem>
 
           <GridItem colSpan={[1, 2]} rowSpan="2">
             <TopCardsItem>

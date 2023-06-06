@@ -58,8 +58,8 @@ export const clientItems = [
     icon: <MdDashboard />,
   },
   {
-    name: 'Ticket Submission',
-    url: '/ticket-submission',
+    name: 'Request Ticket',
+    url: '/request-ticket',
     icon: <MdNewspaper />,
   },
 ]

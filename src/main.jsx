@@ -49,10 +49,10 @@ const router = createBrowserRouter([
         path: '/ticket-submission',
         element: <TicketSubmission />,
       },
-      // {
-      //   path: '/communication',
-      //   element: <Communication />,
-      // },
+      {
+        path: '/ticket-view/:ticketId',
+        element: <TicketView />,
+      },
     ],
   },
   {

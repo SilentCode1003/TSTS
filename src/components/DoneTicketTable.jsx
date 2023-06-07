@@ -5,6 +5,7 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -25,6 +26,10 @@ const DoneTicketTable = () => {
 
   if (error) {
     return <ErrorMessage>{error.message}</ErrorMessage>
+  }
+
+  if (data.length <= 0) {
+    return <Text fontSize="sm">No done tickets</Text>
   }
 
   return (

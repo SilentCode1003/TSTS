@@ -12,6 +12,22 @@ import {
 import { Link as RouterLink } from 'react-router-dom'
 
 const ClientActiveTicketsTable = () => {
+  let isLoading
+  let error
+  let data = []
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return <ErrorMessage>{error.message}</ErrorMessage>
+  }
+
+  if (data.length <= 0) {
+    return <Text fontSize="sm">No active tickets</Text>
+  }
+
   return (
     <TableContainer maxH="300px" overflowY="auto">
       <Table size="sm" variant="striped">

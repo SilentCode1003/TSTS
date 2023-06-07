@@ -12,6 +12,22 @@ import {
 import { Link as RouterLink } from 'react-router-dom'
 
 const ClientActiveRequestTable = () => {
+  let isLoading
+  let error
+  let data = []
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return <ErrorMessage>{error.message}</ErrorMessage>
+  }
+
+  if (data.length <= 0) {
+    return <Text fontSize="sm">No active requests</Text>
+  }
+
   return (
     <TableContainer maxH="500px" overflowY="auto">
       <Table size="sm" variant="striped">

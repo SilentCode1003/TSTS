@@ -5,13 +5,36 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
+import LoadingSpinner from './UI/LoadingSpinner'
+import ErrorMessage from './UI/ErrorMessage'
 
 const RequestTicketTable = () => {
+  let isLoading
+  let error
+  let data = []
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return <ErrorMessage>{error.message}</ErrorMessage>
+  }
+
+  if (data.length <= 0) {
+    return (
+      <Text fontSize="sm" color="green.400">
+        No ticket requests :^)
+      </Text>
+    )
+  }
+
   return (
     <TableContainer maxH="300px" overflowY="auto">
       <Table size="sm" variant="striped">

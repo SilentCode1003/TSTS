@@ -55,6 +55,7 @@ const TopCards = () => {
   }
 
   useEffect(() => {
+    updateCount()
     const interval = setInterval(updateCount, 5000)
 
     return () => {

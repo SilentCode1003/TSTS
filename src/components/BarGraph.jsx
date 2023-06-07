@@ -7,9 +7,10 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { useGetStatusCount } from '../api/dashboard/getStatusCount'
+import { SystemSettingsContext } from '../context/SystemSettingsContext'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -49,6 +50,8 @@ const BarGraph = ({ dates }) => {
   const [pendingCount, setPendingCount] = useState(0)
   const [closedCount, setClosedCount] = useState(0)
   const [resolvedCount, setResolvedCount] = useState(0)
+
+  const { settings } = useContext(SystemSettingsContext)
 
   const statusCountData = {
     labels: [
@@ -155,11 +158,13 @@ const BarGraph = ({ dates }) => {
 
     fetchCounts()
 
-    const interval = setInterval(fetchCounts, 5000)
-    return () => {
-      clearInterval(interval)
+    if (settings.realtimeData === true) {
+      const interval = setInterval(fetchCounts, 5000)
+      return () => {
+        clearInterval(interval)
+      }
     }
-  }, [dates])
+  }, [dates, settings.realtimeData])
 
   return <Bar options={options} data={statusCountData} />
 }

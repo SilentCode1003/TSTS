@@ -5,20 +5,16 @@ import {
   TableContainer,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import { useGetAssignTicketDetails } from '../api/dashboard/getAssignTicketDetail'
-import ErrorMessage from './UI/ErrorMessage'
-import LoadingSpinner from './UI/LoadingSpinner'
 
-const DoneTicketTable = () => {
-  const { data: tickets, isLoading, error } = useGetAssignTicketDetails()
-
-  const data = tickets?.data
+const ClientActiveTicketsTable = () => {
+  let isLoading
+  let error
+  let data = []
 
   if (isLoading) {
     return <LoadingSpinner />
@@ -29,25 +25,24 @@ const DoneTicketTable = () => {
   }
 
   if (data.length <= 0) {
-    return <Text fontSize="sm">No done tickets</Text>
+    return <Text fontSize="sm">No active tickets</Text>
   }
 
   return (
     <TableContainer maxH="300px" overflowY="auto">
       <Table size="sm" variant="striped">
-        <TableCaption>Done tickets</TableCaption>
+        <TableCaption>Active Tickets</TableCaption>
 
         <Thead>
           <Tr>
-            <Th>Ticket Id</Th>
-            <Th>Subject</Th>
-            <Th>Assigned To</Th>
-            <Th>Assigned By</Th>
+            <Th>Placeholder</Th>
+            <Th>Placeholder</Th>
+            <Th>Placeholder</Th>
           </Tr>
         </Thead>
 
         <Tbody fontSize="sm" fontWeight="normal">
-          {data?.map((ticket) => (
+          {/* {data?.map((ticket) => (
             <Tr key={ticket.ticketid}>
               <Td>
                 <Link
@@ -62,11 +57,11 @@ const DoneTicketTable = () => {
               <Td>{ticket.assignto}</Td>
               <Td>{ticket.assignby}</Td>
             </Tr>
-          ))}
+          ))} */}
         </Tbody>
       </Table>
     </TableContainer>
   )
 }
 
-export default DoneTicketTable
+export default ClientActiveTicketsTable

@@ -25,6 +25,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import loadable from '@loadable/component'
 import {
   createColumnHelper,
   flexRender,
@@ -45,7 +46,8 @@ import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
-import BarGraph from '../components/BarGraph'
+
+const BarGraph = loadable(() => import('../components/BarGraph'))
 
 const columnHelper = createColumnHelper()
 
@@ -149,7 +151,12 @@ const Reporting = () => {
   const exportPDF = () => {
     const doc = new jsPDF('l')
     doc.setFont('Helvetica')
-    autoTable(doc, { html: '#reports-table' })
+    autoTable(doc, {
+      html: '#reports-table',
+      theme: 'grid',
+      styles: { cellWidth: 20, fontSize: 8 },
+      margin: { left: 10 },
+    })
     doc.save('reports-table.pdf')
   }
 

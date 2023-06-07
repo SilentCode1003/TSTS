@@ -9,6 +9,9 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
 import LoadingFallback from './components/LoadingFallback'
 import AuthContextProvider from './context/AuthContext'
+import './index.css'
+
+const ChildTicket = loadable(() => import('./pages/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
   import('./pages/KnowledgeBaseDefault')
 )
@@ -23,7 +26,7 @@ const Login = loadable(() => import('./pages/Login'))
 const NotFound = loadable(() => import('./pages/NotFound'))
 const Reporting = loadable(() => import('./pages/Reporting'))
 const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
-const TicketSubmission = loadable(() => import('./pages/TicketSubmission'))
+const RequestTicket = loadable(() => import('./pages/RequestTicket'))
 const TicketTracking = loadable(() => import('./pages/TicketTracking'))
 const TicketSearch = loadable(() => import('./pages/TicketSearch'))
 const TicketView = loadable(() => import('./pages/TicketView'))
@@ -40,13 +43,17 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: '/ticket-submission',
-        element: <TicketSubmission />,
+        path: '/',
+        element: <Dashboard />,
       },
-      // {
-      //   path: '/communication',
-      //   element: <Communication />,
-      // },
+      {
+        path: '/request-ticket',
+        element: <RequestTicket />,
+      },
+      {
+        path: '/ticket-view/:ticketId',
+        element: <TicketView />,
+      },
     ],
   },
   {
@@ -87,10 +94,10 @@ const router = createBrowserRouter([
         path: '/admin/reporting',
         element: <Reporting />,
       },
-      // {
-      //   path: '/admin/communication',
-      //   element: <Communication />,
-      // },
+      {
+        path: '/admin/child-ticket',
+        element: <ChildTicket />,
+      },
       {
         path: '/admin/automation',
         element: <Automation />,

@@ -1,15 +1,16 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   MdAssignmentAdd,
-  MdChat,
   MdDashboard,
   MdLightbulb,
   MdNewspaper,
+  MdOutlineSubdirectoryArrowRight,
   MdReport,
   MdSettings,
   MdTrackChanges,
 } from 'react-icons/md'
+import { AuthContext } from '../context/AuthContext'
 import { NavigationCard } from './NavigationCard'
 
 export const adminItems = [
@@ -22,6 +23,11 @@ export const adminItems = [
     name: 'Ticket Assignment',
     url: '/admin/ticket-assignment',
     icon: <MdAssignmentAdd />,
+  },
+  {
+    name: 'Child Ticket',
+    url: '/admin/child-ticket',
+    icon: <MdOutlineSubdirectoryArrowRight />,
   },
   {
     name: 'Ticket Tracking',
@@ -38,11 +44,6 @@ export const adminItems = [
     url: '/admin/reporting',
     icon: <MdReport />,
   },
-  // {
-  //   name: 'Communication',
-  //   url: '/admin/communication',
-  //   icon: <MdChat />,
-  // },
   {
     name: 'Automation',
     url: '/admin/automation',
@@ -57,28 +58,24 @@ export const clientItems = [
     icon: <MdDashboard />,
   },
   {
-    name: 'Ticket Submission',
-    url: '/ticket-submission',
+    name: 'Request Ticket',
+    url: '/request-ticket',
     icon: <MdNewspaper />,
   },
-  // {
-  //   name: 'Communication',
-  //   url: '/communication',
-  //   icon: <MdChat />,
-  // },
 ]
 
 const NavigationCards = () => {
-  let userIsAdmin = true
+  const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
 
   return (
     <SimpleGrid columns={[1, 2, 3]} spacing="4">
-      {userIsAdmin &&
+      {isAdmin &&
         adminItems.map((item) => (
           <NavigationCard key={item.name} item={item} />
         ))}
 
-      {!userIsAdmin &&
+      {!isAdmin &&
         clientItems.map((item) => (
           <NavigationCard key={item.name} item={item} />
         ))}

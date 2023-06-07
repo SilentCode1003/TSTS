@@ -1,16 +1,20 @@
 import { Box, Grid, GridItem, Heading, Stack } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSearchTicket } from '../api/reporting/searchTicket'
 import TicketViewComments from '../components/TicketViewComments'
 import TicketViewReplyCard from '../components/TicketViewReplyCard'
 import TicketViewRightCard from '../components/TicketViewRightCard'
 import TicketViewTopCard from '../components/TicketViewTopCard'
+import { AuthContext } from '../context/AuthContext'
 
 const TicketView = () => {
   const { ticketId } = useParams()
   const [searchedTicket, setSearchedTicket] = useState(null)
   const { isLoading, error, mutateAsync } = useSearchTicket(ticketId)
+
+  const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -41,16 +45,23 @@ const TicketView = () => {
 
               <TicketViewComments searchedTicket={searchedTicket} />
 
-              {searchedTicket?.ticketstatus !== 'CLOSED' &&
+              {isAdmin &&
+                searchedTicket?.ticketstatus !== 'CLOSED' &&
                 searchedTicket?.ticketstatus !== 'RESOLVED' && (
                   <TicketViewReplyCard searchedTicket={searchedTicket} />
                 )}
+
+              {!isAdmin && searchedTicket?.ticketstatus !== 'CLOSED' && (
+                <TicketViewReplyCard searchedTicket={searchedTicket} />
+              )}
             </Grid>
           </GridItem>
 
-          <GridItem>
-            <TicketViewRightCard searchedTicket={searchedTicket} />
-          </GridItem>
+          {isAdmin && (
+            <GridItem>
+              <TicketViewRightCard searchedTicket={searchedTicket} />
+            </GridItem>
+          )}
         </Grid>
       </Stack>
     </Box>

@@ -28,7 +28,6 @@ const TicketSearch = () => {
           </Heading>
         </VStack>
 
-        {/* TODO: Make this a component */}
         <SimpleGrid columns="1" spacing="4">
           {isLoading && <LoadingSpinner />}
           {error && <ErrorMessage>{error.message}</ErrorMessage>}

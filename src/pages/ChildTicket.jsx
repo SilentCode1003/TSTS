@@ -14,30 +14,27 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { usePostChildTicket } from '../api/child-ticket/postChildTicket'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
 import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import { usePostTicket } from '../api/ticket-assignment/postTicket'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
-import { AuthContext } from '../context/AuthContext'
 
-const TicketAssignment = () => {
+const ChildTicket = () => {
   const concerns = useGetConcern()
   const { data: posIssues, mutate: getIssue } = useGetIssue()
   const clients = useGetClient()
   const priorities = useGetPriority()
   const statuses = useGetStatus()
   const personnel = useGetPersonel()
-  const uploadTicket = usePostTicket()
-
-  const { currentUser } = useContext(AuthContext)
+  const uploadTicket = usePostChildTicket()
 
   const {
     handleSubmit,
@@ -73,10 +70,8 @@ const TicketAssignment = () => {
     }
 
     const transformedData = transformData(data, base64FilesArray)
-    transformedData.assignby = currentUser.fullname
     try {
       await uploadTicket.mutateAsync(transformedData)
-      console.log(transformedData)
     } catch (e) {
       errorToast()
       return
@@ -108,23 +103,24 @@ const TicketAssignment = () => {
     <Box p={['4', null, '8']}>
       <Flex direction="column" gap="8">
         <Heading textAlign="center" size={['lg', null, 'xl']}>
-          Ticket Assignment
+          Child Ticket
         </Heading>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid gap="4">
-            {/* title - /concern
-            issue type - /WIP
-            requester - /client
-            requester email - /client
-            description
-            priority - /priority
-            status - /status
-            assigned to - /personel
-            department - /personel
-            attachments
-            comments
-            */}
+            <FormControl isInvalid={errors.referenceticket}>
+              <FormLabel htmlFor="reference-ticket">Reference Ticket</FormLabel>
+
+              <Input
+                id="reference-ticket"
+                type="text"
+                {...register('referenceticket', { required: true })}
+                placeholder="Enter reference ticket number"
+              />
+
+              <FormErrorMessage>This field is required</FormErrorMessage>
+            </FormControl>
+
             <FormControl isInvalid={errors.concernType}>
               <FormLabel htmlFor="concern-type">Concern Type</FormLabel>
 
@@ -311,11 +307,9 @@ const TicketAssignment = () => {
             </ButtonGroup>
           </VStack>
         </form>
-
-        {/* <TicketAssignmentTable /> */}
       </Flex>
     </Box>
   )
 }
 
-export default TicketAssignment
+export default ChildTicket

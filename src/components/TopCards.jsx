@@ -9,23 +9,24 @@ import {
 } from '@dnd-kit/core'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
-import React from 'react'
-import { shallow } from 'zustand/shallow'
+import loadable from '@loadable/component'
+import React, { useEffect } from 'react'
 import useDashboardCardStore from '../store/DashboardCardStore'
-import BarGraph from './BarGraph'
-import DoneTicketTable from './DoneTicketTable'
 import SortableItem from './SortableItem'
 import TopCardsItem from './TopCardsItem'
 
+const BarGraph = loadable(() => import('./BarGraph'))
+const DoneTicketTable = loadable(() => import('./DoneTicketTable'))
+const RequestTicketTable = loadable(() => import('./RequestTicketTable'))
+
 const TopCards = () => {
-  const { cards, cardsData, filterCards, setCards } = useDashboardCardStore(
+  const { cards, updateCount, cardsData, setCards } = useDashboardCardStore(
     (state) => ({
       cards: state.cards,
-      cardsData: state.cardsData,
-      filterCards: state.filterCards,
       setCards: state.setCards,
-    }),
-    shallow
+      cardsData: state.cardsData,
+      updateCount: state.updateCount,
+    })
   )
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -53,6 +54,15 @@ const TopCards = () => {
     }
   }
 
+  useEffect(() => {
+    updateCount()
+    const interval = setInterval(updateCount, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
   return (
     <DndContext
       collisionDetection={closestCenter}
@@ -64,9 +74,15 @@ const TopCards = () => {
         <SimpleGrid columns={[1, 2, 4]} spacing="4">
           {cards.map((card) => (
             <SortableItem key={card.id} id={card.id}>
-              <TopCardsItem header={card.header}>{card.content}</TopCardsItem>
+              <TopCardsItem header={card.header}>{card.content()}</TopCardsItem>
             </SortableItem>
           ))}
+
+          <GridItem colSpan={[1, 2]} rowSpan="2">
+            <TopCardsItem header="Ticket Requests">
+              <RequestTicketTable />
+            </TopCardsItem>
+          </GridItem>
 
           <GridItem colSpan={[1, 2]} rowSpan="2">
             <TopCardsItem>
@@ -75,7 +91,7 @@ const TopCards = () => {
           </GridItem>
 
           <GridItem colSpan={[1, 2]} rowSpan="2">
-            <TopCardsItem>
+            <TopCardsItem header="Done Tickets">
               <DoneTicketTable />
             </TopCardsItem>
           </GridItem>

@@ -155,7 +155,7 @@ const BarGraph = ({ dates }) => {
 
     fetchCounts()
 
-    const interval = setInterval(fetchCounts, 2500)
+    const interval = setInterval(fetchCounts, 5000)
     return () => {
       clearInterval(interval)
     }

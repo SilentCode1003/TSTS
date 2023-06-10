@@ -26,6 +26,7 @@ import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
+import TextareaAutosize from 'react-textarea-autosize'
 
 const ChildTicket = () => {
   const concerns = useGetConcern()
@@ -190,6 +191,8 @@ const ChildTicket = () => {
               <FormLabel htmlFor="description">Description</FormLabel>
 
               <Textarea
+                as={TextareaAutosize}
+                maxRows={15}
                 id="description"
                 {...register('description', { required: true })}
                 isInvalid={errors.description}
@@ -282,7 +285,12 @@ const ChildTicket = () => {
             <FormControl isInvalid={errors.comments}>
               <FormLabel htmlFor="comments">Comments:</FormLabel>
 
-              <Textarea id="comments" {...register('comments')} />
+              <Textarea
+                as={TextareaAutosize}
+                maxRows={15}
+                id="comments"
+                {...register('comments')}
+              />
             </FormControl>
           </Grid>
 

@@ -28,6 +28,7 @@ import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
+import TextareaAutosize from 'react-textarea-autosize'
 
 const TicketAssignment = () => {
   const [searchParams] = useSearchParams()
@@ -208,6 +209,8 @@ const TicketAssignment = () => {
               <FormLabel htmlFor="description">Description</FormLabel>
 
               <Textarea
+                as={TextareaAutosize}
+                maxRows={15}
                 id="description"
                 {...register('description', { required: true })}
                 isInvalid={errors.description}
@@ -300,7 +303,12 @@ const TicketAssignment = () => {
             <FormControl isInvalid={errors.comments}>
               <FormLabel htmlFor="comments">Comments:</FormLabel>
 
-              <Textarea id="comments" {...register('comments')} />
+              <Textarea
+                as={TextareaAutosize}
+                maxRows={15}
+                id="comments"
+                {...register('comments')}
+              />
             </FormControl>
           </Grid>
 

@@ -8,6 +8,7 @@ import {
   FormHelperText,
   FormLabel,
   Grid,
+  HStack,
   Heading,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -16,16 +17,20 @@ import {
   NumberInputStepper,
   Select,
   Stack,
+  Switch,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { shallow } from 'zustand/shallow'
-import useDashboardCardStore from '../store/DashboardCardStore'
-import { useState } from 'react'
+import { SystemSettingsContext } from '../context/SystemSettingsContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
+import useDashboardCardStore from '../store/DashboardCardStore'
 
 const Automation = () => {
+  const { settings, setSettings } = useContext(SystemSettingsContext)
+  console.log(settings)
+
   const { cards, activeIds, cardsData, filterCards } = useDashboardCardStore(
     (state) => ({
       cards: state.cards,
@@ -150,7 +155,7 @@ const Automation = () => {
           </VStack>
         </form>
 
-        <Flex>
+        <VStack spacing="8">
           <VStack spacing="4">
             <Heading size="md">Filter Dashboard Cards</Heading>
 
@@ -173,7 +178,25 @@ const Automation = () => {
               Apply
             </Button>
           </VStack>
-        </Flex>
+
+          <HStack>
+            <FormLabel htmlFor="realtimeData">
+              <Heading size="md">Realtime Dashboard Data</Heading>
+            </FormLabel>
+            <Switch
+              id="realtimeData"
+              colorScheme="purple"
+              size="lg"
+              isChecked={settings.realtimeData}
+              onChange={(e) => {
+                setSettings((prev) => ({
+                  ...prev,
+                  realtimeData: e.target.checked,
+                }))
+              }}
+            />
+          </HStack>
+        </VStack>
       </Flex>
     </Box>
   )

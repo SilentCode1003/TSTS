@@ -92,6 +92,7 @@ const Login = () => {
                 <Input
                   id="username"
                   type="text"
+                  autoComplete="username"
                   {...register('username', {
                     required: 'Username is required',
                   })}

@@ -10,7 +10,8 @@ import {
 import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import loadable from '@loadable/component'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { SystemSettingsContext } from '../context/SystemSettingsContext'
 import useDashboardCardStore from '../store/DashboardCardStore'
 import SortableItem from './SortableItem'
 import TopCardsItem from './TopCardsItem'
@@ -20,6 +21,8 @@ const DoneTicketTable = loadable(() => import('./DoneTicketTable'))
 const RequestTicketTable = loadable(() => import('./RequestTicketTable'))
 
 const TopCards = () => {
+  const { settings } = useContext(SystemSettingsContext)
+
   const { cards, updateCount, cardsData, setCards } = useDashboardCardStore(
     (state) => ({
       cards: state.cards,
@@ -56,12 +59,14 @@ const TopCards = () => {
 
   useEffect(() => {
     updateCount()
-    const interval = setInterval(updateCount, 5000)
 
-    return () => {
-      clearInterval(interval)
+    if (settings.realtimeData === true) {
+      const interval = setInterval(updateCount, 5000)
+      return () => {
+        clearInterval(interval)
+      }
     }
-  }, [])
+  }, [settings.realtimeData])
 
   return (
     <DndContext

@@ -6,6 +6,21 @@ import SearchedTicket from '../components/SearchedTicket'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
 
+function TicketSearchContent({ isLoading, error, searchedTicket }) {
+  return (
+    <SimpleGrid columns="1" spacing="4">
+      {isLoading && <LoadingSpinner />}
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
+      {!isLoading && !error && !searchedTicket && (
+        <Text textAlign="center" fontSize="3xl">
+          No results
+        </Text>
+      )}
+      {searchedTicket && <SearchedTicket searchedTicket={searchedTicket} />}
+    </SimpleGrid>
+  )
+}
+
 const TicketSearch = () => {
   const [searchedTicket, setSearchedTicket] = useState(null)
   const { ticketId } = useParams()
@@ -28,16 +43,11 @@ const TicketSearch = () => {
           </Heading>
         </VStack>
 
-        <SimpleGrid columns="1" spacing="4">
-          {isLoading && <LoadingSpinner />}
-          {error && <ErrorMessage>{error.message}</ErrorMessage>}
-          {!isLoading && !error && !searchedTicket && (
-            <Text textAlign="center" fontSize="3xl">
-              No results
-            </Text>
-          )}
-          {searchedTicket && <SearchedTicket searchedTicket={searchedTicket} />}
-        </SimpleGrid>
+        <TicketSearchContent
+          searchedTicket={searchedTicket}
+          isLoading={isLoading}
+          error={error}
+        ></TicketSearchContent>
       </Stack>
     </Box>
   )

@@ -10,6 +10,7 @@ import ClientProtectedRoute from './components/ClientProtectedRoute'
 import LoadingFallback from './components/LoadingFallback'
 import AuthContextProvider from './context/AuthContext'
 import './index.css'
+import SystemSettingsContextProvider from './context/SystemSettingsContext'
 
 const ChildTicket = loadable(() => import('./pages/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
@@ -124,15 +125,17 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <ChakraProvider>
-          <Suspense fallback={<LoadingFallback />}>
-            <RouterProvider router={router} />
-          </Suspense>
-        </ChakraProvider>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </AuthContextProvider>
+    <SystemSettingsContextProvider>
+      <AuthContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <ChakraProvider>
+            <Suspense fallback={<LoadingFallback />}>
+              <RouterProvider router={router} />
+            </Suspense>
+          </ChakraProvider>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </AuthContextProvider>
+    </SystemSettingsContextProvider>
   </React.StrictMode>
 )

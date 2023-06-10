@@ -17,7 +17,14 @@ import ErrorMessage from './UI/ErrorMessage'
 const RequestTicketTable = () => {
   let isLoading
   let error
-  let data = []
+  let data = [
+    {
+      ticketid: 'TEST-5173',
+      concern: 'test concern',
+      issue: 'test issue',
+      requestername: 'test requester name',
+    },
+  ]
 
   if (isLoading) {
     return <LoadingSpinner />
@@ -50,22 +57,22 @@ const RequestTicketTable = () => {
         </Thead>
 
         <Tbody fontSize="sm" fontWeight="normal">
-          {/* {data?.map((ticket) => (
+          {data?.map((ticket) => (
             <Tr key={ticket.ticketid}>
               <Td>
                 <Link
                   as={RouterLink}
-                  to={`/admin/ticket-view/${ticket.ticketid}`}
+                  to={`/admin/ticket-assignment?concern=${ticket.concern}&issue=${ticket.issue}&requestername=${ticket.requestername}`}
                   color="blue"
                 >
                   {ticket.ticketid}
                 </Link>
               </Td>
-              <Td>{ticket.subject}</Td>
-              <Td>{ticket.assignto}</Td>
-              <Td>{ticket.assignby}</Td>
+              <Td>{ticket.concern}</Td>
+              <Td>{ticket.issue}</Td>
+              <Td>{ticket.requestername}</Td>
             </Tr>
-          ))} */}
+          ))}
         </Tbody>
       </Table>
     </TableContainer>

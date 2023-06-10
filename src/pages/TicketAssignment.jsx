@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSearchParams } from 'react-router-dom'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
@@ -23,12 +24,14 @@ import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
+import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
-import { AuthContext } from '../context/AuthContext'
 
 const TicketAssignment = () => {
+  const [searchParams] = useSearchParams()
+
   const concerns = useGetConcern()
   const { data: posIssues, mutate: getIssue } = useGetIssue()
   const clients = useGetClient()
@@ -103,6 +106,17 @@ const TicketAssignment = () => {
         ?.department || ''
     )
   }, [watchPersonnel])
+
+  useEffect(() => {
+    console.log(Object.fromEntries([...searchParams]))
+    if (Object.keys(searchParams).length === 0) {
+      return
+    }
+
+    setValue('concernType', searchParams.get('concern'))
+    setValue('issueType', searchParams.get('issue'))
+    setValue('requesterName', searchParams.get('requestername'))
+  }, [])
 
   return (
     <Box p={['4', null, '8']}>

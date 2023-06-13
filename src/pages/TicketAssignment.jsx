@@ -92,6 +92,8 @@ const TicketAssignment = () => {
   useEffect(() => {
     getIssue(watchConcern)
 
+    // Update field according to url param
+    // Needed because the concern type need to be load first
     if (searchParams.size > 0) {
       setValue('issueType', searchParams.get('issue'))
     }
@@ -118,6 +120,7 @@ const TicketAssignment = () => {
       return
     }
 
+    // Set input fields according to url params
     setValue('concernType', searchParams.get('concern'))
     setValue('requesterName', searchParams.get('requestername'))
   }, [])

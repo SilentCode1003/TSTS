@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import TextareaAutosize from 'react-textarea-autosize'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
@@ -129,6 +130,8 @@ const RequestTicket = () => {
               <FormLabel htmlFor="description">Description</FormLabel>
 
               <Textarea
+                as={TextareaAutosize}
+                maxRows={15}
                 id="description"
                 {...register('description', { required: true })}
                 isInvalid={errors.description}

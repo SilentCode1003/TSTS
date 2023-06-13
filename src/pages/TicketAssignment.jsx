@@ -93,7 +93,7 @@ const TicketAssignment = () => {
     getIssue(watchConcern)
 
     // Update field according to url param
-    // Needed because the concern type need to be load first
+    // Needed because the concern type need to load first
     if (searchParams.size > 0) {
       setValue('issueType', searchParams.get('issue'))
     }

@@ -43,11 +43,13 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useGetAllTickets } from '../api/reporting/getAllTickets'
 import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import TicketTrackingCheckboxes from '../components/TicketTrackingCheckboxes'
 import ErrorMessage from '../components/UI/ErrorMessage'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
 
 const BarGraph = loadable(() => import('../components/BarGraph'))
+const TicketTrackingCheckboxes = loadable(() =>
+  import('../components/TicketTrackingCheckboxes')
+)
 
 const columnHelper = createColumnHelper()
 

@@ -91,6 +91,10 @@ const TicketAssignment = () => {
 
   useEffect(() => {
     getIssue(watchConcern)
+
+    if (searchParams.size > 0) {
+      setValue('issueType', searchParams.get('issue'))
+    }
   }, [watchConcern])
 
   useEffect(() => {
@@ -115,7 +119,6 @@ const TicketAssignment = () => {
     }
 
     setValue('concernType', searchParams.get('concern'))
-    setValue('issueType', searchParams.get('issue'))
     setValue('requesterName', searchParams.get('requestername'))
   }, [])
 

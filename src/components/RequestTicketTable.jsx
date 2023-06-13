@@ -19,10 +19,10 @@ const RequestTicketTable = () => {
   let error
   let data = [
     {
-      ticketid: 'TEST-5173',
-      concern: 'test concern',
-      issue: 'test issue',
-      requestername: 'test requester name',
+      ticketid: 'SR-202310003',
+      concern: 'POS ISOLATION',
+      issue: 'NO POWER',
+      requestername: '3790 BURGOS',
     },
   ]
 

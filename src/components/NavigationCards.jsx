@@ -5,7 +5,6 @@ import {
   MdDashboard,
   MdLightbulb,
   MdNewspaper,
-  MdOutlineSubdirectoryArrowRight,
   MdReport,
   MdSettings,
   MdTrackChanges,

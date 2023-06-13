@@ -9,8 +9,8 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
 import LoadingFallback from './components/LoadingFallback'
 import AuthContextProvider from './context/AuthContext'
-import './index.css'
 import SystemSettingsContextProvider from './context/SystemSettingsContext'
+import './index.css'
 
 const ChildTicket = loadable(() => import('./pages/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>

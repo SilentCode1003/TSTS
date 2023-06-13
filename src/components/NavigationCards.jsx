@@ -27,7 +27,7 @@ export const adminItems = [
   {
     name: 'Child Ticket',
     url: '/admin/child-ticket',
-    icon: <MdOutlineSubdirectoryArrowRight />,
+    icon: <MdNewspaper />,
   },
   {
     name: 'Ticket Tracking',

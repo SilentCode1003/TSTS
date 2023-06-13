@@ -37,7 +37,7 @@ const RequestTicketTable = () => {
   if (data.length <= 0) {
     return (
       <Text fontSize="sm" color="green.400">
-        No ticket requests :^&#41;
+        No ticket requests :^&#41; {/* :^) */}
       </Text>
     )
   }

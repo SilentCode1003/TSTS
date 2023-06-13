@@ -110,7 +110,7 @@ const TicketAssignment = () => {
 
   useEffect(() => {
     console.log(Object.fromEntries([...searchParams]))
-    if (Object.keys(searchParams).length === 0) {
+    if (searchParams.size === 0) {
       return
     }
 
@@ -128,18 +128,6 @@ const TicketAssignment = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid gap="4">
-            {/* title - /concern
-            issue type - /WIP
-            requester - /client
-            requester email - /client
-            description
-            priority - /priority
-            status - /status
-            assigned to - /personel
-            department - /personel
-            attachments
-            comments
-            */}
             <FormControl isInvalid={errors.concernType}>
               <FormLabel htmlFor="concern-type">Concern Type</FormLabel>
 

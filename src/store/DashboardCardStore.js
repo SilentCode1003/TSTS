@@ -38,35 +38,43 @@ const useDashboardCardStore = create((set, get) => ({
       id: 1,
       header: 'New Tickets',
       content: () => get().newCount,
+      active: true,
     },
     {
       id: 2,
       header: 'Open Tickets',
       content: () => get().openCount,
+      active: true,
     },
     {
       id: 3,
       header: 'Pending Tickets',
       content: () => get().pendingCount,
+      active: true,
     },
     {
       id: 4,
       header: 'Closed Tickets',
       content: () => get().closedCount,
+      active: true,
     },
   ],
   cardsData,
   activeIds: () => {
-    const ids = get().cards.map((card) => card.id)
+    const ids = get().cards.map((card) => {
+      if (card.active) return card.id
+    })
     return ids
   },
   filterCards: (idArray) => {
     set((state) => {
-      const filtered = state.cards.filter(
-        (card) => idArray.indexOf(card.id) !== -1
-      )
-
-      console.log(filtered)
+      const filtered = state.cards.map((card) => {
+        if (idArray.includes(card.id)) {
+          return { ...card, active: true }
+        } else {
+          return { ...card, active: false }
+        }
+      })
 
       return {
         cards: filtered,
@@ -78,9 +86,6 @@ const useDashboardCardStore = create((set, get) => ({
       return { cards: newState }
     })
   },
-  // set((state) => ({
-  //   cards: state.cards.filter((item) => idArray.indexOf(item.id) === -1),
-  // })),
   updateCount: async () => {
     const newCountRes = await getStatusCount({
       ticketstatus: 'NEW',

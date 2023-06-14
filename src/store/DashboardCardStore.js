@@ -24,7 +24,7 @@ const cardsData = [
   },
   {
     id: 4,
-    header: 'Closed Tickets',
+    header: 'Resolved Tickets',
   },
 ]
 
@@ -32,7 +32,7 @@ const useDashboardCardStore = create((set, get) => ({
   newCount: 1,
   openCount: 2,
   pendingCount: 3,
-  closedCount: 4,
+  resolvedCount: 4,
   cards: [
     {
       id: 1,
@@ -54,8 +54,8 @@ const useDashboardCardStore = create((set, get) => ({
     },
     {
       id: 4,
-      header: 'Closed Tickets',
-      content: () => get().closedCount,
+      header: 'Resolved Tickets',
+      content: () => get().resolvedCount,
       active: true,
     },
   ],
@@ -102,8 +102,8 @@ const useDashboardCardStore = create((set, get) => ({
       datefrom,
       dateto,
     })
-    const closedCountRes = await getStatusCount({
-      ticketstatus: 'CLOSED',
+    const resolvedCountRes = await getStatusCount({
+      ticketstatus: 'RESOLVED',
       datefrom,
       dateto,
     })
@@ -112,7 +112,7 @@ const useDashboardCardStore = create((set, get) => ({
       newCount: newCountRes.data[0].ticketcount,
       openCount: openCountRes.data[0].ticketcount,
       pendingCount: pendingCountRes.data[0].ticketcount,
-      closedCount: closedCountRes.data[0].ticketcount,
+      resolvedCount: resolvedCountRes.data[0].ticketcount,
     })
   },
 }))

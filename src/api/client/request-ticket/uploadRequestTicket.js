@@ -4,7 +4,7 @@ import pako from 'pako'
 
 export const uploadRequestTicket = async (newTicket) => {
   const compressedData = pako.gzip(JSON.stringify(newTicket))
-  const res = await axios.post('', compressedData, {
+  const res = await axios.post('/requestticket/save', compressedData, {
     headers: {
       'Content-Encoding': 'gzip',
       'Content-Type': 'application/json',

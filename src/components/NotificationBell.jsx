@@ -3,6 +3,7 @@ import {
   Box,
   Circle,
   Divider,
+  Grid,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -57,9 +58,18 @@ const NotificationBell = () => {
             <PopoverHeader>Notifications</PopoverHeader>
             <PopoverCloseButton />
 
-            <PopoverBody>
-              <Stack direction="column" divider={<Divider />}>
-                {notifications.length <= 0 && <Text>No new notifications</Text>}
+            <PopoverBody h="250px" overflowY="auto" p="0">
+              {notifications.length <= 0 && (
+                <Grid w="100%" h="100%" placeContent="center">
+                  No new notifications
+                </Grid>
+              )}
+              <Stack
+                bgColor="gray.50"
+                direction="column"
+                spacing="0"
+                divider={<Divider />}
+              >
                 {notifications.length > 0 &&
                   notifications.map((notification) => (
                     <NotificationItem

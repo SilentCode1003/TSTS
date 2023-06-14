@@ -11,20 +11,13 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import LoadingSpinner from './UI/LoadingSpinner'
+import { useGetTicketRequests } from '../api/dashboard/getTicketRequests'
 import ErrorMessage from './UI/ErrorMessage'
+import LoadingSpinner from './UI/LoadingSpinner'
 
 const RequestTicketTable = () => {
-  let isLoading
-  let error
-  let data = [
-    // {
-    //   ticketid: 'SR-202310003',
-    //   concern: 'POS ISOLATION',
-    //   issue: 'NO POWER',
-    //   requestername: '3790 BURGOS',
-    // },
-  ]
+  const { isLoading, error, data: ticketRequests } = useGetTicketRequests()
+  const data = ticketRequests?.data
 
   if (isLoading) {
     return <LoadingSpinner />
@@ -49,7 +42,7 @@ const RequestTicketTable = () => {
 
         <Thead>
           <Tr>
-            <Th>Ticket Id</Th>
+            <Th>Request Id</Th>
             <Th>Concern</Th>
             <Th>Issue</Th>
             <Th>Requester Name</Th>
@@ -58,19 +51,19 @@ const RequestTicketTable = () => {
 
         <Tbody fontSize="sm" fontWeight="normal">
           {data?.map((ticket) => (
-            <Tr key={ticket.ticketid}>
+            <Tr key={ticket.requestid}>
               <Td>
                 <Link
                   as={RouterLink}
-                  to={`/admin/ticket-assignment?concern=${ticket.concern}&issue=${ticket.issue}&requestername=${ticket.requestername}`}
+                  to={`/admin/ticket-assignment?concern=${ticket.concern}&issue=${ticket.issue}&requestername=${ticket.requestby}`}
                   color="blue"
                 >
-                  {ticket.ticketid}
+                  {ticket.requestid}
                 </Link>
               </Td>
               <Td>{ticket.concern}</Td>
               <Td>{ticket.issue}</Td>
-              <Td>{ticket.requestername}</Td>
+              <Td>{ticket.requestby}</Td>
             </Tr>
           ))}
         </Tbody>

@@ -18,6 +18,9 @@ const KnowledgeBaseDefault = loadable(() =>
 )
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
+const ClientTicketTracking = loadable(() =>
+  import('./pages/ClientTicketTracking')
+)
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/Automation'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
@@ -49,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/request-ticket',
         element: <RequestTicket />,
+      },
+      {
+        path: '/ticket-tracking',
+        element: <ClientTicketTracking />,
       },
       {
         path: '/ticket-view/:ticketId',

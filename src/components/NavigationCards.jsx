@@ -61,6 +61,11 @@ export const clientItems = [
     url: '/request-ticket',
     icon: <CornerDownRight />,
   },
+  {
+    name: 'Ticket Tracking',
+    url: '/ticket-tracking',
+    icon: <Table />,
+  },
 ]
 
 const NavigationCards = () => {

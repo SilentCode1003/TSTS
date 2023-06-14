@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { axios } from '../../axios'
 
-export const getActiveRequests = async (inputs) => {
-  const res = await axios.post('requestticket/getrequestticketactive', inputs)
+export const getClientRequestTickets = async (inputs) => {
+  const res = await axios.post('requestticket/getrequestticket', inputs)
   return res.data
 }
 
-export const useGetActiveRequests = (user) => {
+export const useGetClientRequestTickets = (user) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationKey: ['requestTicket', `${user}`],
-    mutationFn: (inputs) => getActiveRequests(inputs),
+    mutationFn: (inputs) => getClientRequestTickets(inputs),
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: ['requestTicket', `${user}`],

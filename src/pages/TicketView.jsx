@@ -1,12 +1,22 @@
 import { Box, Grid, GridItem, Heading, Stack } from '@chakra-ui/react'
+import loadable from '@loadable/component'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSearchTicket } from '../api/reporting/searchTicket'
-import TicketViewComments from '../components/TicketViewComments'
-import TicketViewReplyCard from '../components/TicketViewReplyCard'
-import TicketViewRightCard from '../components/TicketViewRightCard'
-import TicketViewTopCard from '../components/TicketViewTopCard'
 import { AuthContext } from '../context/AuthContext'
+
+const TicketViewComments = loadable(() =>
+  import('../components/TicketViewComments')
+)
+const TicketViewReplyCard = loadable(() =>
+  import('../components/TicketViewReplyCard')
+)
+const TicketViewRightCard = loadable(() =>
+  import('../components/TicketViewRightCard')
+)
+const TicketViewTopCard = loadable(() =>
+  import('../components/TicketViewTopCard')
+)
 
 const TicketView = () => {
   const { ticketId } = useParams()

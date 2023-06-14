@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
@@ -23,14 +24,18 @@ import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { usePostTicket } from '../api/ticket-assignment/postTicket'
+import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
-import { AuthContext } from '../context/AuthContext'
+import TextareaAutosize from 'react-textarea-autosize'
 
 const TicketAssignment = () => {
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+
   const concerns = useGetConcern()
-  const { data: posIssues, mutate: getIssue } = useGetIssue()
+  const { data: posIssues, mutate: getIssue, isLoading } = useGetIssue()
   const clients = useGetClient()
   const priorities = useGetPriority()
   const statuses = useGetStatus()
@@ -76,13 +81,14 @@ const TicketAssignment = () => {
     transformedData.assignby = currentUser.fullname
     try {
       await uploadTicket.mutateAsync(transformedData)
-      console.log(transformedData)
+
+      successToast()
+      navigate('/admin/ticket-tracking')
+      reset()
     } catch (e) {
       errorToast()
       return
     }
-    successToast()
-    reset()
   }
 
   useEffect(() => {
@@ -104,6 +110,17 @@ const TicketAssignment = () => {
     )
   }, [watchPersonnel])
 
+  useEffect(() => {
+    if (searchParams.size === 0) {
+      return
+    }
+
+    // Set input fields according to url params
+    setValue('concernType', searchParams.get('concern'))
+    setValue('issueType', searchParams.get('issue'))
+    setValue('requesterName', searchParams.get('requestername'))
+  }, [concerns.isLoading, isLoading, clients.isLoading])
+
   return (
     <Box p={['4', null, '8']}>
       <Flex direction="column" gap="8">
@@ -113,18 +130,6 @@ const TicketAssignment = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid gap="4">
-            {/* title - /concern
-            issue type - /WIP
-            requester - /client
-            requester email - /client
-            description
-            priority - /priority
-            status - /status
-            assigned to - /personel
-            department - /personel
-            attachments
-            comments
-            */}
             <FormControl isInvalid={errors.concernType}>
               <FormLabel htmlFor="concern-type">Concern Type</FormLabel>
 
@@ -194,6 +199,8 @@ const TicketAssignment = () => {
               <FormLabel htmlFor="description">Description</FormLabel>
 
               <Textarea
+                as={TextareaAutosize}
+                maxRows={15}
                 id="description"
                 {...register('description', { required: true })}
                 isInvalid={errors.description}
@@ -286,7 +293,12 @@ const TicketAssignment = () => {
             <FormControl isInvalid={errors.comments}>
               <FormLabel htmlFor="comments">Comments:</FormLabel>
 
-              <Textarea id="comments" {...register('comments')} />
+              <Textarea
+                as={TextareaAutosize}
+                maxRows={15}
+                id="comments"
+                {...register('comments')}
+              />
             </FormControl>
           </Grid>
 

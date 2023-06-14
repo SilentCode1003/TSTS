@@ -1,10 +1,10 @@
 import { Box, Heading, Stack } from '@chakra-ui/react'
 import loadable from '@loadable/component'
 import React, { useContext } from 'react'
-import NavigationCards from '../components/NavigationCards'
 import { AuthContext } from '../context/AuthContext'
 
 const ClientTopCards = loadable(() => import('../components/ClientTopCards'))
+const NavigationCards = loadable(() => import('../components/NavigationCards'))
 const TopCards = loadable(() => import('../components/TopCards'))
 
 const Dashboard = () => {

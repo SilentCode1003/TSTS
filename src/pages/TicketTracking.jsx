@@ -26,7 +26,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import React, { useState } from 'react'
-import { MdFilterList } from 'react-icons/md'
+import { Filter } from 'react-feather'
 import { Link as RouterLink } from 'react-router-dom'
 import { useGetTickets } from '../api/ticket-tracking/getTickets'
 import TicketTrackingTabs from '../components/TicketTrackingTabs'
@@ -162,7 +162,7 @@ const TicketTracking = () => {
         <Flex w="100%" justifyContent="end">
           {tickets.length > 0 && (
             <Menu>
-              <MenuButton as={IconButton} icon={<MdFilterList />} />
+              <MenuButton as={IconButton} icon={<Filter size={16} />} />
               <MenuList p="4" w={['290px', null, '500px']}>
                 <TicketTrackingTabs
                   table={table}

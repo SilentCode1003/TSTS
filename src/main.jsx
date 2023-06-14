@@ -9,8 +9,8 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 import ClientProtectedRoute from './components/ClientProtectedRoute'
 import LoadingFallback from './components/LoadingFallback'
 import AuthContextProvider from './context/AuthContext'
-import './index.css'
 import SystemSettingsContextProvider from './context/SystemSettingsContext'
+import './index.css'
 
 const ChildTicket = loadable(() => import('./pages/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
@@ -20,7 +20,6 @@ const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/Automation'))
-// const Communication = loadable(() => import('./pages/Communication'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
 const KnowledgeBase = loadable(() => import('./pages/KnowledgeBase'))
 const Login = loadable(() => import('./pages/Login'))

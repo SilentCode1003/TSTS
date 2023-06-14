@@ -1,6 +1,6 @@
 import { Box, Button, HStack, Text } from '@chakra-ui/react'
-import { MdClose } from 'react-icons/md'
 import React from 'react'
+import { X } from 'react-feather'
 
 const NotificationItem = ({ children, notificationId, setNotifications }) => {
   const handleCloseNotification = () => {
@@ -14,7 +14,7 @@ const NotificationItem = ({ children, notificationId, setNotifications }) => {
       <HStack justifyContent="space-between">
         <Text>{children}</Text>
         <Button size="xs" onClick={handleCloseNotification}>
-          <MdClose />
+          <X size={12} />
         </Button>
       </HStack>
     </Box>

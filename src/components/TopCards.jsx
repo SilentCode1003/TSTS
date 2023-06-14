@@ -77,11 +77,17 @@ const TopCards = () => {
     >
       <SortableContext items={cards}>
         <SimpleGrid columns={[1, 2, 4]} spacing="4">
-          {cards.map((card) => (
-            <SortableItem key={card.id} id={card.id}>
-              <TopCardsItem header={card.header}>{card.content()}</TopCardsItem>
-            </SortableItem>
-          ))}
+          {cards.map((card) => {
+            if (card.active) {
+              return (
+                <SortableItem key={card.id} id={card.id}>
+                  <TopCardsItem header={card.header}>
+                    {card.content()}
+                  </TopCardsItem>
+                </SortableItem>
+              )
+            }
+          })}
 
           <GridItem colSpan={[1, 2]} rowSpan="2">
             <TopCardsItem header="Ticket Requests">

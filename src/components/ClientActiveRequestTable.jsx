@@ -10,12 +10,34 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import { useContext, useEffect, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
+import { useGetActiveRequests } from '../api/client/dashboard/getActiveRequests'
+import { AuthContext } from '../context/AuthContext'
+import ErrorMessage from './UI/ErrorMessage'
+import LoadingSpinner from './UI/LoadingSpinner'
 
 const ClientActiveRequestTable = () => {
-  let isLoading
-  let error
-  let data = []
+  const { currentUser } = useContext(AuthContext)
+
+  const [data, setData] = useState([])
+
+  const {
+    isLoading,
+    error,
+    mutateAsync: getData,
+  } = useGetActiveRequests(currentUser.fullname)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getData({ requestby: currentUser.fullname })
+        setData(res.data)
+      } catch (e) {}
+    }
+
+    fetchData()
+  }, [])
 
   if (isLoading) {
     return <LoadingSpinner />
@@ -36,29 +58,26 @@ const ClientActiveRequestTable = () => {
 
         <Thead>
           <Tr>
-            <Th>Placeholder</Th>
-            <Th>Placeholder</Th>
-            <Th>Placeholder</Th>
+            <Th>Request Id</Th>
+            <Th>Concern</Th>
+            <Th>Issue</Th>
+            <Th>Request Date</Th>
           </Tr>
         </Thead>
 
         <Tbody fontSize="sm" fontWeight="normal">
-          {/* {data?.map((ticket) => (
-            <Tr key={ticket.ticketid}>
+          {data?.map((ticket) => (
+            <Tr key={ticket.requestid}>
               <Td>
-                <Link
-                  as={RouterLink}
-                  to={`/admin/ticket-view/${ticket.ticketid}`}
-                  color="blue"
-                >
-                  {ticket.ticketid}
+                <Link as={RouterLink} to={`/`} color="blue">
+                  {ticket.requestid}
                 </Link>
               </Td>
-              <Td>{ticket.subject}</Td>
-              <Td>{ticket.assignto}</Td>
-              <Td>{ticket.assignby}</Td>
+              <Td>{ticket.concern}</Td>
+              <Td>{ticket.issue}</Td>
+              <Td>{ticket.createddate}</Td>
             </Tr>
-          ))} */}
+          ))}
         </Tbody>
       </Table>
     </TableContainer>

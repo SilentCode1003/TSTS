@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
@@ -32,9 +32,10 @@ import TextareaAutosize from 'react-textarea-autosize'
 
 const TicketAssignment = () => {
   const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
 
   const concerns = useGetConcern()
-  const { data: posIssues, mutate: getIssue } = useGetIssue()
+  const { data: posIssues, mutate: getIssue, isLoading } = useGetIssue()
   const clients = useGetClient()
   const priorities = useGetPriority()
   const statuses = useGetStatus()
@@ -80,23 +81,18 @@ const TicketAssignment = () => {
     transformedData.assignby = currentUser.fullname
     try {
       await uploadTicket.mutateAsync(transformedData)
-      console.log(transformedData)
+
+      successToast()
+      navigate('/admin/ticket-tracking')
+      reset()
     } catch (e) {
       errorToast()
       return
     }
-    successToast()
-    reset()
   }
 
   useEffect(() => {
     getIssue(watchConcern)
-
-    // Update field according to url param
-    // Needed because the concern type need to load first
-    if (searchParams.size > 0) {
-      setValue('issueType', searchParams.get('issue'))
-    }
   }, [watchConcern])
 
   useEffect(() => {
@@ -115,15 +111,15 @@ const TicketAssignment = () => {
   }, [watchPersonnel])
 
   useEffect(() => {
-    console.log(Object.fromEntries([...searchParams]))
     if (searchParams.size === 0) {
       return
     }
 
     // Set input fields according to url params
     setValue('concernType', searchParams.get('concern'))
+    setValue('issueType', searchParams.get('issue'))
     setValue('requesterName', searchParams.get('requestername'))
-  }, [])
+  }, [concerns.isLoading, isLoading, clients.isLoading])
 
   return (
     <Box p={['4', null, '8']}>

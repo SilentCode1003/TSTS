@@ -11,6 +11,7 @@ import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import loadable from '@loadable/component'
 import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SystemSettingsContext } from '../context/SystemSettingsContext'
 import useDashboardCardStore from '../store/DashboardCardStore'
 import SortableItem from './SortableItem'
@@ -21,6 +22,8 @@ const DoneTicketTable = loadable(() => import('./DoneTicketTable'))
 const RequestTicketTable = loadable(() => import('./RequestTicketTable'))
 
 const TopCards = () => {
+  const navigate = useNavigate()
+
   const { settings } = useContext(SystemSettingsContext)
 
   const { cards, updateCount, cardsData, setCards } = useDashboardCardStore(
@@ -81,7 +84,17 @@ const TopCards = () => {
             if (card.active) {
               return (
                 <SortableItem key={card.id} id={card.id}>
-                  <TopCardsItem header={card.header}>
+                  <TopCardsItem
+                    header={card.header}
+                    onClick={() => {
+                      // NEW, OPEN, ...
+                      navigate(
+                        `/admin/reporting?status=${card.header
+                          .split(' ')[0]
+                          .toUpperCase()}`
+                      )
+                    }}
+                  >
                     {card.content()}
                   </TopCardsItem>
                 </SortableItem>

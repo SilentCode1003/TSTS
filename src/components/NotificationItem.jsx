@@ -10,7 +10,7 @@ const NotificationItem = ({ children, notificationId, setNotifications }) => {
   }
 
   return (
-    <Box fontSize="sm">
+    <Box p="2" fontSize="sm">
       <HStack justifyContent="space-between">
         <Text>{children}</Text>
         <Button size="xs" onClick={handleCloseNotification}>

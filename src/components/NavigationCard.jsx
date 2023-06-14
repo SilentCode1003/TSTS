@@ -13,7 +13,7 @@ export const NavigationCard = ({ item }) => {
         cursor="pointer"
       >
         <CardHeader h="70px">{item.name}</CardHeader>
-        <CardBody fontSize="6xl">
+        <CardBody>
           <Flex
             alignItems="center"
             justifyContent="center"

@@ -246,7 +246,7 @@ const Reporting = () => {
         <Flex w="100%" justifyContent="end">
           {tickets.length > 0 && (
             <Menu>
-              <MenuButton as={IconButton} icon={<Filter />} />
+              <MenuButton as={IconButton} icon={<Filter size={16} />} />
               <MenuList p="4">
                 <TicketTrackingCheckboxes table={table} />
               </MenuList>

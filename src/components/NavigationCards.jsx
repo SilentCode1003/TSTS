@@ -1,14 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import React, { useContext } from 'react'
-// import {
-// MdAssignmentAdd,
-// MdDashboard,
-// MdLightbulb,
-// MdNewspaper,
-// MdReport,
-// MdSettings,
-//   MdTrackChanges,
-// } from 'react-icons/md'
 import {
   BookOpen,
   CornerDownRight,

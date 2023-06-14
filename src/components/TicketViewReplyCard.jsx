@@ -94,7 +94,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
           <Button
             onClick={toggleShowReplyArea}
             colorScheme="purple"
-            leftIcon={<Send />}
+            leftIcon={<Send size={16} />}
             size="sm"
           >
             Reply
@@ -134,7 +134,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
           <CardFooter>
             <ButtonGroup w="100%" justifyContent="flex-end" size="sm">
               <Button
-                leftIcon={<Send />}
+                leftIcon={<Send size={16} />}
                 type="submit"
                 colorScheme="purple"
                 isLoading={isSubmitting}
@@ -142,7 +142,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
                 Submit
               </Button>
               <Button
-                leftIcon={<Trash2 />}
+                leftIcon={<Trash2 size={16} />}
                 isLoading={isSubmitting}
                 onClick={handleReset}
               >

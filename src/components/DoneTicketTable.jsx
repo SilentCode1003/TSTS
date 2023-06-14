@@ -41,6 +41,7 @@ const DoneTicketTable = () => {
           <Tr>
             <Th>Ticket Id</Th>
             <Th>Subject</Th>
+            <Th>Report Date</Th>
             <Th>Assigned To</Th>
             <Th>Assigned By</Th>
           </Tr>
@@ -59,6 +60,7 @@ const DoneTicketTable = () => {
                 </Link>
               </Td>
               <Td>{ticket.subject}</Td>
+              <Td>{ticket.reportdate}</Td>
               <Td>{ticket.assignto}</Td>
               <Td>{ticket.assignby}</Td>
             </Tr>

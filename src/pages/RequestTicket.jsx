@@ -14,17 +14,23 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
+import { useUploadRequestTicket } from '../api/client/request-ticket/uploadRequestTicket'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
+import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 
 const RequestTicket = () => {
+  const { currentUser } = useContext(AuthContext)
+
   const concerns = useGetConcern()
   const { data: posIssues, mutate: getIssue } = useGetIssue()
+
+  const uploadRequestTicketMutation = useUploadRequestTicket()
 
   const {
     handleSubmit,
@@ -60,21 +66,22 @@ const RequestTicket = () => {
     }
 
     const postData = {
-      attachment: base64FilesArray,
-      concerntype: data.concernType,
+      attachement: base64FilesArray,
+      concern: data.concernType,
       description: data.description,
-      issuetype: data.issueType,
+      issue: data.issueType,
+      requestby: currentUser.fullname,
     }
 
     try {
       console.log(postData)
-      // await uploadTicket.mutateAsync(transformedData)
+      await uploadRequestTicketMutation.mutateAsync(postData)
+      successToast()
+      reset()
     } catch (e) {
       errorToast()
       return
     }
-    successToast()
-    reset()
   }
 
   useEffect(() => {

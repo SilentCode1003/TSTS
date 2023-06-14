@@ -18,12 +18,12 @@ const RequestTicketTable = () => {
   let isLoading
   let error
   let data = [
-    {
-      ticketid: 'SR-202310003',
-      concern: 'POS ISOLATION',
-      issue: 'NO POWER',
-      requestername: '3790 BURGOS',
-    },
+    // {
+    //   ticketid: 'SR-202310003',
+    //   concern: 'POS ISOLATION',
+    //   issue: 'NO POWER',
+    //   requestername: '3790 BURGOS',
+    // },
   ]
 
   if (isLoading) {

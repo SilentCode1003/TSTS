@@ -1,9 +1,9 @@
 import { Card, CardBody, CardHeader, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 
-const TopCardsItem = ({ header, children }) => {
+const TopCardsItem = ({ header, children, onClick }) => {
   return (
-    <Card>
+    <Card onClick={onClick}>
       {header && (
         <CardHeader maxH="64px">
           <Text size="md">{header}</Text>

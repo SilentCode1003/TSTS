@@ -38,7 +38,7 @@ import autoTable from 'jspdf-autotable'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDownloadExcel } from 'react-export-table-to-excel'
 import { Download, Filter } from 'react-feather'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useSearchParams } from 'react-router-dom'
 import { useGetAllTickets } from '../api/reporting/getAllTickets'
 import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
@@ -122,6 +122,8 @@ const columns = [
 const date = new Date()
 
 const Reporting = () => {
+  const [searchParams] = useSearchParams()
+
   const [columnVisibility, setColumnVisibility] = useState({})
   const [selectedStatus, setSelectedStatus] = useState('')
   const [selectedDates, setSelectedDates] = useState([
@@ -190,6 +192,14 @@ const Reporting = () => {
         })
     }
   }, [selectedStatus, selectedDates])
+
+  useEffect(() => {
+    if (searchParams.size === 0) {
+      return
+    }
+
+    setSelectedStatus(searchParams.get('status'))
+  }, [statuses.isLoading])
 
   return (
     <Box p={['4', null, '8']}>

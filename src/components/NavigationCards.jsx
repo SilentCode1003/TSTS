@@ -1,14 +1,23 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import React, { useContext } from 'react'
+// import {
+// MdAssignmentAdd,
+// MdDashboard,
+// MdLightbulb,
+// MdNewspaper,
+// MdReport,
+// MdSettings,
+//   MdTrackChanges,
+// } from 'react-icons/md'
 import {
-  MdAssignmentAdd,
-  MdDashboard,
-  MdLightbulb,
-  MdNewspaper,
-  MdReport,
-  MdSettings,
-  MdTrackChanges,
-} from 'react-icons/md'
+  BookOpen,
+  CornerDownRight,
+  Home,
+  PlusSquare,
+  Rss,
+  Settings,
+  Table,
+} from 'react-feather'
 import { AuthContext } from '../context/AuthContext'
 import { NavigationCard } from './NavigationCard'
 
@@ -16,37 +25,37 @@ export const adminItems = [
   {
     name: 'Dashboard',
     url: '/admin',
-    icon: <MdDashboard />,
+    icon: <Home />,
   },
   {
     name: 'Ticket Assignment',
     url: '/admin/ticket-assignment',
-    icon: <MdAssignmentAdd />,
+    icon: <PlusSquare />,
   },
   {
     name: 'Child Ticket',
     url: '/admin/child-ticket',
-    icon: <MdNewspaper />,
+    icon: <CornerDownRight />,
   },
   {
     name: 'Ticket Tracking',
     url: '/admin/ticket-tracking',
-    icon: <MdTrackChanges />,
+    icon: <Table />,
   },
   {
     name: 'Knowledge Base',
     url: '/admin/knowledge-base',
-    icon: <MdLightbulb />,
+    icon: <BookOpen />,
   },
   {
     name: 'Reporting',
     url: '/admin/reporting',
-    icon: <MdReport />,
+    icon: <Rss />,
   },
   {
     name: 'Automation',
     url: '/admin/automation',
-    icon: <MdSettings />,
+    icon: <Settings />,
   },
 ]
 
@@ -54,12 +63,12 @@ export const clientItems = [
   {
     name: 'Dashboard',
     url: '/',
-    icon: <MdDashboard />,
+    icon: <Home />,
   },
   {
     name: 'Request Ticket',
     url: '/request-ticket',
-    icon: <MdNewspaper />,
+    icon: <CornerDownRight />,
   },
 ]
 

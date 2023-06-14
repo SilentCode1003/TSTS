@@ -12,15 +12,14 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { Send, Trash2 } from 'react-feather'
 import { useForm } from 'react-hook-form'
-import { MdDelete, MdReply } from 'react-icons/md'
 import { usePostTicketComment } from '../api/ticket-view/postTicketComment'
+import { AuthContext } from '../context/AuthContext'
 import useConfirm from '../hooks/useConfirm'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
-import { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
 
 const TicketViewReplyCard = ({ searchedTicket }) => {
   const [showReplyArea, setShowReplyArea] = useState(false)
@@ -95,7 +94,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
           <Button
             onClick={toggleShowReplyArea}
             colorScheme="purple"
-            leftIcon={<MdReply />}
+            leftIcon={<Send />}
             size="sm"
           >
             Reply
@@ -135,7 +134,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
           <CardFooter>
             <ButtonGroup w="100%" justifyContent="flex-end" size="sm">
               <Button
-                leftIcon={<MdReply />}
+                leftIcon={<Send />}
                 type="submit"
                 colorScheme="purple"
                 isLoading={isSubmitting}
@@ -143,7 +142,7 @@ const TicketViewReplyCard = ({ searchedTicket }) => {
                 Submit
               </Button>
               <Button
-                leftIcon={<MdDelete />}
+                leftIcon={<Trash2 />}
                 isLoading={isSubmitting}
                 onClick={handleReset}
               >

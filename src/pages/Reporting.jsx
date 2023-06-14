@@ -37,8 +37,7 @@ import { jsPDF } from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDownloadExcel } from 'react-export-table-to-excel'
-import { MdFilterList } from 'react-icons/md'
-import { SiMicrosoftexcel } from 'react-icons/si'
+import { Download, Filter } from 'react-feather'
 import { Link as RouterLink } from 'react-router-dom'
 import { useGetAllTickets } from '../api/reporting/getAllTickets'
 import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
@@ -228,7 +227,7 @@ const Reporting = () => {
             </FormControl>
 
             <Button
-              leftIcon={<SiMicrosoftexcel />}
+              leftIcon={<Download />}
               colorScheme="green"
               onClick={handleGenerate}
               isLoading={isLoading}
@@ -247,7 +246,7 @@ const Reporting = () => {
         <Flex w="100%" justifyContent="end">
           {tickets.length > 0 && (
             <Menu>
-              <MenuButton as={IconButton} icon={<MdFilterList />} />
+              <MenuButton as={IconButton} icon={<Filter />} />
               <MenuList p="4">
                 <TicketTrackingCheckboxes table={table} />
               </MenuList>

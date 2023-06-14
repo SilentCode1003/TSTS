@@ -69,7 +69,11 @@ const ClientActiveRequestTable = () => {
           {data?.map((ticket) => (
             <Tr key={ticket.requestid}>
               <Td>
-                <Link as={RouterLink} to={`/`} color="blue">
+                <Link
+                  as={RouterLink}
+                  to={`/ticket-view/${ticket.requestid}`}
+                  color="blue"
+                >
                   {ticket.requestid}
                 </Link>
               </Td>

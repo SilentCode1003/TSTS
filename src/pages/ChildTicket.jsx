@@ -14,7 +14,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -25,6 +25,7 @@ import { useGetIssue } from '../api/ticket-assignment/getIssue'
 import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
+import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
@@ -39,6 +40,8 @@ const ChildTicket = () => {
   const statuses = useGetStatus()
   const personnel = useGetPersonel()
   const uploadTicket = usePostChildTicket()
+
+  const { currentUser } = useContext(AuthContext)
 
   const {
     handleSubmit,
@@ -74,8 +77,10 @@ const ChildTicket = () => {
     }
 
     const transformedData = transformData(data, base64FilesArray)
+    transformedData.assignby = currentUser.fullname
     try {
       await uploadTicket.mutateAsync(transformedData)
+      console.log(transformedData)
     } catch (e) {
       errorToast()
       return

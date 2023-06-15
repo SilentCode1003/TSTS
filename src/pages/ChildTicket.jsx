@@ -14,8 +14,10 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSearchParams } from 'react-router-dom'
+import TextareaAutosize from 'react-textarea-autosize'
 import { usePostChildTicket } from '../api/child-ticket/postChildTicket'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
@@ -23,19 +25,23 @@ import { useGetIssue } from '../api/ticket-assignment/getIssue'
 import { useGetPersonel } from '../api/ticket-assignment/getPersonel'
 import { useGetPriority } from '../api/ticket-assignment/getPriority'
 import { useGetStatus } from '../api/ticket-assignment/getStatus'
+import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
-import TextareaAutosize from 'react-textarea-autosize'
 
 const ChildTicket = () => {
+  const [searchParams] = useSearchParams()
+
   const concerns = useGetConcern()
-  const { data: posIssues, mutate: getIssue } = useGetIssue()
+  const { isLoading, data: posIssues, mutate: getIssue } = useGetIssue()
   const clients = useGetClient()
   const priorities = useGetPriority()
   const statuses = useGetStatus()
   const personnel = useGetPersonel()
   const uploadTicket = usePostChildTicket()
+
+  const { currentUser } = useContext(AuthContext)
 
   const {
     handleSubmit,
@@ -71,8 +77,10 @@ const ChildTicket = () => {
     }
 
     const transformedData = transformData(data, base64FilesArray)
+    transformedData.assignby = currentUser.fullname
     try {
       await uploadTicket.mutateAsync(transformedData)
+      console.log(transformedData)
     } catch (e) {
       errorToast()
       return
@@ -90,7 +98,7 @@ const ChildTicket = () => {
       'requesterEmail',
       clients.data?.data.find((o) => o.fullname === watchRequester)?.email || ''
     )
-  }, [watchRequester])
+  }, [watchRequester, clients.isFetched])
 
   useEffect(() => {
     setValue(
@@ -99,6 +107,18 @@ const ChildTicket = () => {
         ?.department || ''
     )
   }, [watchPersonnel])
+
+  useEffect(() => {
+    if (searchParams.size === 0) {
+      return
+    }
+
+    // Set input fields according to url params
+    setValue('referenceticket', searchParams.get('requestid'))
+    setValue('concernType', searchParams.get('concern'))
+    setValue('issueType', searchParams.get('issue'))
+    setValue('requesterName', searchParams.get('requestername'))
+  }, [concerns.isFetched, isLoading, clients.isLoading])
 
   return (
     <Box p={['4', null, '8']}>

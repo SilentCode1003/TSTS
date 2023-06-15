@@ -55,7 +55,7 @@ const RequestTicketTable = () => {
               <Td>
                 <Link
                   as={RouterLink}
-                  to={`/admin/ticket-assignment?concern=${ticket.concern}&issue=${ticket.issue}&requestername=${ticket.requestby}`}
+                  to={`/admin/request-ticket/${ticket.requestid}?concern=${ticket.concern}&issue=${ticket.issue}&requestername=${ticket.requestby}`}
                   color="blue"
                 >
                   {ticket.requestid}

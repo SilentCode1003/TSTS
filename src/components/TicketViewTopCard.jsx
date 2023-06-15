@@ -15,7 +15,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { serializedDataToFile } from '../utils/fileData'
 
-const TicketAttachments = ({ searchedTicket }) => {
+export const TicketAttachments = ({ searchedTicket }) => {
   const files = searchedTicket.attachement.split(' 5LJOIN ')
 
   return files.map((file) => {

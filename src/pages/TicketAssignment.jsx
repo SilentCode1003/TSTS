@@ -100,7 +100,7 @@ const TicketAssignment = () => {
       'requesterEmail',
       clients.data?.data.find((o) => o.fullname === watchRequester)?.email || ''
     )
-  }, [watchRequester])
+  }, [watchRequester, clients.isFetched])
 
   useEffect(() => {
     setValue(
@@ -119,7 +119,7 @@ const TicketAssignment = () => {
     setValue('concernType', searchParams.get('concern'))
     setValue('issueType', searchParams.get('issue'))
     setValue('requesterName', searchParams.get('requestername'))
-  }, [concerns.isLoading, isLoading, clients.isLoading])
+  }, [concerns.isFetched, isLoading, clients.isLoading])
 
   return (
     <Box p={['4', null, '8']}>

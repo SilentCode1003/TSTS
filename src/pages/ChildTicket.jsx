@@ -16,6 +16,8 @@ import {
 } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSearchParams } from 'react-router-dom'
+import TextareaAutosize from 'react-textarea-autosize'
 import { usePostChildTicket } from '../api/child-ticket/postChildTicket'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
@@ -26,11 +28,12 @@ import { useGetStatus } from '../api/ticket-assignment/getStatus'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
-import TextareaAutosize from 'react-textarea-autosize'
 
 const ChildTicket = () => {
+  const [searchParams] = useSearchParams()
+
   const concerns = useGetConcern()
-  const { data: posIssues, mutate: getIssue } = useGetIssue()
+  const { isLoading, data: posIssues, mutate: getIssue } = useGetIssue()
   const clients = useGetClient()
   const priorities = useGetPriority()
   const statuses = useGetStatus()
@@ -90,7 +93,7 @@ const ChildTicket = () => {
       'requesterEmail',
       clients.data?.data.find((o) => o.fullname === watchRequester)?.email || ''
     )
-  }, [watchRequester])
+  }, [watchRequester, clients.isFetched])
 
   useEffect(() => {
     setValue(
@@ -99,6 +102,18 @@ const ChildTicket = () => {
         ?.department || ''
     )
   }, [watchPersonnel])
+
+  useEffect(() => {
+    if (searchParams.size === 0) {
+      return
+    }
+
+    // Set input fields according to url params
+    setValue('referenceticket', searchParams.get('requestid'))
+    setValue('concernType', searchParams.get('concern'))
+    setValue('issueType', searchParams.get('issue'))
+    setValue('requesterName', searchParams.get('requestername'))
+  }, [concerns.isFetched, isLoading, clients.isLoading])
 
   return (
     <Box p={['4', null, '8']}>

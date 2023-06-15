@@ -1,10 +1,12 @@
 import {
   Box,
+  Button,
   Card,
   CardBody,
   CardHeader,
   Divider,
   Grid,
+  HStack,
   Heading,
   SimpleGrid,
   Stack,
@@ -12,17 +14,26 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useSearchRequestTicket } from '../api/request-ticket-details/searchRequestTicket'
 import { TicketAttachments } from '../components/TicketViewTopCard'
+import LoadingSpinner from '../components/UI/LoadingSpinner'
 
 const RequestTicketDetails = () => {
   const { requestId } = useParams()
   const [searchParams] = useSearchParams()
 
+  const navigate = useNavigate()
+
   const [searchedTicket, setSearchedTicket] = useState()
 
   const { isLoading, error, mutateAsync } = useSearchRequestTicket(requestId)
+
+  const handleClick = () => {
+    navigate(
+      `/admin/child-ticket?requestid=${requestId}&${searchParams.toString()}`
+    )
+  }
 
   useEffect(() => {
     const fetchRequestTicket = async () => {
@@ -51,6 +62,10 @@ const RequestTicketDetails = () => {
         </Stack>
       </Box>
     )
+  }
+
+  if (isLoading) {
+    return <LoadingSpinner />
   }
 
   return (
@@ -117,6 +132,14 @@ const RequestTicketDetails = () => {
               </Grid>
             </Stack>
           </CardBody>
+        </Card>
+
+        <Card>
+          <HStack>
+            <Button colorScheme="purple" onClick={handleClick}>
+              Create/Assign Ticket
+            </Button>
+          </HStack>
         </Card>
       </Stack>
     </Box>

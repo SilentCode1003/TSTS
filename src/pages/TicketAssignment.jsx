@@ -31,7 +31,6 @@ import { transformData } from '../utils/transformData'
 import TextareaAutosize from 'react-textarea-autosize'
 
 const TicketAssignment = () => {
-  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
   const concerns = useGetConcern()
@@ -100,7 +99,7 @@ const TicketAssignment = () => {
       'requesterEmail',
       clients.data?.data.find((o) => o.fullname === watchRequester)?.email || ''
     )
-  }, [watchRequester, clients.isFetched])
+  }, [watchRequester])
 
   useEffect(() => {
     setValue(
@@ -109,17 +108,6 @@ const TicketAssignment = () => {
         ?.department || ''
     )
   }, [watchPersonnel])
-
-  useEffect(() => {
-    if (searchParams.size === 0) {
-      return
-    }
-
-    // Set input fields according to url params
-    setValue('concernType', searchParams.get('concern'))
-    setValue('issueType', searchParams.get('issue'))
-    setValue('requesterName', searchParams.get('requestername'))
-  }, [concerns.isFetched, isLoading, clients.isLoading])
 
   return (
     <Box p={['4', null, '8']}>

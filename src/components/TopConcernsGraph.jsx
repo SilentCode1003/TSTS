@@ -122,7 +122,13 @@ const TopConcernsGraph = () => {
     fetchTopConcerns()
   }, [])
 
-  return <Bar options={options} data={topConcernsData} />
+  return (
+    <Bar
+      options={options}
+      data={topConcernsData}
+      style={{ maxHeight: '500px' }}
+    />
+  )
 }
 
 export default TopConcernsGraph

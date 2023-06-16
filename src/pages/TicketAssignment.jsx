@@ -16,7 +16,8 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import TextareaAutosize from 'react-textarea-autosize'
 import { useGetClient } from '../api/ticket-assignment/getClient'
 import { useGetConcern } from '../api/ticket-assignment/getConcern'
 import { useGetIssue } from '../api/ticket-assignment/getIssue'
@@ -28,7 +29,6 @@ import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
 import { filesTo5LSerializedData } from '../utils/fileData'
 import { transformData } from '../utils/transformData'
-import TextareaAutosize from 'react-textarea-autosize'
 
 const TicketAssignment = () => {
   const navigate = useNavigate()

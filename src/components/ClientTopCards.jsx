@@ -10,7 +10,9 @@ const ClientActiveRequestTable = loadable(() =>
 const ClientTopCards = () => {
   return (
     <SimpleGrid columns={[1, 4]} spacing="4">
-      <TopCardsItem header="Active Tickets">WIP</TopCardsItem>
+      <GridItem colSpan={[4, 4, 1]}>
+        <TopCardsItem header="Active Tickets">WIP</TopCardsItem>
+      </GridItem>
 
       <GridItem colSpan={[4, 4, 3]} rowSpan="2">
         <TopCardsItem header="Top Concerns">

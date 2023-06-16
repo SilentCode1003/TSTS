@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { axios } from '../../axios'
 
 export const getTopConcerns = async (inputs) => {
-  const res = await axios.post('requestticket/getrequestticketactive', inputs)
+  const res = await axios.post('/requestticket/gettopconcern', inputs)
   return res.data
 }
 

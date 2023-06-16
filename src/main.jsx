@@ -21,6 +21,7 @@ const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
 const ClientTicketTracking = loadable(() =>
   import('./pages/ClientTicketTracking')
 )
+const ClientTicketView = loadable(() => import('./pages/ClientTicketView'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/Automation'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/ticket-view/:ticketId',
-        element: <TicketView />,
+        element: <ClientTicketView />,
       },
     ],
   },

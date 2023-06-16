@@ -62,7 +62,7 @@ const router = createBrowserRouter([
         element: <ClientTicketTracking />,
       },
       {
-        path: '/ticket-view/:ticketId',
+        path: '/ticket-view/:requestId',
         element: <ClientTicketView />,
       },
     ],

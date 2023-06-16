@@ -1,7 +1,97 @@
-import React from 'react'
+import { Box, Grid, Heading, Stack } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useGetServiceTicketId } from '../api/client/client-ticket-tracking/getServiceTicketId'
+import { useSearchTicket } from '../api/reporting/searchTicket'
+import { useSearchRequestTicket } from '../api/request-ticket-details/searchRequestTicket'
+import RequestDetails from '../components/RequestDetails'
+import TicketViewComments from '../components/TicketViewComments'
+import TicketViewReplyCard from '../components/TicketViewReplyCard'
+import TicketViewTopCard from '../components/TicketViewTopCard'
 
 const ClientTicketView = () => {
-  return <div>ClientTicketView</div>
+  const { requestId } = useParams()
+
+  const [requestTicket, setRequestTicket] = useState()
+  const [serviceTicketId, setServiceTicketId] = useState()
+  const [searchedTicket, setSearchedTicket] = useState()
+
+  const requestTicketMutation = useSearchRequestTicket(requestId)
+
+  const serviceTicketIdMutation = useGetServiceTicketId(requestId)
+
+  const searchTicketMutation = useSearchTicket(serviceTicketId)
+
+  useEffect(() => {
+    const fetchRequestTicket = async () => {
+      try {
+        const requestTicketData = await requestTicketMutation.mutateAsync({
+          requestid: requestId,
+        })
+        setRequestTicket(requestTicketData.data[0])
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    fetchRequestTicket()
+  }, [requestId])
+
+  useEffect(() => {
+    const fetchServiceTicketId = async () => {
+      try {
+        const requestTicketData = await serviceTicketIdMutation.mutateAsync({
+          requestid: requestId,
+        })
+        setServiceTicketId(requestTicketData.data[0]?.ticketid)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    fetchServiceTicketId()
+  }, [requestTicket])
+
+  useEffect(() => {
+    const fetchSearchedTicket = async () => {
+      try {
+        const searchedTicketData = await searchTicketMutation.mutateAsync({
+          ticketid: serviceTicketId,
+        })
+        setSearchedTicket(searchedTicketData.data[0])
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    fetchSearchedTicket()
+  }, [serviceTicketId])
+
+  return (
+    <Box p={['4', null, '8']}>
+      <Stack direction="column" spacing="8">
+        <Heading textAlign="center" size={['lg', null, 'xl']}>
+          Ticket View
+        </Heading>
+      </Stack>
+
+      <Grid gap="8">
+        <RequestDetails searchedTicket={requestTicket} />
+
+        {serviceTicketId && (
+          <>
+            <TicketViewTopCard searchedTicket={searchedTicket} />
+
+            <TicketViewComments searchedTicket={searchedTicket} />
+          </>
+        )}
+
+        {searchedTicket?.ticketstatus !== 'CLOSED' && (
+          <TicketViewReplyCard searchedTicket={searchedTicket} />
+        )}
+      </Grid>
+    </Box>
+  )
 }
 
 export default ClientTicketView

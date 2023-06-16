@@ -1,10 +1,12 @@
-import { Box, Grid, Heading, Stack } from '@chakra-ui/react'
+import { Box, Grid, Heading, Stack, Text } from '@chakra-ui/react'
 import loadable from '@loadable/component'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetServiceTicketId } from '../api/client/client-ticket-tracking/getServiceTicketId'
 import { useSearchTicket } from '../api/reporting/searchTicket'
 import { useSearchRequestTicket } from '../api/request-ticket-details/searchRequestTicket'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 const RequestDetails = loadable(() => import('../components/RequestDetails'))
 const TicketViewComments = loadable(() =>
@@ -18,6 +20,8 @@ const TicketViewTopCard = loadable(() =>
 )
 
 const ClientTicketView = () => {
+  const { currentUser } = useContext(AuthContext)
+
   const { requestId } = useParams()
 
   const [requestTicket, setRequestTicket] = useState()
@@ -74,6 +78,10 @@ const ClientTicketView = () => {
 
     fetchSearchedTicket()
   }, [serviceTicketId])
+
+  if (requestTicket?.requestby !== currentUser.fullname) {
+    return <Text>No result</Text>
+  }
 
   return (
     <Box p={['4', null, '8']}>

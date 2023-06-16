@@ -5,7 +5,7 @@ import pako from 'pako'
 export const postChildTicket = async (newTicket) => {
   const compressedData = pako.gzip(JSON.stringify(newTicket))
   const res = await axios.post(
-    '/requestticket/savechildticket',
+    '/assignticket/savechildticket',
     compressedData,
     {
       headers: {

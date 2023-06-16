@@ -79,8 +79,8 @@ const ChildTicket = () => {
     const transformedData = transformData(data, base64FilesArray)
     transformedData.assignby = currentUser.fullname
     try {
-      await uploadTicket.mutateAsync(transformedData)
       console.log(transformedData)
+      await uploadTicket.mutateAsync(transformedData)
     } catch (e) {
       errorToast()
       return
@@ -118,6 +118,7 @@ const ChildTicket = () => {
     setValue('concernType', searchParams.get('concern'))
     setValue('issueType', searchParams.get('issue'))
     setValue('requesterName', searchParams.get('requestername'))
+    setValue('description', searchParams.get('description'))
   }, [concerns.isFetched, isLoading, clients.isLoading])
 
   return (

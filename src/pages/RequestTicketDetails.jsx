@@ -2,36 +2,37 @@ import {
   Box,
   Button,
   Card,
-  CardBody,
-  CardHeader,
-  Divider,
   Grid,
+  GridItem,
   HStack,
   Heading,
-  SimpleGrid,
   Stack,
   Text,
-  Textarea,
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useSearchRequestTicket } from '../api/request-ticket-details/searchRequestTicket'
-import { TicketAttachments } from '../components/TicketViewTopCard'
+import RequestDetails from '../components/RequestDetails'
+import RequesterDetails from '../components/RequesterDetails'
 import LoadingSpinner from '../components/UI/LoadingSpinner'
+import { useGetRequesterDetails } from '../api/request-ticket-details/getRequesterDetails'
 
 const RequestTicketDetails = () => {
   const { requestId } = useParams()
-  const [searchParams] = useSearchParams()
 
   const navigate = useNavigate()
 
   const [searchedTicket, setSearchedTicket] = useState()
+  const [requester, setRequester] = useState()
 
   const { isLoading, error, mutateAsync } = useSearchRequestTicket(requestId)
+  const requesterDetailsMutation = useGetRequesterDetails(
+    searchedTicket?.requestby
+  )
 
   const handleClick = () => {
     navigate(
-      `/admin/child-ticket?requestid=${requestId}&${searchParams.toString()}`
+      `/admin/child-ticket?requestid=${searchedTicket.requestid}&concern=${searchedTicket.concern}&issue=${searchedTicket.issue}&requestername=${searchedTicket.requestby}&description=${searchedTicket.description}`
     )
   }
 
@@ -49,6 +50,21 @@ const RequestTicketDetails = () => {
 
     fetchRequestTicket()
   }, [requestId])
+
+  useEffect(() => {
+    const fetchRequesterDetails = async () => {
+      try {
+        const requesterDetails = await requesterDetailsMutation.mutateAsync({
+          requestby: searchedTicket.requestby,
+        })
+        setRequester(requesterDetails.data[0])
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    fetchRequesterDetails()
+  }, [searchedTicket])
 
   if (!searchedTicket) {
     return (
@@ -75,64 +91,15 @@ const RequestTicketDetails = () => {
           Request Ticket Details
         </Heading>
 
-        <Card>
-          <CardHeader>
-            <Heading size="md">Request Details</Heading>
-          </CardHeader>
+        <Grid templateColumns={['1fr', null, '3fr 2fr']} gap="8">
+          <GridItem>
+            <RequestDetails searchedTicket={searchedTicket} />
+          </GridItem>
 
-          <CardBody>
-            <Stack
-              direction="column"
-              spacing="2"
-              fontSize="sm"
-              divider={<Divider />}
-            >
-              <Grid templateColumns={['1fr', null, '3fr 9fr']} gap="4">
-                <Text as="b">Request ID</Text>
-                <Text>{searchedTicket?.requestid}</Text>
-              </Grid>
-
-              <Grid templateColumns={['1fr', null, '3fr 9fr']} gap="4">
-                <Text as="b">Requested By</Text>
-                <Text>{searchedTicket?.requestby}</Text>
-              </Grid>
-
-              <Grid templateColumns={['1fr', null, '3fr 9fr']} gap="4">
-                <Text as="b">Date Requested</Text>
-                <Text>{searchedTicket?.requestdate}</Text>
-              </Grid>
-
-              <Grid templateColumns={['1fr', null, '3fr 9fr']} gap="4">
-                <Text as="b">Concern</Text>
-                <Text>{searchedTicket?.concern}</Text>
-              </Grid>
-
-              <Grid templateColumns={['1fr', null, '3fr 9fr']} gap="4">
-                <Text as="b">Issue</Text>
-                <Text>{searchedTicket?.issue}</Text>
-              </Grid>
-
-              <Grid templateColumns="1fr" gap="1">
-                <Text as="b">Description</Text>
-                <Textarea
-                  isDisabled
-                  value={searchedTicket?.description}
-                  rows={15}
-                />
-              </Grid>
-
-              <Grid templateColumns="1fr" gap="1">
-                <Text as="b">Attachments</Text>
-                <SimpleGrid columns={['1', null, '2']}>
-                  {searchedTicket?.attachement && (
-                    <TicketAttachments searchedTicket={searchedTicket} />
-                  )}
-                  {!searchedTicket?.attachement && <Text>No attachments</Text>}
-                </SimpleGrid>
-              </Grid>
-            </Stack>
-          </CardBody>
-        </Card>
+          <GridItem>
+            <RequesterDetails requester={requester} />
+          </GridItem>
+        </Grid>
 
         <Card>
           <HStack>

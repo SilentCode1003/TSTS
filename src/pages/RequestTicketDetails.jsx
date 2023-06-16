@@ -21,7 +21,6 @@ import LoadingSpinner from '../components/UI/LoadingSpinner'
 
 const RequestTicketDetails = () => {
   const { requestId } = useParams()
-  const [searchParams] = useSearchParams()
 
   const navigate = useNavigate()
 
@@ -31,7 +30,7 @@ const RequestTicketDetails = () => {
 
   const handleClick = () => {
     navigate(
-      `/admin/child-ticket?requestid=${requestId}&${searchParams.toString()}`
+      `/admin/child-ticket?requestid=${searchedTicket.requestid}&concern=${searchedTicket.concern}&issue=${searchedTicket.issue}&requestername=${searchedTicket.requestby}&description=${searchedTicket.description}`
     )
   }
 

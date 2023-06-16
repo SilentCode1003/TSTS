@@ -118,6 +118,7 @@ const ChildTicket = () => {
     setValue('concernType', searchParams.get('concern'))
     setValue('issueType', searchParams.get('issue'))
     setValue('requesterName', searchParams.get('requestername'))
+    setValue('description', searchParams.get('description'))
   }, [concerns.isFetched, isLoading, clients.isLoading])
 
   return (

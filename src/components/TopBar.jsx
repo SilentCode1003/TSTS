@@ -30,7 +30,7 @@ const TopBar = () => {
       if (isAdmin) {
         navigate('/admin/ticket-tracking')
       } else {
-        navigate('/')
+        navigate('/ticket-tracking')
       }
       return
     }
@@ -38,7 +38,7 @@ const TopBar = () => {
     if (isAdmin) {
       navigate(`/admin/ticket-search/${searchTicketId}`)
     } else {
-      navigate(`/`)
+      navigate(`/ticket-search/${searchTicketId}`)
     }
   }
 

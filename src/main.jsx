@@ -18,6 +18,7 @@ const KnowledgeBaseDefault = loadable(() =>
 )
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
+const ClientTicketSearch = loadable(() => import('./pages/ClientTicketSearch'))
 const ClientTicketTracking = loadable(() =>
   import('./pages/ClientTicketTracking')
 )
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: '/ticket-view/:requestId',
         element: <ClientTicketView />,
+      },
+      {
+        path: '/ticket-search/:requestId',
+        element: <ClientTicketSearch />,
       },
     ],
   },

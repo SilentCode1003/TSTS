@@ -37,16 +37,16 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useDownloadExcel } from 'react-export-table-to-excel'
 import { Download, Filter } from 'react-feather'
 import { Link as RouterLink, useSearchParams } from 'react-router-dom'
-import { useGetAllTickets } from '../api/reporting/getAllTickets'
-import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
-import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import ErrorMessage from '../components/UI/ErrorMessage'
-import LoadingSpinner from '../components/UI/LoadingSpinner'
-import { AuthContext } from '../context/AuthContext'
-import { useGetClientRequestTickets } from '../api/client/client-ticket-tracking/getClientRequestTickets'
+import { useGetAllTickets } from '../../api/reporting/getAllTickets'
+import { useGetTicketsByStatus } from '../../api/reporting/getTicketsByStatus'
+import { useGetStatus } from '../../api/ticket-assignment/getStatus'
+import ErrorMessage from '../../components/UI/ErrorMessage'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import { AuthContext } from '../../context/AuthContext'
+import { useGetClientRequestTickets } from '../../api/client/client-ticket-tracking/getClientRequestTickets'
 
 const TicketTrackingCheckboxes = loadable(() =>
-  import('../components/TicketTrackingCheckboxes')
+  import('../../components/TicketTrackingCheckboxes')
 )
 
 const columnHelper = createColumnHelper()

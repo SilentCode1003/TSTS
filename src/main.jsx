@@ -18,11 +18,6 @@ const KnowledgeBaseDefault = loadable(() =>
 )
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
-const ClientTicketSearch = loadable(() => import('./pages/ClientTicketSearch'))
-const ClientTicketTracking = loadable(() =>
-  import('./pages/ClientTicketTracking')
-)
-const ClientTicketView = loadable(() => import('./pages/ClientTicketView'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/Automation'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
@@ -31,13 +26,23 @@ const Login = loadable(() => import('./pages/Login'))
 const NotFound = loadable(() => import('./pages/NotFound'))
 const Reporting = loadable(() => import('./pages/Reporting'))
 const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
-const RequestTicket = loadable(() => import('./pages/RequestTicket'))
 const TicketTracking = loadable(() => import('./pages/TicketTracking'))
 const TicketSearch = loadable(() => import('./pages/TicketSearch'))
 const TicketView = loadable(() => import('./pages/TicketView'))
 const RequestTicketDetails = loadable(() =>
   import('./pages/RequestTicketDetails')
 )
+
+const ClientTicketSearch = loadable(() =>
+  import('./pages/client/ClientTicketSearch')
+)
+const ClientTicketTracking = loadable(() =>
+  import('./pages/client/ClientTicketTracking')
+)
+const ClientTicketView = loadable(() =>
+  import('./pages/client/ClientTicketView')
+)
+const RequestTicket = loadable(() => import('./pages/client/RequestTicket'))
 
 const queryClient = new QueryClient()
 

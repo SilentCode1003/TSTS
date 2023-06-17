@@ -17,12 +17,12 @@ import {
 import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
-import { useUploadRequestTicket } from '../api/client/request-ticket/uploadRequestTicket'
-import { useGetConcern } from '../api/ticket-assignment/getConcern'
-import { useGetIssue } from '../api/ticket-assignment/getIssue'
-import { AuthContext } from '../context/AuthContext'
-import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
-import { filesTo5LSerializedData } from '../utils/fileData'
+import { useUploadRequestTicket } from '../../api/client/request-ticket/uploadRequestTicket'
+import { useGetConcern } from '../../api/ticket-assignment/getConcern'
+import { useGetIssue } from '../../api/ticket-assignment/getIssue'
+import { AuthContext } from '../../context/AuthContext'
+import { useErrorToast, useSuccessToast } from '../../hooks/useToastFeedback'
+import { filesTo5LSerializedData } from '../../utils/fileData'
 
 const RequestTicket = () => {
   const { currentUser } = useContext(AuthContext)

@@ -10,8 +10,8 @@ import {
 } from 'chart.js'
 import React, { useContext, useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
-import { useGetTopConcerns } from '../api/client/dashboard/getTopConcerns'
-import { AuthContext } from '../context/AuthContext'
+import { useGetTopConcerns } from '../../api/client/dashboard/getTopConcerns'
+import { AuthContext } from '../../context/AuthContext'
 
 ChartJS.register(
   CategoryScale,
@@ -60,33 +60,6 @@ const TopConcernsGraph = () => {
   const topConcernsData = {
     labels: [new Date().toLocaleString(undefined, { month: 'long' })],
     datasets,
-    // datasets: [
-    //   {
-    //     label: 'Concern 1',
-    //     data: [10],
-    //     backgroundColor: '#9F7AEA99',
-    //   },
-    //   {
-    //     label: 'Concern 2',
-    //     data: [5],
-    //     backgroundColor: '#eae37a99',
-    //   },
-    //   {
-    //     label: 'Concern 3',
-    //     data: [15],
-    //     backgroundColor: '#EA7A8D99',
-    //   },
-    //   {
-    //     label: 'Concern 4',
-    //     data: [7],
-    //     backgroundColor: '#6d4d4d99',
-    //   },
-    //   {
-    //     label: 'Concern 5',
-    //     data: [21],
-    //     backgroundColor: '#C5EA7A99',
-    //   },
-    // ],
   }
 
   useEffect(() => {

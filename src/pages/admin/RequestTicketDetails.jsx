@@ -11,11 +11,11 @@ import {
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useSearchRequestTicket } from '../api/request-ticket-details/searchRequestTicket'
-import RequestDetails from '../components/RequestDetails'
-import RequesterDetails from '../components/RequesterDetails'
-import LoadingSpinner from '../components/UI/LoadingSpinner'
-import { useGetRequesterDetails } from '../api/request-ticket-details/getRequesterDetails'
+import { useSearchRequestTicket } from '../../api/request-ticket-details/searchRequestTicket'
+import RequestDetails from '../../components/RequestDetails'
+import RequesterDetails from '../../components/RequesterDetails'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import { useGetRequesterDetails } from '../../api/request-ticket-details/getRequesterDetails'
 
 const RequestTicketDetails = () => {
   const { requestId } = useParams()

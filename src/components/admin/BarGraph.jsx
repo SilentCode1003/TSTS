@@ -9,8 +9,8 @@ import {
 } from 'chart.js'
 import React, { useContext, useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
-import { useGetStatusCount } from '../api/dashboard/getStatusCount'
-import { SystemSettingsContext } from '../context/SystemSettingsContext'
+import { useGetStatusCount } from '../../api/dashboard/getStatusCount'
+import { SystemSettingsContext } from '../../context/SystemSettingsContext'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 

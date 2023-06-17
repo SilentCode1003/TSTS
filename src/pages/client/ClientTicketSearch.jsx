@@ -1,12 +1,12 @@
 import { Box, Heading, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetProtectedRequestTicket } from '../api/client/client-ticket-search/getRequestTicket'
-import ErrorMessage from '../components/UI/ErrorMessage'
-import LoadingSpinner from '../components/UI/LoadingSpinner'
-import { AuthContext } from '../context/AuthContext'
-import SearchedTicket from '../components/SearchedTicket'
-import ClientSearchedTicket from '../components/ClientSearchedTicket'
+import { useGetProtectedRequestTicket } from '../../api/client/client-ticket-search/getRequestTicket'
+import ErrorMessage from '../../components/UI/ErrorMessage'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import { AuthContext } from '../../context/AuthContext'
+import SearchedTicket from '../../components/SearchedTicket'
+import ClientSearchedTicket from '../../components/client/ClientSearchedTicket'
 
 const ClientTicketSearch = () => {
   const { currentUser } = useContext(AuthContext)

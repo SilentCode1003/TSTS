@@ -12,12 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { useContext, useEffect, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { useGetActiveRequests } from '../api/client/dashboard/getActiveRequests'
-import { AuthContext } from '../context/AuthContext'
-import ErrorMessage from './UI/ErrorMessage'
-import LoadingSpinner from './UI/LoadingSpinner'
+import { useGetActiveRequests } from '../../api/client/dashboard/getActiveRequests'
+import { AuthContext } from '../../context/AuthContext'
+import ErrorMessage from '../UI/ErrorMessage'
+import LoadingSpinner from '../UI/LoadingSpinner'
 
-const ClientActiveRequestTable = () => {
+const ClientActiveRequestTable = ({ setNoOfActiveTickets }) => {
   const { currentUser } = useContext(AuthContext)
 
   const [data, setData] = useState([])
@@ -32,7 +32,9 @@ const ClientActiveRequestTable = () => {
     const fetchData = async () => {
       try {
         const res = await getData({ requestby: currentUser.fullname })
+
         setData(res.data)
+        setNoOfActiveTickets(res.data.length)
       } catch (e) {}
     }
 

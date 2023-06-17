@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useBadgeColor } from '../hooks/useBadgeColor'
+import { useBadgeColor } from '../../hooks/useBadgeColor'
 
 const SearchedTicket = ({ searchedTicket }) => {
   const badgeColor = useBadgeColor(searchedTicket)

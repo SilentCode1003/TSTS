@@ -1,6 +1,7 @@
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
 import loadable from '@loadable/component'
-import TopCardsItem from './TopCardsItem'
+import { useState } from 'react'
+import TopCardsItem from '../TopCardsItem'
 import TopConcernsGraph from './TopConcernsGraph'
 
 const ClientActiveRequestTable = loadable(() =>
@@ -8,10 +9,12 @@ const ClientActiveRequestTable = loadable(() =>
 )
 
 const ClientTopCards = () => {
+  const [noOfActiveTickets, setNoOfActiveTickets] = useState()
+
   return (
     <SimpleGrid columns={[1, 4]} spacing="4">
       <GridItem colSpan={[4, 2, 2]}>
-        <TopCardsItem header="Active Tickets">WIP</TopCardsItem>
+        <TopCardsItem header="Active Tickets">{noOfActiveTickets}</TopCardsItem>
       </GridItem>
 
       <GridItem colSpan={[4, 4, 4]} rowSpan="2">
@@ -22,7 +25,9 @@ const ClientTopCards = () => {
 
       <GridItem colSpan={4} rowSpan="2">
         <TopCardsItem header="Active Request Tickets">
-          <ClientActiveRequestTable />
+          <ClientActiveRequestTable
+            setNoOfActiveTickets={setNoOfActiveTickets}
+          />
         </TopCardsItem>
       </GridItem>
     </SimpleGrid>

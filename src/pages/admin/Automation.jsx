@@ -20,8 +20,8 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import FilterDashboardCards from '../components/FilterDashboardCards'
-import { SystemSettingsContext } from '../context/SystemSettingsContext'
+import FilterDashboardCards from '../../components/admin/FilterDashboardCards'
+import { SystemSettingsContext } from '../../context/SystemSettingsContext'
 
 const Automation = () => {
   const { settings, setSettings } = useContext(SystemSettingsContext)

@@ -26,8 +26,7 @@ const TicketViewComments = ({ searchedTicket }) => {
       const { fileName, fileData } = serializedDataToFile(file)
       const attachment = (
         <Link key={fileName} href={fileData} download={fileName}>
-          {fileName}
-          <DownloadIcon color="blue" />
+          {fileName} <DownloadIcon color="blue" />
         </Link>
       )
       attachmentsJSX.push(attachment)
@@ -42,7 +41,7 @@ const TicketViewComments = ({ searchedTicket }) => {
     <>
       {comments?.data?.map((comment) => (
         <Card key={comment.commentid} fontSize="sm">
-          <CardHeader>
+          <CardHeader pb="0">
             <HStack spacing="4">
               <Avatar name={comment.commentby} />
 
@@ -54,11 +53,13 @@ const TicketViewComments = ({ searchedTicket }) => {
           </CardHeader>
 
           <CardBody>
-            <Stack divider={<Divider />}>
-              <Text whiteSpace="pre-line">{comment.comment}</Text>
+            <Stack divider={<Divider />} spacing="4">
+              <Text whiteSpace="pre-line" textAlign="justify">
+                {comment.comment}
+              </Text>
 
               {comment.attachement && (
-                <HStack>
+                <HStack spacing="8">
                   {attachments(comment.attachement).map(
                     (attachmentLink) => attachmentLink
                   )}

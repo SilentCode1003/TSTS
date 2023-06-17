@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  Card,
-  CardBody,
   Flex,
   FormControl,
   FormLabel,
@@ -35,50 +33,44 @@ import {
 import { RangeDatepicker } from 'chakra-dayzed-datepicker'
 import { jsPDF } from 'jspdf'
 import autoTable from 'jspdf-autotable'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useDownloadExcel } from 'react-export-table-to-excel'
 import { Download, Filter } from 'react-feather'
 import { Link as RouterLink, useSearchParams } from 'react-router-dom'
-import { useGetAllTickets } from '../api/reporting/getAllTickets'
-import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
-import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import ErrorMessage from '../components/UI/ErrorMessage'
-import LoadingSpinner from '../components/UI/LoadingSpinner'
+import { useGetAllTickets } from '../../api/reporting/getAllTickets'
+import { useGetTicketsByStatus } from '../../api/reporting/getTicketsByStatus'
+import { useGetStatus } from '../../api/ticket-assignment/getStatus'
+import ErrorMessage from '../../components/UI/ErrorMessage'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import { AuthContext } from '../../context/AuthContext'
+import { useGetClientRequestTickets } from '../../api/client/client-ticket-tracking/getClientRequestTickets'
 
-const BarGraph = loadable(() => import('../components/BarGraph'))
 const TicketTrackingCheckboxes = loadable(() =>
-  import('../components/TicketTrackingCheckboxes')
+  import('../../components/TicketTrackingCheckboxes')
 )
 
 const columnHelper = createColumnHelper()
 
 const columns = [
-  columnHelper.accessor('ticketid', {
-    header: 'Ticket Id',
+  columnHelper.accessor('requestid', {
+    header: 'Request ID',
     cell: (info) => (
-      <Link
-        as={RouterLink}
-        to={`/admin/ticket-view/${info.getValue()}`}
-        color="blue"
-      >
+      <Link as={RouterLink} to={`/ticket-view/${info.getValue()}`} color="blue">
         {info.getValue()}
       </Link>
     ),
   }),
-  columnHelper.accessor('subject', {
-    header: 'Subject',
+  columnHelper.accessor('requestby', {
+    header: 'Requested by',
+  }),
+  columnHelper.accessor('requestdate', {
+    header: 'Request date',
   }),
   columnHelper.accessor('concern', {
     header: 'Concern',
   }),
   columnHelper.accessor('issue', {
     header: 'Issue',
-  }),
-  columnHelper.accessor('requestername', {
-    header: 'Requester Name',
-  }),
-  columnHelper.accessor('requesteremail', {
-    header: 'Requester Email',
   }),
   columnHelper.accessor('description', {
     header: 'Description',
@@ -94,34 +86,21 @@ const columns = [
       </Text>
     ),
   }),
-  columnHelper.accessor('priority', {
-    header: 'Priority',
-  }),
   columnHelper.accessor('ticketstatus', {
     header: 'Ticket Status',
     accessorKey: 'status',
     id: 'status',
   }),
-  columnHelper.accessor('datecreated', {
+  columnHelper.accessor('createddate', {
     header: 'Date Created',
-  }),
-  columnHelper.accessor('duedate', {
-    header: 'Due Date',
-  }),
-  columnHelper.accessor('statusdetail', {
-    header: 'Status Detail',
-  }),
-  columnHelper.accessor('assignedto', {
-    header: 'Assigned To',
-  }),
-  columnHelper.accessor('department', {
-    header: 'Department',
   }),
 ]
 
 const date = new Date()
 
 const Reporting = () => {
+  const { currentUser } = useContext(AuthContext)
+
   const [searchParams] = useSearchParams()
 
   const [columnVisibility, setColumnVisibility] = useState({})
@@ -130,11 +109,12 @@ const Reporting = () => {
     new Date(date.getFullYear(), date.getMonth(), 1),
     new Date(date.getFullYear(), date.getMonth() + 1, 0),
   ])
-  const { mutateAsync, error, isLoading } = useGetAllTickets('')
+  const { mutateAsync, error, isLoading } = useGetClientRequestTickets(
+    currentUser.fullname
+  )
   const getTicketByStatusMutation = useGetTicketsByStatus(selectedStatus)
   const tableRef = useRef(null)
   const [tickets, setTickets] = useState([])
-  const statuses = useGetStatus()
   const table = useReactTable({
     data: tickets,
     state: {
@@ -157,8 +137,7 @@ const Reporting = () => {
     autoTable(doc, {
       html: '#reports-table',
       theme: 'grid',
-      styles: { cellWidth: 20, fontSize: 8 },
-      margin: { left: 10 },
+      styles: { fontSize: 8 },
     })
     doc.save('reports-table.pdf')
   }
@@ -175,37 +154,31 @@ const Reporting = () => {
   useEffect(() => {
     if (selectedStatus === '') {
       mutateAsync({
-        datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
-        dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+        // datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+        // dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+        requestby: currentUser.fullname,
       }).then((data) => {
         setTickets(data.data)
       })
     } else {
-      getTicketByStatusMutation
-        .mutateAsync({
-          ticketstatus: selectedStatus,
-          datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
-          dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
-        })
-        .then((data) => {
-          setTickets(data.data)
-        })
+      // getTicketByStatusMutation
+      //   .mutateAsync({
+      //     ticketstatus: selectedStatus,
+      //     datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+      //     dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+      //     requestby: currentUser.fullname,
+      //   })
+      //   .then((data) => {
+      //     setTickets(data.data)
+      //   })
     }
   }, [selectedStatus, selectedDates])
-
-  useEffect(() => {
-    if (searchParams.size === 0) {
-      return
-    }
-
-    setSelectedStatus(searchParams.get('status'))
-  }, [statuses.isLoading])
 
   return (
     <Box p={['4', null, '8']}>
       <Stack direction="column" spacing="8" alignItems="center">
         <Heading textAlign="center" size={['lg', null, 'xl']}>
-          Reporting
+          Ticket Tracking
         </Heading>
 
         <SimpleGrid w="100%" columns={[1, null, 2]} gap="4">
@@ -219,11 +192,8 @@ const Reporting = () => {
                 value={selectedStatus}
               >
                 <option value="">ALL</option>
-                {statuses.data?.data?.map((status) => (
-                  <option key={status.statuscode} value={status.statusname}>
-                    {status.statusname}
-                  </option>
-                ))}
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
               </Select>
             </FormControl>
 
@@ -245,12 +215,6 @@ const Reporting = () => {
               Generate
             </Button>
           </Flex>
-
-          <Card>
-            <CardBody>
-              <BarGraph dates={selectedDates} />
-            </CardBody>
-          </Card>
         </SimpleGrid>
 
         <Flex w="100%" justifyContent="end">

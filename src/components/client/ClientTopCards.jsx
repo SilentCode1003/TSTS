@@ -2,7 +2,7 @@ import { GridItem, SimpleGrid } from '@chakra-ui/react'
 import loadable from '@loadable/component'
 import { useState } from 'react'
 import TopCardsItem from '../TopCardsItem'
-import TopConcernsGraph from '../TopConcernsGraph'
+import TopConcernsGraph from './TopConcernsGraph'
 
 const ClientActiveRequestTable = loadable(() =>
   import('./ClientActiveRequestTable')

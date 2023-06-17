@@ -1,8 +1,8 @@
 import { Button, Checkbox, Heading, Stack, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
-import useDashboardCardStore from '../store/DashboardCardStore'
+import { useErrorToast, useSuccessToast } from '../../hooks/useToastFeedback'
+import useDashboardCardStore from '../../store/DashboardCardStore'
 
 const FilterDashboardCards = () => {
   const { cards, activeIds, cardsData, filterCards } = useDashboardCardStore(

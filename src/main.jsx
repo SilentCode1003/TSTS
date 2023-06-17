@@ -18,7 +18,9 @@ const KnowledgeBaseDefault = loadable(() =>
 )
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
-const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
+const KnowledgeContent = loadable(() =>
+  import('./components/admin/KnowledgeContent')
+)
 const Automation = loadable(() => import('./pages/admin/Automation'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
 const KnowledgeBase = loadable(() => import('./pages/admin/KnowledgeBase'))

@@ -45,7 +45,7 @@ import { useGetStatus } from '../../api/ticket-assignment/getStatus'
 import ErrorMessage from '../../components/UI/ErrorMessage'
 import LoadingSpinner from '../../components/UI/LoadingSpinner'
 
-const BarGraph = loadable(() => import('../../components/BarGraph'))
+const BarGraph = loadable(() => import('../../components/admin/BarGraph'))
 const TicketTrackingCheckboxes = loadable(() =>
   import('../../components/TicketTrackingCheckboxes')
 )

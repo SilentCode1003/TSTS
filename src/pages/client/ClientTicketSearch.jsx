@@ -6,7 +6,7 @@ import ErrorMessage from '../../components/UI/ErrorMessage'
 import LoadingSpinner from '../../components/UI/LoadingSpinner'
 import { AuthContext } from '../../context/AuthContext'
 import SearchedTicket from '../../components/SearchedTicket'
-import ClientSearchedTicket from '../../components/ClientSearchedTicket'
+import ClientSearchedTicket from '../../components/client/ClientSearchedTicket'
 
 const ClientTicketSearch = () => {
   const { currentUser } = useContext(AuthContext)

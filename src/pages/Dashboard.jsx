@@ -3,7 +3,9 @@ import loadable from '@loadable/component'
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
-const ClientTopCards = loadable(() => import('../components/ClientTopCards'))
+const ClientTopCards = loadable(() =>
+  import('../components/client/ClientTopCards')
+)
 const NavigationCards = loadable(() => import('../components/NavigationCards'))
 const TopCards = loadable(() => import('../components/TopCards'))
 

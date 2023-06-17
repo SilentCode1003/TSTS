@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import FilterDashboardCards from '../../components/FilterDashboardCards'
+import FilterDashboardCards from '../../components/admin/FilterDashboardCards'
 import { SystemSettingsContext } from '../../context/SystemSettingsContext'
 
 const Automation = () => {

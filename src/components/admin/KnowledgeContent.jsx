@@ -2,9 +2,9 @@ import { Box, Heading, Text } from '@chakra-ui/react'
 import loadable from '@loadable/component'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetContent } from '../api/knowledge-base/getContent'
-const ErrorMessage = loadable(() => import('./UI/ErrorMessage'))
-const LoadingSpinner = loadable(() => import('./UI/LoadingSpinner'))
+import { useGetContent } from '../../api/knowledge-base/getContent'
+const ErrorMessage = loadable(() => import('../UI/ErrorMessage'))
+const LoadingSpinner = loadable(() => import('../UI/LoadingSpinner'))
 
 const KnowledgeContent = () => {
   const { topicId } = useParams()

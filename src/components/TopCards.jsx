@@ -17,8 +17,8 @@ import useDashboardCardStore from '../store/DashboardCardStore'
 import SortableItem from './SortableItem'
 import TopCardsItem from './TopCardsItem'
 
-const BarGraph = loadable(() => import('./BarGraph'))
-const DoneTicketTable = loadable(() => import('./DoneTicketTable'))
+const BarGraph = loadable(() => import('./admin/BarGraph'))
+const DoneTicketTable = loadable(() => import('./admin/DoneTicketTable'))
 const RequestTicketTable = loadable(() => import('./RequestTicketTable'))
 
 const TopCards = () => {

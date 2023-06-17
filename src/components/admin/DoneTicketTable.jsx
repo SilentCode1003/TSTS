@@ -11,9 +11,9 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import { useGetAssignTicketDetails } from '../api/dashboard/getAssignTicketDetail'
-import ErrorMessage from './UI/ErrorMessage'
-import LoadingSpinner from './UI/LoadingSpinner'
+import { useGetAssignTicketDetails } from '../../api/dashboard/getAssignTicketDetail'
+import ErrorMessage from '../UI/ErrorMessage'
+import LoadingSpinner from '../UI/LoadingSpinner'
 
 const DoneTicketTable = () => {
   const { data: tickets, isLoading, error } = useGetAssignTicketDetails()

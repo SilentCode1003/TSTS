@@ -12,25 +12,27 @@ import AuthContextProvider from './context/AuthContext'
 import SystemSettingsContextProvider from './context/SystemSettingsContext'
 import './index.css'
 
-const ChildTicket = loadable(() => import('./pages/ChildTicket'))
+const ChildTicket = loadable(() => import('./pages/admin/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
-  import('./pages/KnowledgeBaseDefault')
+  import('./pages/admin/KnowledgeBaseDefault')
 )
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
 const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
-const Automation = loadable(() => import('./pages/Automation'))
+const Automation = loadable(() => import('./pages/admin/Automation'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
-const KnowledgeBase = loadable(() => import('./pages/KnowledgeBase'))
+const KnowledgeBase = loadable(() => import('./pages/admin/KnowledgeBase'))
 const Login = loadable(() => import('./pages/Login'))
 const NotFound = loadable(() => import('./pages/NotFound'))
-const Reporting = loadable(() => import('./pages/Reporting'))
-const TicketAssignment = loadable(() => import('./pages/TicketAssignment'))
-const TicketTracking = loadable(() => import('./pages/TicketTracking'))
-const TicketSearch = loadable(() => import('./pages/TicketSearch'))
+const Reporting = loadable(() => import('./pages/admin/Reporting'))
+const TicketAssignment = loadable(() =>
+  import('./pages/admin/TicketAssignment')
+)
+const TicketTracking = loadable(() => import('./pages/admin/TicketTracking'))
+const TicketSearch = loadable(() => import('./pages/admin/TicketSearch'))
 const TicketView = loadable(() => import('./pages/TicketView'))
 const RequestTicketDetails = loadable(() =>
-  import('./pages/RequestTicketDetails')
+  import('./pages/admin/RequestTicketDetails')
 )
 
 const ClientTicketSearch = loadable(() =>

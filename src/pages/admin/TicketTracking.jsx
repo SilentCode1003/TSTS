@@ -28,11 +28,11 @@ import {
 import React, { useState } from 'react'
 import { Filter } from 'react-feather'
 import { Link as RouterLink } from 'react-router-dom'
-import { useGetTickets } from '../api/ticket-tracking/getTickets'
-import TicketTrackingTabs from '../components/TicketTrackingTabs'
-import ErrorMessage from '../components/UI/ErrorMessage'
-import LoadingSpinner from '../components/UI/LoadingSpinner'
-import { serializedDataToFile } from '../utils/fileData'
+import { useGetTickets } from '../../api/ticket-tracking/getTickets'
+import TicketTrackingTabs from '../../components/TicketTrackingTabs'
+import ErrorMessage from '../../components/UI/ErrorMessage'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import { serializedDataToFile } from '../../utils/fileData'
 
 const columnHelper = createColumnHelper()
 

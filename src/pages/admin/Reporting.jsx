@@ -39,15 +39,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDownloadExcel } from 'react-export-table-to-excel'
 import { Download, Filter } from 'react-feather'
 import { Link as RouterLink, useSearchParams } from 'react-router-dom'
-import { useGetAllTickets } from '../api/reporting/getAllTickets'
-import { useGetTicketsByStatus } from '../api/reporting/getTicketsByStatus'
-import { useGetStatus } from '../api/ticket-assignment/getStatus'
-import ErrorMessage from '../components/UI/ErrorMessage'
-import LoadingSpinner from '../components/UI/LoadingSpinner'
+import { useGetAllTickets } from '../../api/reporting/getAllTickets'
+import { useGetTicketsByStatus } from '../../api/reporting/getTicketsByStatus'
+import { useGetStatus } from '../../api/ticket-assignment/getStatus'
+import ErrorMessage from '../../components/UI/ErrorMessage'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
 
-const BarGraph = loadable(() => import('../components/BarGraph'))
+const BarGraph = loadable(() => import('../../components/BarGraph'))
 const TicketTrackingCheckboxes = loadable(() =>
-  import('../components/TicketTrackingCheckboxes')
+  import('../../components/TicketTrackingCheckboxes')
 )
 
 const columnHelper = createColumnHelper()

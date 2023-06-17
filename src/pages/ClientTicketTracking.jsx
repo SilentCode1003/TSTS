@@ -154,23 +154,23 @@ const Reporting = () => {
   useEffect(() => {
     if (selectedStatus === '') {
       mutateAsync({
-        datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
-        dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+        // datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+        // dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
         requestby: currentUser.fullname,
       }).then((data) => {
         setTickets(data.data)
       })
     } else {
-      getTicketByStatusMutation
-        .mutateAsync({
-          ticketstatus: selectedStatus,
-          datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
-          dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
-          requestby: currentUser.fullname,
-        })
-        .then((data) => {
-          setTickets(data.data)
-        })
+      // getTicketByStatusMutation
+      //   .mutateAsync({
+      //     ticketstatus: selectedStatus,
+      //     datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+      //     dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+      //     requestby: currentUser.fullname,
+      //   })
+      //   .then((data) => {
+      //     setTickets(data.data)
+      //   })
     }
   }, [selectedStatus, selectedDates])
 

@@ -2,7 +2,7 @@ import { Box, Heading, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSearchTicket } from '../../api/reporting/searchTicket'
-import SearchedTicket from '../../components/admin/SearchedTicket'
+import SearchedTicket from '../../components/SearchedTicket'
 import ErrorMessage from '../../components/UI/ErrorMessage'
 import LoadingSpinner from '../../components/UI/LoadingSpinner'
 

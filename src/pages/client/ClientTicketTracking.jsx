@@ -44,6 +44,7 @@ import ErrorMessage from '../../components/UI/ErrorMessage'
 import LoadingSpinner from '../../components/UI/LoadingSpinner'
 import { AuthContext } from '../../context/AuthContext'
 import { useGetClientRequestTickets } from '../../api/client/client-ticket-tracking/getClientRequestTickets'
+import { useGetStatusRequestTicket } from '../../api/client/client-ticket-tracking/getStatusRequestTicket'
 
 const TicketTrackingCheckboxes = loadable(() =>
   import('../../components/TicketTrackingCheckboxes')
@@ -112,7 +113,7 @@ const Reporting = () => {
   const { mutateAsync, error, isLoading } = useGetClientRequestTickets(
     currentUser.fullname
   )
-  const getTicketByStatusMutation = useGetTicketsByStatus(selectedStatus)
+  const getTicketByStatusMutation = useGetStatusRequestTicket(selectedStatus)
   const statuses = useGetStatus()
   const tableRef = useRef(null)
   const [tickets, setTickets] = useState([])
@@ -155,23 +156,23 @@ const Reporting = () => {
   useEffect(() => {
     if (selectedStatus === '') {
       mutateAsync({
-        // datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
-        // dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+        datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+        dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
         requestby: currentUser.fullname,
       }).then((data) => {
         setTickets(data.data)
       })
     } else {
-      // getTicketByStatusMutation
-      //   .mutateAsync({
-      //     ticketstatus: selectedStatus,
-      //     datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
-      //     dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
-      //     requestby: currentUser.fullname,
-      //   })
-      //   .then((data) => {
-      //     setTickets(data.data)
-      //   })
+      getTicketByStatusMutation
+        .mutateAsync({
+          status: selectedStatus,
+          datefrom: `${selectedDates[0]?.toISOString().split('T')[0]} 00:00`,
+          dateto: `${selectedDates[1]?.toISOString().split('T')[0]} 23:59`,
+          requestby: currentUser.fullname,
+        })
+        .then((data) => {
+          setTickets(data.data)
+        })
     }
   }, [selectedStatus, selectedDates])
 

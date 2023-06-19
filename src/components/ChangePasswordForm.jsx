@@ -60,7 +60,7 @@ const ChangePasswordForm = () => {
         reset()
       })
       .catch((e) => {
-        errorToast()
+        errorToast({ description: e.message })
       })
   }
 

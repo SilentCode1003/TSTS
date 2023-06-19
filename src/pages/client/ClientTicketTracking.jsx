@@ -86,7 +86,7 @@ const columns = [
       </Text>
     ),
   }),
-  columnHelper.accessor('ticketstatus', {
+  columnHelper.accessor('status', {
     header: 'Ticket Status',
     accessorKey: 'status',
     id: 'status',
@@ -113,6 +113,7 @@ const Reporting = () => {
     currentUser.fullname
   )
   const getTicketByStatusMutation = useGetTicketsByStatus(selectedStatus)
+  const statuses = useGetStatus()
   const tableRef = useRef(null)
   const [tickets, setTickets] = useState([])
   const table = useReactTable({
@@ -192,8 +193,11 @@ const Reporting = () => {
                 value={selectedStatus}
               >
                 <option value="">ALL</option>
-                <option value="ACTIVE">ACTIVE</option>
-                <option value="INACTIVE">INACTIVE</option>
+                {statuses.data?.data?.map((status) => (
+                  <option key={status.statuscode} value={status.statusname}>
+                    {status.statusname}
+                  </option>
+                ))}
               </Select>
             </FormControl>
 

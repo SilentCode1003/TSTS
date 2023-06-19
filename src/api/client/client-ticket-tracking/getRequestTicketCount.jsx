@@ -22,7 +22,7 @@ export const useGetRequestTicketCount = (user) => {
 
 export const useRequestTicketCount = ({ requestby }) => {
   const [count, setCount] = useState()
-  const { isLoading, error, mutateAsync } = useGetRequestTicketCount()
+  const { isLoading, error, mutateAsync } = useGetRequestTicketCount(requestby)
 
   useEffect(() => {
     const fetchCount = async () => {

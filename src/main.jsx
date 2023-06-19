@@ -27,6 +27,7 @@ const KnowledgeBase = loadable(() => import('./pages/admin/KnowledgeBase'))
 const Login = loadable(() => import('./pages/Login'))
 const NotFound = loadable(() => import('./pages/NotFound'))
 const Reporting = loadable(() => import('./pages/admin/Reporting'))
+const Profile = loadable(() => import('./pages/Profile'))
 const TicketAssignment = loadable(() =>
   import('./pages/admin/TicketAssignment')
 )
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: '/ticket-search/:requestId',
         element: <ClientTicketSearch />,
+      },
+      {
+        path: '/profile/:fullName',
+        element: <Profile />,
       },
     ],
   },
@@ -138,6 +143,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/request-ticket/:requestId',
         element: <RequestTicketDetails />,
+      },
+      {
+        path: '/admin/profile/:fullName',
+        element: <Profile />,
       },
     ],
   },

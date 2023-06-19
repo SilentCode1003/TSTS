@@ -19,6 +19,14 @@ const UserCard = () => {
   const navigate = useNavigate()
   const { currentUser, logout } = useContext(AuthContext)
 
+  const goToProfile = () => {
+    if (currentUser.role === 'ADMINISTRATOR') {
+      navigate(`/admin/profile/${currentUser.fullname}`)
+    } else {
+      navigate(`/profile/${currentUser.fullname}`)
+    }
+  }
+
   const handleLogout = () => {
     logout()
     navigate('/login')
@@ -35,6 +43,17 @@ const UserCard = () => {
         <PopoverHeader>{currentUser.fullname}</PopoverHeader>
         <PopoverBody>
           <VStack>
+            <Box w="100%">
+              <Button
+                w="100%"
+                colorScheme="purple"
+                variant="link"
+                onClick={goToProfile}
+              >
+                Profile Settings
+              </Button>
+            </Box>
+
             <Box w="100%">
               <Button
                 w="100%"

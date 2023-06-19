@@ -12,20 +12,19 @@ import {
   Stack,
   VStack,
 } from '@chakra-ui/react'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
 import { useClientInfo } from '../api/profile/useGetClientInfo'
+import { AuthContext } from '../context/AuthContext'
+import ChangePasswordForm from '../components/ChangePasswordForm'
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
   const { fullName } = useParams()
 
   const { clientInfo, error, isLoading } = useClientInfo(currentUser.fullname)
-
-  const [oldPassword, setOldPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
 
   const {
     handleSubmit,
@@ -42,11 +41,6 @@ const Profile = () => {
 
   const onSubmit = (e) => {
     console.log(e)
-  }
-
-  const handleChangePassword = () => {
-    console.log(oldPassword)
-    console.log(newPassword)
   }
 
   useEffect(() => {
@@ -85,64 +79,33 @@ const Profile = () => {
 
             <FormControl isInvalid={errors.email}>
               <FormLabel>Email</FormLabel>
-              <Input type="email" {...register('email')} />
+              <Input type="email" disabled={isAdmin} {...register('email')} />
             </FormControl>
 
             <FormControl isInvalid={errors.contactnumber}>
               <FormLabel>Contact Number</FormLabel>
-              <Input type="tel" {...register('contactnumber')} />
+              <Input
+                type="tel"
+                disabled={isAdmin}
+                {...register('contactnumber')}
+              />
             </FormControl>
 
             <ButtonGroup colorScheme="purple">
-              <Button type="submit" isLoading={isSubmitting}>
+              <Button
+                type="submit"
+                isLoading={isSubmitting}
+                isDisabled={isAdmin}
+              >
                 Apply
               </Button>
-              <Button type="reset" variant="outline">
+              <Button type="reset" variant="outline" isDisabled={isAdmin}>
                 Reset
               </Button>
             </ButtonGroup>
           </VStack>
 
-          <VStack
-            as="form"
-            spacing="4"
-            w="85%"
-            maxW="500px"
-            mx="auto"
-            onSubmit={handleChangePassword}
-          >
-            <FormControl>
-              <FormLabel>Old Password</FormLabel>
-              <Input
-                type="password"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>New Password</FormLabel>
-              <Input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-            </FormControl>
-
-            <ButtonGroup colorScheme="purple">
-              <Button type="submit">Change password</Button>
-              <Button
-                type="reset"
-                variant="outline"
-                onClick={() => {
-                  setOldPassword('')
-                  setNewPassword('')
-                }}
-              >
-                Reset
-              </Button>
-            </ButtonGroup>
-          </VStack>
+          <ChangePasswordForm />
         </VStack>
       </Stack>
     </Box>

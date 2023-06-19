@@ -17,7 +17,7 @@ import { AuthContext } from '../../context/AuthContext'
 import ErrorMessage from '../UI/ErrorMessage'
 import LoadingSpinner from '../UI/LoadingSpinner'
 
-const ClientActiveRequestTable = ({ setNoOfActiveTickets }) => {
+const ClientActiveRequestTable = () => {
   const { currentUser } = useContext(AuthContext)
 
   const [data, setData] = useState([])
@@ -34,7 +34,6 @@ const ClientActiveRequestTable = ({ setNoOfActiveTickets }) => {
         const res = await getData({ requestby: currentUser.fullname })
 
         setData(res.data)
-        setNoOfActiveTickets(res.data.length)
       } catch (e) {}
     }
 

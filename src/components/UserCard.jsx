@@ -10,6 +10,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
   VStack,
+  useDisclosure,
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -19,12 +20,15 @@ const UserCard = () => {
   const navigate = useNavigate()
   const { currentUser, logout } = useContext(AuthContext)
 
+  const { isOpen, onToggle, onClose } = useDisclosure()
+
   const goToProfile = () => {
     if (currentUser.role === 'ADMINISTRATOR') {
       navigate(`/admin/profile/${currentUser.fullname}`)
     } else {
       navigate(`/profile/${currentUser.fullname}`)
     }
+    onClose()
   }
 
   const handleLogout = () => {
@@ -33,9 +37,15 @@ const UserCard = () => {
   }
 
   return (
-    <Popover>
+    <Popover isOpen={isOpen} onClose={onClose}>
       <PopoverTrigger>
-        <Avatar size="lg" name={currentUser.fullname} cursor="pointer" src="" />
+        <Avatar
+          size="lg"
+          name={currentUser.fullname}
+          cursor="pointer"
+          src=""
+          onClick={onToggle}
+        />
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />

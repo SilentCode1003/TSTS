@@ -9,6 +9,9 @@ import { AuthContext } from '../../context/AuthContext'
 const ClientActiveRequestTable = loadable(() =>
   import('./ClientActiveRequestTable')
 )
+const ClientActiveServiceTicketsTable = loadable(() =>
+  import('./ClientActiveServiceTicketsTable')
+)
 
 const ClientTopCards = () => {
   const { currentUser } = useContext(AuthContext)
@@ -31,6 +34,12 @@ const ClientTopCards = () => {
       <GridItem colSpan={4} rowSpan="2">
         <TopCardsItem header="Active Request Tickets">
           <ClientActiveRequestTable />
+        </TopCardsItem>
+      </GridItem>
+
+      <GridItem colSpan={4} rowSpan="2">
+        <TopCardsItem header="Active Service Tickets">
+          <ClientActiveServiceTicketsTable />
         </TopCardsItem>
       </GridItem>
     </SimpleGrid>

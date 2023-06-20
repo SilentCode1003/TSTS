@@ -66,6 +66,11 @@ export const clientItems = [
     url: '/ticket-tracking',
     icon: <Table />,
   },
+  {
+    name: 'Knowledge Base',
+    url: '/knowledge-base',
+    icon: <BookOpen />,
+  },
 ]
 
 const NavigationCards = () => {

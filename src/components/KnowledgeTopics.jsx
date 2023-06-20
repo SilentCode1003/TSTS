@@ -9,10 +9,10 @@ import {
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useGetTopics } from '../../api/knowledge-base/getTopics'
+import { useGetTopics } from '../api/knowledge-base/getTopics'
 import loadable from '@loadable/component'
-const ErrorMessage = loadable(() => import('../UI/ErrorMessage'))
-const LoadingSpinner = loadable(() => import('../UI/LoadingSpinner'))
+const ErrorMessage = loadable(() => import('./UI/ErrorMessage'))
+const LoadingSpinner = loadable(() => import('./UI/LoadingSpinner'))
 
 const KnowledgeTopics = () => {
   const { isLoading, error, data: knowledgeTopics } = useGetTopics()

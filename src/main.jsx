@@ -14,16 +14,14 @@ import './index.css'
 
 const ChildTicket = loadable(() => import('./pages/admin/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
-  import('./pages/admin/KnowledgeBaseDefault')
+  import('./pages/KnowledgeBaseDefault')
 )
 const AdminLayout = loadable(() => import('./layouts/AdminLayout'))
 const ClientLayout = loadable(() => import('./layouts/ClientLayout'))
-const KnowledgeContent = loadable(() =>
-  import('./components/admin/KnowledgeContent')
-)
+const KnowledgeContent = loadable(() => import('./components/KnowledgeContent'))
 const Automation = loadable(() => import('./pages/admin/Automation'))
 const Dashboard = loadable(() => import('./pages/Dashboard'))
-const KnowledgeBase = loadable(() => import('./pages/admin/KnowledgeBase'))
+const KnowledgeBase = loadable(() => import('./pages/KnowledgeBase'))
 const Login = loadable(() => import('./pages/Login'))
 const NotFound = loadable(() => import('./pages/NotFound'))
 const Reporting = loadable(() => import('./pages/admin/Reporting'))
@@ -84,6 +82,20 @@ const router = createBrowserRouter([
         path: '/profile/:fullName',
         element: <Profile />,
       },
+      {
+        path: '/knowledge-base',
+        element: <KnowledgeBase />,
+        children: [
+          {
+            path: '/knowledge-base',
+            element: <KnowledgeBaseDefault />,
+          },
+          {
+            path: '/knowledge-base/:topic',
+            element: <KnowledgeContent />,
+          },
+        ],
+      },
     ],
   },
   {
@@ -115,7 +127,7 @@ const router = createBrowserRouter([
             element: <KnowledgeBaseDefault />,
           },
           {
-            path: '/admin/knowledge-base/:topicId',
+            path: '/admin/knowledge-base/:topic',
             element: <KnowledgeContent />,
           },
         ],

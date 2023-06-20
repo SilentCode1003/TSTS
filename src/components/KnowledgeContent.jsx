@@ -11,7 +11,7 @@ const KnowledgeContent = () => {
   const { isLoading, error, data } = useGetTopics()
   const topicList = data?.data
 
-  const content = topicList.find((topic) => topic.postid === parseInt(topicId))
+  const content = topicList?.find((topic) => topic.postid === parseInt(topicId))
 
   if (!content) {
     return (

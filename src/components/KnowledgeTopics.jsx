@@ -1,5 +1,7 @@
 import { Search2Icon } from '@chakra-ui/icons'
 import {
+  Button,
+  HStack,
   Heading,
   Input,
   InputGroup,
@@ -9,9 +11,10 @@ import {
 } from '@chakra-ui/react'
 import loadable from '@loadable/component'
 import React, { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useGetTopics } from '../api/knowledge-base/getTopics'
 import { AuthContext } from '../context/AuthContext'
+import { Plus } from 'react-feather'
 const ErrorMessage = loadable(() => import('./UI/ErrorMessage'))
 const LoadingSpinner = loadable(() => import('./UI/LoadingSpinner'))
 
@@ -25,23 +28,36 @@ const KnowledgeTopics = () => {
     return `${topic.title}`.toLowerCase().includes(searchTerm.toLowerCase())
   })
 
+  const navigate = useNavigate()
+
   return (
     <VStack alignItems="start" spacing="8">
       <Heading textAlign="center">Knowledge Base</Heading>
 
-      <InputGroup w="100%">
-        <InputLeftElement>
-          <Search2Icon />
-        </InputLeftElement>
+      <HStack>
+        <InputGroup w="100%">
+          <InputLeftElement>
+            <Search2Icon />
+          </InputLeftElement>
 
-        <Input
-          variant="outline"
-          colorScheme="purple"
-          placeholder="Search topics"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </InputGroup>
+          <Input
+            variant="outline"
+            colorScheme="purple"
+            placeholder="Search topics"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </InputGroup>
+
+        {isAdmin && (
+          <Button
+            colorScheme="purple"
+            onClick={() => navigate('/admin/knowledge-base/create')}
+          >
+            <Plus />
+          </Button>
+        )}
+      </HStack>
 
       <VStack w="100%" alignItems="start">
         {isLoading && <LoadingSpinner />}

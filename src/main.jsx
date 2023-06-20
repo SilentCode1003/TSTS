@@ -11,7 +11,6 @@ import LoadingFallback from './components/LoadingFallback'
 import AuthContextProvider from './context/AuthContext'
 import SystemSettingsContextProvider from './context/SystemSettingsContext'
 import './index.css'
-import KnowledgeBaseCreate from './pages/admin/KnowledgeBaseCreate'
 
 const ChildTicket = loadable(() => import('./pages/admin/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
@@ -33,6 +32,9 @@ const TicketAssignment = loadable(() =>
 const TicketTracking = loadable(() => import('./pages/admin/TicketTracking'))
 const TicketSearch = loadable(() => import('./pages/admin/TicketSearch'))
 const TicketView = loadable(() => import('./pages/TicketView'))
+const KnowledgeBaseCreate = loadable(() =>
+  import('./pages/admin/KnowledgeBaseCreate')
+)
 const RequestTicketDetails = loadable(() =>
   import('./pages/admin/RequestTicketDetails')
 )
@@ -95,10 +97,6 @@ const router = createBrowserRouter([
             path: '/knowledge-base/:topicId',
             element: <KnowledgeContent />,
           },
-          {
-            path: '/knowledge-base/create',
-            element: <KnowledgeBaseCreate />,
-          },
         ],
       },
     ],
@@ -136,6 +134,10 @@ const router = createBrowserRouter([
             element: <KnowledgeContent />,
           },
         ],
+      },
+      {
+        path: '/admin/knowledge-base/create',
+        element: <KnowledgeBaseCreate />,
       },
       {
         path: '/admin/reporting',

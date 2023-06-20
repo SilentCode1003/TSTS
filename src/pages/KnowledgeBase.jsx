@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import KnowledgeTopics from '../../components/admin/KnowledgeTopics'
+import KnowledgeTopics from '../components/KnowledgeTopics'
 
 const KnowledgeBase = () => {
   return (

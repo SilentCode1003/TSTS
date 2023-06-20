@@ -72,7 +72,12 @@ const TicketViewTopCard = ({ searchedTicket }) => {
 
           <Grid templateColumns="1fr" gap="1">
             <Text as="b">Description</Text>
-            <Textarea isDisabled value={searchedTicket.description} rows={10} />
+            <Textarea
+              id="description"
+              isDisabled
+              value={searchedTicket.description}
+              rows={10}
+            />
           </Grid>
 
           <Grid templateColumns="1fr" gap="1">

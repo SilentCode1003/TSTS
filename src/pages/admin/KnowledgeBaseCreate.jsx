@@ -56,9 +56,14 @@ const KnowledgeBaseCreate = () => {
     }
 
     saveTopicMutation
-      .mutateAsync({ ...data, attachements: base64FilesArray })
+      .mutateAsync({
+        ...data,
+        attachements: base64FilesArray,
+        postby: currentUser.fullname,
+      })
       .then(() => {
         successToast()
+        reset()
       })
       .catch((e) => {
         errorToast({ description: e.message })
@@ -122,7 +127,9 @@ const KnowledgeBaseCreate = () => {
           </FormControl>
 
           <ButtonGroup colorScheme="purple">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" isLoading={isSubmitting}>
+              Submit
+            </Button>
             <Button type="reset" variant="outline">
               Reset
             </Button>

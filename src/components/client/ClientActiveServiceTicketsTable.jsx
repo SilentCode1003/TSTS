@@ -34,7 +34,9 @@ const ClientActiveRequestsTable = () => {
         const res = await getData({ requestby: currentUser.fullname })
 
         setData(res.data)
-      } catch (e) {}
+      } catch (e) {
+        console.log(e)
+      }
     }
 
     fetchData()
@@ -60,9 +62,15 @@ const ClientActiveRequestsTable = () => {
         <Thead>
           <Tr>
             <Th>Request Id</Th>
+            <Th>Service Id</Th>
+            <Th>Request Date</Th>
             <Th>Concern</Th>
             <Th>Issue</Th>
-            <Th>Request Date</Th>
+            <Th>Date Created</Th>
+            <Th>Assigned To</Th>
+            <Th>Priority</Th>
+            <Th>Ticket Status</Th>
+            <Th>Due Date</Th>
           </Tr>
         </Thead>
 
@@ -78,9 +86,15 @@ const ClientActiveRequestsTable = () => {
                   {ticket.requestid}
                 </Link>
               </Td>
+              <Td>{ticket.ticketid}</Td>
+              <Td>{ticket.requestdate}</Td>
               <Td>{ticket.concern}</Td>
               <Td>{ticket.issue}</Td>
-              <Td>{ticket.createddate}</Td>
+              <Td>{ticket.datecreated}</Td>
+              <Td>{ticket.assignto}</Td>
+              <Td>{ticket.priority}</Td>
+              <Td>{ticket.ticketstatus}</Td>
+              <Td>{ticket.duedate}</Td>
             </Tr>
           ))}
         </Tbody>

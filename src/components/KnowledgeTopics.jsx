@@ -7,14 +7,18 @@ import {
   Link,
   VStack,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import loadable from '@loadable/component'
+import React, { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useGetTopics } from '../api/knowledge-base/getTopics'
-import loadable from '@loadable/component'
+import { AuthContext } from '../context/AuthContext'
 const ErrorMessage = loadable(() => import('./UI/ErrorMessage'))
 const LoadingSpinner = loadable(() => import('./UI/LoadingSpinner'))
 
 const KnowledgeTopics = () => {
+  const { currentUser } = useContext(AuthContext)
+  const isAdmin = currentUser.role === 'ADMINISTRATOR'
+
   const { isLoading, error, data: knowledgeTopics } = useGetTopics()
   const [searchTerm, setSearchTerm] = useState('')
   const filteredTopics = knowledgeTopics?.data?.filter((topic) => {
@@ -45,9 +49,9 @@ const KnowledgeTopics = () => {
 
         {filteredTopics?.map((topic) => (
           <Link
-            key={topic.id}
+            key={topic.postid}
             as={NavLink}
-            to={`/admin/knowledge-base/${topic.id}`}
+            to={`${isAdmin ? '/admin/' : '/'}knowledge-base/${topic.postid}`}
             _activeLink={{
               color: 'purple.500',
             }}

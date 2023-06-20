@@ -11,6 +11,7 @@ import LoadingFallback from './components/LoadingFallback'
 import AuthContextProvider from './context/AuthContext'
 import SystemSettingsContextProvider from './context/SystemSettingsContext'
 import './index.css'
+import KnowledgeBaseCreate from './pages/admin/KnowledgeBaseCreate'
 
 const ChildTicket = loadable(() => import('./pages/admin/ChildTicket'))
 const KnowledgeBaseDefault = loadable(() =>
@@ -91,8 +92,12 @@ const router = createBrowserRouter([
             element: <KnowledgeBaseDefault />,
           },
           {
-            path: '/knowledge-base/:topic',
+            path: '/knowledge-base/:topicId',
             element: <KnowledgeContent />,
+          },
+          {
+            path: '/knowledge-base/create',
+            element: <KnowledgeBaseCreate />,
           },
         ],
       },
@@ -127,7 +132,7 @@ const router = createBrowserRouter([
             element: <KnowledgeBaseDefault />,
           },
           {
-            path: '/admin/knowledge-base/:topic',
+            path: '/admin/knowledge-base/:topicId',
             element: <KnowledgeContent />,
           },
         ],

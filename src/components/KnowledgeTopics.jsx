@@ -31,8 +31,10 @@ const KnowledgeTopics = () => {
   const navigate = useNavigate()
 
   return (
-    <VStack alignItems="start" spacing="8">
-      <Heading textAlign="center">Knowledge Base</Heading>
+    <VStack w="100%" alignItems="start" spacing="8">
+      <Heading size="md" textAlign="center">
+        Knowledge Base
+      </Heading>
 
       <HStack>
         <InputGroup w="100%">

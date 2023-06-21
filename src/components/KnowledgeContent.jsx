@@ -34,7 +34,6 @@ const KnowledgeContent = () => {
       const fileNameExtension = fileName.replace(/^.*\./, '')
 
       let attachment
-      console.log(fileName)
 
       if (IMAGE_FILE_EXTENSIONS.indexOf(fileNameExtension) !== -1) {
         attachment = <Image src={fileData} />

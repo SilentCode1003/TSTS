@@ -36,12 +36,9 @@ const Login = () => {
       // FIXME: WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       const user = await login(data)
 
-      console.log(user)
       if (user.role === 'ADMINISTRATOR') {
-        console.log('admin')
         navigate('/admin')
       } else if (user.role === 'CLIENT') {
-        console.log('client')
         navigate('/')
       }
     } catch (e) {

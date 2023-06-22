@@ -29,15 +29,24 @@ const ClientActiveRequestTable = () => {
   } = useGetActiveRequests(currentUser.fullname)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getData({ requestby: currentUser.fullname })
+    getData({
+      requestby: currentUser.fullname,
+    })
+      .then((data) => {
+        setData(data.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+    // const fetchData = async () => {
+    //   try {
+    //     const res = await getData({ requestby: currentUser.fullname })
 
-        setData(res.data)
-      } catch (e) {}
-    }
+    //     setData(res.data)
+    //   } catch (e) {}
+    // }
 
-    fetchData()
+    // fetchData()
   }, [])
 
   if (isLoading) {

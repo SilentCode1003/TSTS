@@ -29,17 +29,27 @@ const ClientActiveRequestsTable = () => {
   } = useGetServiceTickets(currentUser.fullname)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getData({ requestby: currentUser.fullname })
-
-        setData(res.data)
-      } catch (e) {
+    getData({
+      requestby: currentUser.fullname,
+    })
+      .then((data) => {
+        setData(data.data)
+      })
+      .catch((e) => {
         console.log(e)
-      }
-    }
+      })
 
-    fetchData()
+    // const fetchData = async () => {
+    //   try {
+    //     const res = await getData({ requestby: currentUser.fullname })
+
+    //     setData(res.data)
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
+
+    // fetchData()
   }, [])
 
   if (isLoading) {

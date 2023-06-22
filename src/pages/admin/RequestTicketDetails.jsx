@@ -37,18 +37,27 @@ const RequestTicketDetails = () => {
   }
 
   useEffect(() => {
-    const fetchRequestTicket = async () => {
-      try {
-        const requestTicket = await mutateAsync({
-          requestid: requestId,
-        })
-        setSearchedTicket(requestTicket.data[0])
-      } catch (e) {
+    mutateAsync({
+      requestid: requestId,
+    })
+      .then((data) => {
+        setSearchedTicket(data.data[0])
+      })
+      .catch((e) => {
         console.log(e)
-      }
-    }
+      })
+    // const fetchRequestTicket = async () => {
+    //   try {
+    //     const requestTicket = await mutateAsync({
+    //       requestid: requestId,
+    //     })
+    //     setSearchedTicket(requestTicket.data[0])
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
 
-    fetchRequestTicket()
+    // fetchRequestTicket()
   }, [requestId])
 
   useEffect(() => {

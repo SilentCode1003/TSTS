@@ -27,18 +27,27 @@ const TicketView = () => {
   const isAdmin = currentUser.role === 'ADMINISTRATOR'
 
   useEffect(() => {
-    const fetchTicket = async () => {
-      try {
-        const ticket = await mutateAsync({
-          ticketid: ticketId,
-        })
-        setSearchedTicket(ticket.data[0])
-      } catch (e) {
+    mutateAsync({
+      ticketid: ticketId,
+    })
+      .then((data) => {
+        setSearchedTicket(data.data[0])
+      })
+      .catch((e) => {
         console.log(e)
-      }
-    }
+      })
+    // const fetchTicket = async () => {
+    //   try {
+    //     const ticket = await mutateAsync({
+    //       ticketid: ticketId,
+    //     })
+    //     setSearchedTicket(ticket.data[0])
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
 
-    fetchTicket()
+    // fetchTicket()
   }, [ticketId])
 
   return (

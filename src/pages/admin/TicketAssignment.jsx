@@ -91,6 +91,10 @@ const TicketAssignment = () => {
   }
 
   useEffect(() => {
+    if (watchConcern === '' || watchConcern == undefined) {
+      return
+    }
+
     getIssue(watchConcern)
   }, [watchConcern])
 

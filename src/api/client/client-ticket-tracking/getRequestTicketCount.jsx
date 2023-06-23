@@ -30,7 +30,6 @@ export const useRequestTicketCount = ({ requestby }) => {
         const data = await mutateAsync({
           requestby,
         })
-        console.log(data)
         setCount(data.data[0].totalactive)
       } catch (e) {
         console.log(e)

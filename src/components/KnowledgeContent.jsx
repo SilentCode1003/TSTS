@@ -36,7 +36,7 @@ const KnowledgeContent = () => {
       let attachment
 
       if (IMAGE_FILE_EXTENSIONS.indexOf(fileNameExtension) !== -1) {
-        attachment = <Image src={fileData} />
+        attachment = <Image key={fileName} src={fileData} />
       } else {
         attachment = (
           <Link key={fileName} href={fileData} download={fileName}>

@@ -74,7 +74,6 @@ const RequestTicket = () => {
     }
 
     try {
-      console.log(postData)
       await uploadRequestTicketMutation.mutateAsync(postData)
       successToast()
       reset()

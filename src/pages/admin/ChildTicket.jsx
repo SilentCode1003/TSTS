@@ -79,7 +79,6 @@ const ChildTicket = () => {
     const transformedData = transformData(data, base64FilesArray)
     transformedData.assignby = currentUser.fullname
     try {
-      console.log(transformedData)
       await uploadTicket.mutateAsync(transformedData)
     } catch (e) {
       errorToast()

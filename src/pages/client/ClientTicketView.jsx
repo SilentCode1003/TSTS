@@ -65,18 +65,28 @@ const ClientTicketView = () => {
   }, [requestTicket])
 
   useEffect(() => {
-    const fetchSearchedTicket = async () => {
-      try {
-        const searchedTicketData = await searchTicketMutation.mutateAsync({
-          ticketid: serviceTicketId,
-        })
-        setSearchedTicket(searchedTicketData.data[0])
-      } catch (e) {
+    searchTicketMutation
+      .mutateAsync({
+        ticketid: serviceTicketId,
+      })
+      .then((data) => {
+        setSearchedTicket(data.data[0])
+      })
+      .catch((e) => {
         console.log(e)
-      }
-    }
+      })
+    // const fetchSearchedTicket = async () => {
+    //   try {
+    //     const searchedTicketData = await searchTicketMutation.mutateAsync({
+    //       ticketid: serviceTicketId,
+    //     })
+    //     setSearchedTicket(searchedTicketData.data[0])
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
 
-    fetchSearchedTicket()
+    // fetchSearchedTicket()
   }, [serviceTicketId])
 
   if (requestTicket?.requestby !== currentUser.fullname) {

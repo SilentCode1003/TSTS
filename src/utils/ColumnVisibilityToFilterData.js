@@ -44,7 +44,6 @@ const columnVisibilityToFilterData = (obj) => {
   }
 
   const renamedObj = renameKeys(obj, newKeys)
-  console.log(obj)
   const convertedObject = {}
 
   for (const key in renamedObj) {

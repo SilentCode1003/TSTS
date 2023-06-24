@@ -36,18 +36,6 @@ const TicketView = () => {
       .catch((e) => {
         console.log(e)
       })
-    // const fetchTicket = async () => {
-    //   try {
-    //     const ticket = await mutateAsync({
-    //       ticketid: ticketId,
-    //     })
-    //     setSearchedTicket(ticket.data[0])
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // }
-
-    // fetchTicket()
   }, [ticketId])
 
   return (

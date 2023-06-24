@@ -38,15 +38,6 @@ const ClientActiveRequestTable = () => {
       .catch((e) => {
         console.log(e)
       })
-    // const fetchData = async () => {
-    //   try {
-    //     const res = await getData({ requestby: currentUser.fullname })
-
-    //     setData(res.data)
-    //   } catch (e) {}
-    // }
-
-    // fetchData()
   }, [])
 
   if (isLoading) {

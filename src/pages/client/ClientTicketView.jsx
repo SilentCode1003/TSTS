@@ -75,18 +75,6 @@ const ClientTicketView = () => {
       .catch((e) => {
         console.log(e)
       })
-    // const fetchSearchedTicket = async () => {
-    //   try {
-    //     const searchedTicketData = await searchTicketMutation.mutateAsync({
-    //       ticketid: serviceTicketId,
-    //     })
-    //     setSearchedTicket(searchedTicketData.data[0])
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // }
-
-    // fetchSearchedTicket()
   }, [serviceTicketId])
 
   if (requestTicket?.requestby !== currentUser.fullname) {

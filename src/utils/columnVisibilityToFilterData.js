@@ -1,5 +1,10 @@
 import renameKeys from './renameKeys'
 
+/**
+ * This function is used to create a table filter
+ * @param {*} obj The object state from the frontend
+ * @returns The converted object that can be used by the API
+ */
 const columnVisibilityToFilterData = (obj) => {
   if (Object.keys(obj).length === 0) {
     const defaultObj = {

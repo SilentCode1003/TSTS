@@ -1,3 +1,9 @@
+/**
+ * This function is needed by the TicketAssignment component because of variable casing
+ * @param {*} data The object that the properties will be renamed
+ * @param {*} base64FilesArray The base64FilesArray of the object
+ * @returns The object with it's properties renamed
+ */
 export const transformData = (data, base64FilesArray) => {
   data.concerntype = data.concernType
   delete data.concernType

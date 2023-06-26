@@ -1,5 +1,10 @@
 import renameKeys from './renameKeys'
 
+/**
+ * This function converts filter data from the API to the visibility state of the table
+ * @param {*} obj The object from api with its properties containing either 1 or 0
+ * @returns {*} The object that can be used as the state for the table
+ */
 const filterDataToColumnVisibility = (obj) => {
   const newKeys = {
     isticketid: 'ticketid',

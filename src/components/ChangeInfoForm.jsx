@@ -25,7 +25,7 @@ const ChangeInfoForm = () => {
 
   const successToast = useSuccessToast({
     title: 'Success',
-    description: 'Password updated successfully',
+    description: 'Information updated successfully',
   })
   const errorToast = useErrorToast({
     title: 'Error',

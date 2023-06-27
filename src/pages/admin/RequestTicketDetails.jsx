@@ -46,33 +46,19 @@ const RequestTicketDetails = () => {
       .catch((e) => {
         console.log(e)
       })
-    // const fetchRequestTicket = async () => {
-    //   try {
-    //     const requestTicket = await mutateAsync({
-    //       requestid: requestId,
-    //     })
-    //     setSearchedTicket(requestTicket.data[0])
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // }
-
-    // fetchRequestTicket()
   }, [requestId])
 
   useEffect(() => {
-    const fetchRequesterDetails = async () => {
-      try {
-        const requesterDetails = await requesterDetailsMutation.mutateAsync({
-          requestby: searchedTicket.requestby,
-        })
-        setRequester(requesterDetails.data[0])
-      } catch (e) {
+    requesterDetailsMutation
+      .mutateAsync({
+        requestby: searchedTicket?.requestby,
+      })
+      .then((data) => {
+        setRequester(data.data[0])
+      })
+      .catch((e) => {
         console.log(e)
-      }
-    }
-
-    fetchRequesterDetails()
+      })
   }, [searchedTicket])
 
   if (!searchedTicket) {

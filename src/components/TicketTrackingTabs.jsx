@@ -1,10 +1,8 @@
-import { AddIcon } from '@chakra-ui/icons'
 import {
   Button,
   ButtonGroup,
   Divider,
   FormControl,
-  HStack,
   Input,
   Select,
   Tab,
@@ -14,17 +12,15 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react'
-import { useState } from 'react'
-import { useGetFilterProfiles } from '../api/ticket-tracking/getFilterProfiles'
-import filterDataToColumnVisibility from '../utils/filterDataToColumnVisibility'
-import TicketTrackingCheckboxes from './TicketTrackingCheckboxes'
-import { useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useAddFilterProfile } from '../api/ticket-tracking/addFilterProfile'
-import columnVisibilityToFilterData from '../utils/ColumnVisibilityToFilterData'
-import { useContext } from 'react'
+import { useApplyFilterProfile } from '../api/ticket-tracking/applyFilterProfile'
+import { useGetFilterProfiles } from '../api/ticket-tracking/getFilterProfiles'
 import { AuthContext } from '../context/AuthContext'
 import { useErrorToast, useSuccessToast } from '../hooks/useToastFeedback'
-import { useApplyFilterProfile } from '../api/ticket-tracking/applyFilterProfile'
+import columnVisibilityToFilterData from '../utils/columnVisibilityToFilterData'
+import filterDataToColumnVisibility from '../utils/filterDataToColumnVisibility'
+import TicketTrackingCheckboxes from './TicketTrackingCheckboxes'
 
 const TicketTrackingTabs = ({
   table,

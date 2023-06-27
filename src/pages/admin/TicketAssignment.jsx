@@ -91,6 +91,11 @@ const TicketAssignment = () => {
   }
 
   useEffect(() => {
+    if (watchConcern === '' || watchConcern == undefined) {
+      setValue('issueType', '')
+      return
+    }
+
     getIssue(watchConcern)
   }, [watchConcern])
 
@@ -311,8 +316,6 @@ const TicketAssignment = () => {
             </ButtonGroup>
           </VStack>
         </form>
-
-        {/* <TicketAssignmentTable /> */}
       </Flex>
     </Box>
   )

@@ -141,7 +141,6 @@ const TicketTracking = () => {
   const { data: ticketsRes, isLoading, error } = useGetTickets()
   const tickets = ticketsRes?.data ?? []
   const [columnVisibility, setColumnVisibility] = useState({})
-  // const tickets = sampleData.data
   const table = useReactTable({
     data: tickets,
     columns,

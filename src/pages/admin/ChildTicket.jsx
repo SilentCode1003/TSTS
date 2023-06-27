@@ -89,6 +89,11 @@ const ChildTicket = () => {
   }
 
   useEffect(() => {
+    if (watchConcern === '' || watchConcern == undefined) {
+      setValue('issueType', '')
+      return
+    }
+
     getIssue(watchConcern)
   }, [watchConcern])
 

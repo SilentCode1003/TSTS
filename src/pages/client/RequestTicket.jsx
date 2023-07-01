@@ -157,7 +157,6 @@ const RequestTicket = () => {
               <Input
                 type="file"
                 id="attachments"
-                // {...register('attachments', { required: true })}
                 {...register('attachments')}
                 multiple
               />

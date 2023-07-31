@@ -31,6 +31,7 @@ const NotificationBellCircle = () => {
 }
 
 const NotificationBell = () => {
+  // Dummy notifications
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -39,6 +40,10 @@ const NotificationBell = () => {
     {
       id: 2,
       content: 'New ticket #202305050002',
+    },
+    {
+      id: 3,
+      content: 'Thank you 5L!',
     },
   ])
 

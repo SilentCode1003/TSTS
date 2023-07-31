@@ -266,7 +266,6 @@ const TicketAssignment = () => {
                 type="text"
                 id="department"
                 isDisabled
-                // {...register('department', { required: true })}
                 {...register('department')}
               />
             </FormControl>
@@ -277,7 +276,6 @@ const TicketAssignment = () => {
               <Input
                 type="file"
                 id="attachments"
-                // {...register('attachments', { required: true })}
                 {...register('attachments')}
                 multiple
               />

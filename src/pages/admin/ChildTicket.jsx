@@ -290,7 +290,6 @@ const ChildTicket = () => {
                 type="text"
                 id="department"
                 isDisabled
-                // {...register('department', { required: true })}
                 {...register('department')}
               />
             </FormControl>
@@ -301,7 +300,6 @@ const ChildTicket = () => {
               <Input
                 type="file"
                 id="attachments"
-                // {...register('attachments', { required: true })}
                 {...register('attachments')}
                 multiple
               />
